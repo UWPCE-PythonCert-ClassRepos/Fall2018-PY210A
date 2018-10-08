@@ -1,2 +1,18 @@
-# Fall2018-PY210A
-Class repo for Fall 2018 classroom section of Python 210A
+# Class Repository Template
+
+This repository is used for submitting and reviewing student's work for the
+Fall 2018 classrooom section of University of Washington Continuing and Professional
+Education Pyhton certificate program.
+
+https://www.pce.uw.edu/certificates/python-programming
+
+## Structure of the Repo
+
+The class repo has three top level directories:
+
+* `examples`: Used to store example code and example documents for the class.
+
+* `solutions`: Used to post solutions to the exercises.
+
+* `students`: Used for the students to submit their work. Each student needs to
+create a directory for their work. This process will be discussed in class.
