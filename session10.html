@@ -1,0 +1,346 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Notes for Session 10 &mdash; IntroToPython: Fall 2018 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> IntroToPython: Fall 2018
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="session01.html">Notes for Session 01</a></li>
+<li class="toctree-l1"><a class="reference internal" href="session02.html">Notes for Session 02</a></li>
+<li class="toctree-l1"><a class="reference internal" href="session03.html">Notes for Session 03</a></li>
+<li class="toctree-l1"><a class="reference internal" href="session04.html">Notes for Session 04</a></li>
+<li class="toctree-l1"><a class="reference internal" href="session05.html">Notes for Session 05</a></li>
+<li class="toctree-l1"><a class="reference internal" href="session06.html">Notes for Session 06</a></li>
+<li class="toctree-l1"><a class="reference internal" href="session07.html">Notes for Session 07</a></li>
+<li class="toctree-l1"><a class="reference internal" href="session08.html">Notes for Session 08</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">IntroToPython: Fall 2018</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Notes for Session 10</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/session10.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="notes-for-session-10">
+<span id="notes-session10"></span><h1>Notes for Session 10<a class="headerlink" href="#notes-for-session-10" title="Permalink to this headline">¶</a></h1>
+<p>5/10/2018</p>
+<p>A collection of notes to go over in class, to keep things organized.</p>
+<div class="section" id="lightning-talks">
+<h2>Lightning Talks<a class="headerlink" href="#lightning-talks" title="Permalink to this headline">¶</a></h2>
+<p>Anyone missed their chance?</p>
+</div>
+<div class="section" id="issues-that-came-up-during-the-week">
+<h2>Issues that came up during the week.<a class="headerlink" href="#issues-that-came-up-during-the-week" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="when-to-make-a-method-or-property">
+<h3>When to make a method or property?<a class="headerlink" href="#when-to-make-a-method-or-property" title="Permalink to this headline">¶</a></h3>
+<p>It is a good idea to make a property to access information in your class that requires “inside information”, For example, in a Donor class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@property</span>
+<span class="k">def</span> <span class="nf">maxdonation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">donations</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This way, client code can get the maximum donation without knowing, or caring, how the donations are stored in the class.</p>
+<p>However, there is no need to create a property to “hide” something that is already part of the public API:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@property</span>
+<span class="k">def</span> <span class="nf">namelength</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>There is no point to this – <code class="docutils literal notranslate"><span class="pre">a_donor.name</span></code> is expected to be a string – so if you want to know how long it is, you can simply do:  <code class="docutils literal notranslate"><span class="pre">len(a_donor.name)</span></code></p>
+<p>You <em>do</em> want to use properties to “hide” implementation details – but the name attribute being a string is part of the API, not an implementation detail.</p>
+</div>
+<div class="section" id="anything-else-from-oo-mailroom">
+<h3>Anything else from OO mailroom?<a class="headerlink" href="#anything-else-from-oo-mailroom" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="the-next-class">
+<h2>The Next Class<a class="headerlink" href="#the-next-class" title="Permalink to this headline">¶</a></h2>
+<p>Next quarter, you’ll finish up the core of the Python language, then go into depth on some of the more advanced features of the language. Finally, we’ll do a bit with using Python with other tools, such as databases.</p>
+<p>Here’s an Outline:</p>
+<div class="section" id="functional-programming-2">
+<h3>Functional Programming 2<a class="headerlink" href="#functional-programming-2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Comprehensions</li>
+<li>Lambda</li>
+<li>Iterators and Iterables</li>
+<li>Generators</li>
+<li>Itertools</li>
+</ul>
+</div>
+<div class="section" id="functional-programming-3">
+<h3>Functional Programming 3<a class="headerlink" href="#functional-programming-3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Closures and Currying</li>
+<li>Itertools</li>
+<li>Functools</li>
+</ul>
+</div>
+<div class="section" id="advanced-python-language-constructs">
+<h3>Advanced Python Language Constructs<a class="headerlink" href="#advanced-python-language-constructs" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Decorators</li>
+<li>Context Managers</li>
+<li>Recursion</li>
+</ul>
+</div>
+<div class="section" id="metaprogramming">
+<h3>Metaprogramming<a class="headerlink" href="#metaprogramming" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Namespaces</li>
+<li>Introspection</li>
+<li>Metaclasses</li>
+<li>Class Decorators</li>
+</ul>
+</div>
+<div class="section" id="debugging-logging">
+<h3>Debugging &amp; Logging<a class="headerlink" href="#debugging-logging" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Logging module</li>
+<li>Syslog</li>
+<li>pdb/ipdb</li>
+</ul>
+</div>
+<div class="section" id="advanced-testing">
+<h3>Advanced Testing<a class="headerlink" href="#advanced-testing" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Linting</li>
+<li>Coverage</li>
+<li>The unittest Module</li>
+<li>Fixtures</li>
+<li>Mocking</li>
+</ul>
+</div>
+<div class="section" id="relational-databases">
+<h3>Relational Databases<a class="headerlink" href="#relational-databases" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>SQL</li>
+<li>ORMs: PeeWee</li>
+<li>Sqlite</li>
+<li>Postgresql</li>
+</ul>
+</div>
+<div class="section" id="nosql-databases">
+<h3>NoSQL Databases<a class="headerlink" href="#nosql-databases" title="Permalink to this headline">¶</a></h3>
+<p>Object/Document, Key/Value and Graph Databases</p>
+<ul class="simple">
+<li>Schema vs “Schemaless”</li>
+<li>Mongo</li>
+<li>Redis</li>
+<li>Neo4j</li>
+</ul>
+</div>
+<div class="section" id="profiling-performance">
+<h3>Profiling &amp; Performance<a class="headerlink" href="#profiling-performance" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Timing</li>
+<li>Profiling</li>
+<li>PyPy</li>
+<li>Cython</li>
+</ul>
+</div>
+<div class="section" id="concurrency-async-programming">
+<h3>Concurrency &amp; Async Programming<a class="headerlink" href="#concurrency-async-programming" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Concurrency</li>
+<li>Threading and Multiprocessing</li>
+<li>Message Queues</li>
+<li>Async</li>
+</ul>
+</div>
+</div>
+<div class="section" id="end-of-quarter">
+<h2>End of Quarter:<a class="headerlink" href="#end-of-quarter" title="Permalink to this headline">¶</a></h2>
+<p>We will review PRs through Sunday.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Christopher H. Barker.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
