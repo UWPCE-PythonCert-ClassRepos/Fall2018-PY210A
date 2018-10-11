@@ -14,4 +14,3 @@ def syntax_error():
 def attr_error():
 	num = 7
 	return num.split()
-
