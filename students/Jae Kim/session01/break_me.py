@@ -18,5 +18,6 @@ def attributeerror(one=1):
     except AttributeError:
         print('AttributeError')
 
+
 def syntaxerror(message='hello world'):
     while print(message)
