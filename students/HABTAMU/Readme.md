@@ -1,7 +1,5 @@
 # Python code for UWPCE-PythonCert class,
 
-## ReadMe
-
 ###  What make's me me,
  --Things that I am exposed to and raise in over my life time. As old as I may be I am still learning me. 
 Each of us is unique. (morality, identity and fairness,)
