@@ -11,7 +11,7 @@ Notes for each Session
     :maxdepth: 1
 
     session01
-..    session02
+    session02
 ..    session03
 ..    session04
 ..    session05
@@ -20,5 +20,8 @@ Notes for each Session
 ..    session08
 ..    session09
 ..    session10
+
+.. toctree::
+    :maxdepth: 1
 
     lightning_talks

@@ -13,6 +13,13 @@ Lightning Talks
 
 Up today:
 
+|
+| Habtamu H Asfaw
+| Jim Jenkins
+| Eric Streit
+| Vincent M Aquila
+|
+
 Are you ready? We'll do them in the middle of the session.
 
 Class Outline
@@ -42,32 +49,6 @@ Most of you seemed to do fine making the few key exceptions -- any questions?
 We were not expecting you to catch the exceptions -- we're really starting at the bottom here, just making sure you get used to seeing Exceptions, and what they mean.
 
 We'll get into Exception handling later.
-
-eval / exec
------------
-
-One of you used ``eval`` to demonstrate a syntax error:
-
-.. code-block: python
-
-    # SyntaxError test:
-    def syntax_test():
-        ''' This tests SyntaxError '''
-        try:
-            date = eval('datetime(2009, 12a, 31)')
-        except SyntaxError as e:
-            print("Your syntax is wrong: ", e)
-
-Which is a nifty way to get a Syntax Error without crashing the interpreter.
-
-But we were actually expecting you to crash the interpreter! That's kinda what syntax errors are about.
-
-General Advice: **don't use eval or exec**
-
-Why not?
-
- - dangerous!
- - unnecessary -- metaprograming! -- we'll get to that second quarter.
 
 
 Coding Bat
