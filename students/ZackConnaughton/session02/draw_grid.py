@@ -9,7 +9,7 @@ def print_grid(number):
             print(vertical(num))
     print(horizontal(num))
 
-#part 3
+#part 3, I did it backwards to keep  my own sanity but could be done opposite
 def print_grid_multi(number, squares):
     for y in range(squares):
         print(horizontal(number, count=squares))
