@@ -1,9 +1,6 @@
 """
 Schedule students for lightning talks
 """
-
-## OOPs, jsut to test a change
-
 # needed to randomise the schedule
 import random
 
