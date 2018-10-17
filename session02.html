@@ -197,6 +197,42 @@
 </ul>
 </div></blockquote>
 <p>Any conceptual questions?</p>
+<p><strong>Issue:</strong></p>
+<dl class="docutils">
+<dt>Quite a few folks have changed or added files that they should not have:</dt>
+<dd><ul class="first last simple">
+<li>The central readme in the studetns folder</li>
+<li>and extra file here or there</li>
+<li>etc….</li>
+</ul>
+</dd>
+</dl>
+<p>git is very flexible, and does not lose data easily. However, it is <strong>much</strong> harder to undo things than it is to make changes.  So you will be happier if you take some extra care to not commit changes that you don’t want. Some hints:</p>
+<ul class="simple">
+<li>Always do a <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code> before you commit – make sure that the stuff you are going to commit is what you want!<ul>
+<li>note that if you do <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code> it will only commit those files listed under “staged for commit”. But if you do <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-a</span></code> (-a for all) then it will commit everything modified, i.e. “Changes not staged for commit:”.</li>
+</ul>
+</li>
+</ul>
+<p>Note in the status report:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git status
+On branch master
+Your branch is up to date with &#39;origin/master&#39;.
+
+Changes not staged for commit:
+  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+
+    modified:   notes_for_class/source/session02.rst
+
+...
+</pre></div>
+</div>
+<p>It even tells you want to do: use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span></code> to stage particular files, or <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span></code> to revert a file back to its state as of the last commit. It doesn’t mention <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-a</span></code>, but that will commmit everyting that is “not staged for commit”.</p>
+<p>If you are careful before the commit stage, then you won’t have to “roll back” changes very often.</p>
+<p>But if you do:</p>
+<p><a class="reference external" href="https://uwpce-pythoncert.github.io/PythonCertDevel/supplemental/dev_environment/git_hints.html#backing-out-a-change">https://uwpce-pythoncert.github.io/PythonCertDevel/supplemental/dev_environment/git_hints.html#backing-out-a-change</a></p>
+<p>Let’s play around with that a bit.</p>
 </div>
 <div class="section" id="exceptions">
 <h2>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
