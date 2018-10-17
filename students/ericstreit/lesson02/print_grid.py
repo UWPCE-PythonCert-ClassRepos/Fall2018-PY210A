@@ -12,7 +12,9 @@ def print_grid(gridsize):
     for i in range(gridsize):
         print(innerline)
     print(borderline)
-print_grid(10)
+#for testing
+if __name__=="__main__":
+    print_grid(5)
 
 #Part 1
 # print("+" + "-" *gridsize + "+" + "-" *gridsize + "+")
@@ -26,4 +28,3 @@ print_grid(10)
 # print("|" + " " *gridsize + "|" + " " *gridsize + "|")
 # print("|" + " " *gridsize + "|" + " " *gridsize + "|")
 # print("+" + "-" *gridsize + "+" + "-" *gridsize + "+")
-input("press any key to continue")
