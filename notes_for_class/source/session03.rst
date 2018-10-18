@@ -33,6 +33,13 @@ It is a realy good idea to get in the habit of using consitent stle in your code
 
 And this is really easy to do if you have a linter set up in your editor. If you haven't gotten that to work -- do try to do so soon!
 
+https://www.python.org/dev/peps/pep-0008/
+
+Even more important that all of that:
+
+**Use four spaces per indent**
+
+**ALWAYS**
 
 Separation of Concerns
 ----------------------
