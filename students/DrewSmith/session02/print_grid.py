@@ -10,10 +10,8 @@ def print_simple_grid():
 def print_grid(n):
     square_width = ""
     for index in range(n):
-        if index % 2 == 0:
-            square_width += " "
-        else:
-            square_width += "-"
+        square_width += " " if index % 2 == 0 else "-"
+
     divide =  "+" + square_width + "+" + square_width + "+"
     length = "|" + (" " * n) + "|" + (" " * n) + "|"
     print(divide)
