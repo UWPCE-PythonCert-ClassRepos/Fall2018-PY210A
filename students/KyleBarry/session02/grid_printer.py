@@ -22,4 +22,38 @@ def grid_adjusted(n):
     print(plus_line + (no_plus_line *n) + plus_line +
     (no_plus_line *n) + plus_line)
 
-grid_adjusted(14)
+def grid_boxes(d, c):
+    """Part III: print out grid with rows, columns as first param and
+    length of cells as second param"""
+    plus = '+'
+    hyphen = ' -'
+    empties = '  '
+
+    plus_line = plus + (hyphen*c) + ' '
+    no_plus_line = '|' + (empties*c) + ' '
+
+    full_lines = plus_line*d + plus + '\n'
+    next_lines = no_plus_line*d + '|' + '\n'
+
+    alls = full_lines+next_lines*c
+    print(alls*d + full_lines)
+
+grid_boxes(4, 1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
