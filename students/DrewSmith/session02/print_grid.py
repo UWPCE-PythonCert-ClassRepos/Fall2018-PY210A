@@ -19,3 +19,16 @@ def print_grid(n):
         for __ in range(n):
             print(length)
         print(divide)
+
+def print_grid2(grid, size):
+    divide = "+"
+    length = "|"
+    for __ in range(grid):
+        divide += (" -" * size) + " +"
+        length += ("  " * size) + " |"        
+    
+    print(divide)
+    for __ in range(grid):
+        for __ in range(size):
+            print(length)
+        print(divide)
