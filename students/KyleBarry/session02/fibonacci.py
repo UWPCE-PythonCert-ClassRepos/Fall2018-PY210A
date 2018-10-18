@@ -1,4 +1,6 @@
 def fibonacci(n):
+    """Return the nth value (the index of the list) in fibonacci sequence.
+    fib[n-1] to return the value in the n position"""
     a = 0
     b = 1
 
