@@ -37,7 +37,7 @@ def sum_series(n, a=0, b=1):
 
 if __name__ == '__main__':
 
-    #test that fibonnaci sequencing is accurage
+    #test that fibonnaci sequencing is accurate
     assert fibonacci(9) == 34
     #test that lucas number sequencing is accurate
     assert lucas(5) == 11
