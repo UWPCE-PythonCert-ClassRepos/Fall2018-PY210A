@@ -1,5 +1,5 @@
 def grid():
-    """Part I: printing the grid"""
+    """Part I: print the grid"""
     plus = '+'
     hyphen = ' -'
     empties = '  '
@@ -11,7 +11,7 @@ def grid():
     (no_plus_line*4) + plus_line)
 
 def grid_adjusted(n):
-    """Part II: adjusting the size of the grid"""
+    """Part II: adjust the size of the grid"""
     plus = '+'
     hyphen = ' -'
     empties = '  '
@@ -37,23 +37,3 @@ def grid_boxes(d, c):
 
     alls = full_lines+next_lines*c
     print(alls*d + full_lines)
-
-grid_boxes(4, 1)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
