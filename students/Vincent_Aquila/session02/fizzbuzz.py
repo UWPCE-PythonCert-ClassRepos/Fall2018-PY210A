@@ -1,8 +1,7 @@
 """
 Python210A Vincent Aquila  Fall2018
 using Python 3.7.0
-assignment objective:
-"Fizz-Buzz"
+assignment objective: "Fizz-Buzz"
 Write a program that prints the numbers from 1 to 100 inclusive.
 But for multiples of three print “Fizz” instead of the number.
 For the multiples of five print “Buzz” instead of the number.
