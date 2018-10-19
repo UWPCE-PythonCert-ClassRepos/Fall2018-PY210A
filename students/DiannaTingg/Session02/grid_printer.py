@@ -28,7 +28,7 @@ def standard_grid():
 print("Standard Grid")
 standard_grid()
 
-# Part 2 Write a function that prints the grid size according to an integer
+# Part 2: Write a function that prints the grid size according to an integer
 
 
 def print_grid(n):
@@ -51,6 +51,38 @@ def print_grid(n):
 
 
 # Tests
-print("Scalable Grid")
+print("Scalable Grids")
 print_grid(3)
 print_grid(15)
+
+# Part 3: Write a function that takes in a specified table size and cell size
+
+
+# Function to make a single header row
+def make_row(table_size, cell_size):
+    for i in range(table_size):
+        print("+ " + "- " * cell_size, end="")
+    print("+")
+
+
+# Function to make a single column row
+def make_column(table_size, cell_size):
+    for i in range(table_size + 1):
+        print("| " + " " * (cell_size * 2), end="")
+    print()
+
+
+# Function to make a scalable grid
+def print_grid2(table_size, cell_size):
+    for i in range(table_size):
+        make_row(table_size, cell_size)
+
+        for k in range(cell_size):
+            make_column(table_size, cell_size)
+    make_row(table_size, cell_size)
+
+
+# Tests
+print("Customizable Grids")
+print_grid2(3, 4)
+print_grid2(5, 3)
