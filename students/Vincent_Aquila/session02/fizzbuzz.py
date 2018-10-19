@@ -3,30 +3,26 @@ Python210A Vincent Aquila  Fall2018
 using Python 3.7.0
 assignment objective:
 "Fizz-Buzz"
-takes a random number and prints fizz if the number is divisible by 3
-takes a random number and prints buzz if the number is divisible by 5
-takes a random number and prints fizzbuzz if the number is divisible by 3 and 5
+Write a program that prints the numbers from 1 to 100 inclusive.
+But for multiples of three print “Fizz” instead of the number.
+For the multiples of five print “Buzz” instead of the number.
+For numbers which are multiples of both three and five print “FizzBuzz” instead.
+
 """
+for number in range(1, 101):
 
-import random
+#if number is divisible by 3 and 5 print FizzBuzz
+    if number % 3 == 0 and number % 5 == 0:
+        print("FizzBuzz")
 
-test_num = random.randint(1,101)
+#if number is divisible by 3 print Fizz
+    elif number % 3 == 0:
+        print("Fizz")
 
-#print the number being evaluated for the sake of clarity
-print(test_num)
+#if number is divisible by 5 print Buzz
+    elif number % 5 == 0:
+        print("Buzz")
 
-#if test_num is divisible by 3 and 5 print fizzbuzz
-if test_num % 3 == 0 and test_num % 5 == 0:
-    print("fizzbuzz")
-
-#if test_num is divisible by 3
-elif test_num % 3 == 0:
-    print("fizz")
-
-#if test_num is divisible by 5
-elif test_num % 5 == 0:
-    print("buzz")
-
-#if test_num was not divisible by 3 or 5
-else:
-    print("the number is not divisible by 3 or 5")
+#if number was not divisible by 3 or 5 print the number
+    else:
+        print(number)
