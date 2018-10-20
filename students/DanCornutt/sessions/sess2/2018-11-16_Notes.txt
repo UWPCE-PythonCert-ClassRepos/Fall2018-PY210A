@@ -1,3 +1,0 @@
-Watch out for unknown python packages. Could download malicious software.
-
-Git is getting interesting. Pulling is merging from another repo. 
