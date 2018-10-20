@@ -80,7 +80,7 @@ def print_grid2(table_size, cell_size):
     for i in range(table_size):
         make_row(table_size, cell_size)
 
-        for i in range(cell_size):
+        for j in range(cell_size):
             make_column(table_size, cell_size)
     make_row(table_size, cell_size)
 

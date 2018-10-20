@@ -2,6 +2,7 @@
 
 # Step 1 - Fibonacci Series
 
+
 def fibonacci(n):
     """Return the nth value based on the Fibonacci series (0, 1, 1, 2...)"""
 
@@ -48,8 +49,9 @@ def sum_series(n, n0=0, n1=1):
     """
     Return the nth value of a summation series.
 
-    :param n0=0: Value of element at index 0 in the series. Default is 0.
-    :param n1=1: Value of element at index 1 in the series. Default is 1.
+    :param n: Index of value in the series that we want returned.
+    :param n0: Value of element at index 0 in the series. Default is 0.
+    :param n1: Value of element at index 1 in the series. Default is 1.
 
     This function works for the first two numbers of a sum series.
     sum_series(n, 0, 1) is equivalent to fibonacci series
