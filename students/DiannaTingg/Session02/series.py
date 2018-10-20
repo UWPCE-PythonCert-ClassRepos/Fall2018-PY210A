@@ -4,7 +4,7 @@
 
 
 def fibonacci(n):
-    """Return the nth value based on the Fibonacci series (0, 1, 1, 2...)"""
+    """Return the nth value based on the Fibonacci series (0, 1, 1, 2, ...)"""
 
     # Define base cases (n is 0 or 1)
     if n == 0:
@@ -19,14 +19,15 @@ def fibonacci(n):
 
 # Fibonacci function using sum_series function
 def fibonacci2(n):
+    """Return the nth value based on the Fibonacci series (0, 1, 1, 2, ...)"""
     return sum_series(n)
 
 
-# Step 2 - Lucas Numbers (2, 1, 3, 4, 7, 11, 18, 29, ...)
+# Step 2 - Lucas Numbers
 
 
 def lucas(n):
-    """Return the nth value based on the Lucas series (2, 1, 3, 4...)"""
+    """Return the nth value based on the Lucas series (2, 1, 3, 4, ...)"""
 
     # Define base cases (n is 0 or 1)
     if n == 0:
@@ -41,6 +42,7 @@ def lucas(n):
 
 # Lucas function using sum_series function
 def lucas2(n):
+    """Return the nth value based on the Lucas series (2, 1, 3, 4, ...)"""
     return sum_series(n, 2, 1)
 
 
@@ -49,13 +51,13 @@ def sum_series(n, n0=0, n1=1):
     """
     Return the nth value of a summation series.
 
-    :param n: Index of value in the series that we want returned.
+    :param n: Index of element in the series that we want returned.
     :param n0: Value of element at index 0 in the series. Default is 0.
     :param n1: Value of element at index 1 in the series. Default is 1.
 
     This function works for the first two numbers of a sum series.
-    sum_series(n, 0, 1) is equivalent to fibonacci series
-    sum_series(n, 2, 1) is equivalent to lucas numbers
+    sum_series(n) is equivalent to using fibonacci series
+    sum_series(n, 2, 1) is equivalent to using lucas numbers
     """
 
     # Define base cases
