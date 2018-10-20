@@ -1,24 +1,24 @@
 # Lesson 02 Exercise: Grid Printer
 
-# Part 1: Write a function that draws a grid like the example
+# Part 1: Write a function that prints a grid like the example.
 
 
 def standard_grid():
     # Top row
     print("+ " + "- " * 4 + "+ " + "- " * 4 + "+")
 
-    print("|" + " " * 9 + "|" + " " * 9 + "|")
-    print("|" + " " * 9 + "|" + " " * 9 + "|")
-    print("|" + " " * 9 + "|" + " " * 9 + "|")
-    print("|" + " " * 9 + "|" + " " * 9 + "|")
+    print("| " + " " * 8 + "| " + " " * 8 + "|")
+    print("| " + " " * 8 + "| " + " " * 8 + "|")
+    print("| " + " " * 8 + "| " + " " * 8 + "|")
+    print("| " + " " * 8 + "| " + " " * 8 + "|")
 
     # Middle row
     print("+ " + "- " * 4 + "+ " + "- " * 4 + "+")
 
-    print("|" + " " * 9 + "|" + " " * 9 + "|")
-    print("|" + " " * 9 + "|" + " " * 9 + "|")
-    print("|" + " " * 9 + "|" + " " * 9 + "|")
-    print("|" + " " * 9 + "|" + " " * 9 + "|")
+    print("| " + " " * 8 + "| " + " " * 8 + "|")
+    print("| " + " " * 8 + "| " + " " * 8 + "|")
+    print("| " + " " * 8 + "| " + " " * 8 + "|")
+    print("| " + " " * 8 + "| " + " " * 8 + "|")
 
     # Bottom row
     print("+ " + "- " * 4 + "+ " + "- " * 4 + "+")
@@ -27,11 +27,13 @@ def standard_grid():
 # Test
 print("Standard Grid")
 standard_grid()
+print()
 
-# Part 2: Write a function that prints the grid size according to an integer
+# Part 2: Write a function that prints the grid size based on an integer.
 
 
 def print_grid(n):
+    # Figure out what half of the grid should be
     half = n // 2
 
     # Top row
@@ -54,8 +56,9 @@ def print_grid(n):
 print("Scalable Grids")
 print_grid(3)
 print_grid(15)
+print()
 
-# Part 3: Write a function that takes in a specified table size and cell size
+# Part 3: Write a function that prints the grid using a specific table size and cell size.
 
 
 # Function to make a single header row
@@ -67,9 +70,9 @@ def make_row(table_size, cell_size):
 
 # Function to make a single column row
 def make_column(table_size, cell_size):
-    for i in range(table_size + 1):
+    for i in range(table_size):
         print("| " + " " * (cell_size * 2), end="")
-    print()
+    print("|")
 
 
 # Function to make a scalable grid
@@ -77,7 +80,7 @@ def print_grid2(table_size, cell_size):
     for i in range(table_size):
         make_row(table_size, cell_size)
 
-        for k in range(cell_size):
+        for i in range(cell_size):
             make_column(table_size, cell_size)
     make_row(table_size, cell_size)
 
