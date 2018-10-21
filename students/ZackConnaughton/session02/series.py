@@ -10,7 +10,7 @@ def fibonacci(n):
     #     return fibonacci(n-2) + fibonacci(n-1)
 
 def lucas(n):
-    """ doc string"""
+    """Returns as an integer the nth value in the lucas sequence"""
 
     return sum_series(n, n0=2, n1=1)
     # if n == 0:
@@ -21,8 +21,9 @@ def lucas(n):
     #     return lucas(n - 2) + lucas (n - 1)
 
 def sum_series(n, n0=0, n1=1):
-    """
-    compute the nth value of a summation series.
+    """ Returns as an integer the nth value of a summation series
+    using n0 and n1 as the seed values for the summation.
+    Defaults to fibonacci sequence if n0 and n1 are not passed.
     """
 
     if n == 0:
