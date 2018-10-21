@@ -1,1 +1,0 @@
-My name is Maxwell and I'm looking to learn how to scrape data from public API's.
