@@ -4,16 +4,14 @@ For the multiples of five print “Buzz” instead of the number.
 For numbers which are multiples of both three and five print “FizzBuzz” instead.'''
 
 
-start_num = 0
-end_num = 100
+start_num = range(1, 101)
 
-while start_num < 1 and end_num < 101:
-    start_num += 1
-    if (start_num % 3 == 0 and start_num % 5 == 0):
+for num in start_num:
+    if (num % 3 == 0 and num % 5 == 0):
         print ("FizzBuzz")
-    elif(start_num % 3 == 0):
+    elif(num % 3 == 0):
         print("Fizz")
-    elif (start_num % 5 == 0):
+    elif (num % 5 == 0):
         print("Buzz")
     else:
-        print(start_num)
+        print(num)
