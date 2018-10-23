@@ -18,9 +18,8 @@ y = 100
 x = 0
 
 
-# create a while loop looking for the factors of 3 and 5
-while x != y:
-    x = x + 1
+# create an for loop looking for the factors of 3 and 5
+for x in range(1, 101):
     if x % 3 == 0 and x % 5 == 0:
         print(x, 'FizzBuzz')
     elif x % 3 == 0:
