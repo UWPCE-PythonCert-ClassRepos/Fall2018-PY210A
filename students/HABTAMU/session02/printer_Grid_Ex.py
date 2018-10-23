@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # Goal:
 # Write a function that draws a grid like the following:
 # + - - - - + - - - - +
