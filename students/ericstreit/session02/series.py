@@ -1,5 +1,13 @@
 
 #fibonacci series exercise
+
+def fibr(n):
+    """This is the recursive Fibonacci function that will return the nth value."""
+    if n == 0: return 0
+    elif n == 1: return 1
+    else: return fibr(n-1)+fibr(n-2)
+
+#iterative version
 def fibonacci(n):
     """This is the Fibonacci function that will return the nth value. This series starts with 0 and 1"""
     a=0
@@ -15,9 +23,16 @@ def fibonacci(n):
     #print(f'the {i+3}th number in the fibonacci sequence is {c}')
     return(c)
 
+#
+def lucasr(n):
+    """This is the recursive Lucas function that will return the nth value."""
+    if n == 0: return 2
+    elif n == 1: return 1
+    else: return lucasr(n-1)+lucasr(n-2)
+
 #lucas numbers series exercise
 def lucas(n):
-    """This is the Lucas Numbers function that will return the nth value. This series starts with 2 and 1"""
+    """This is the iterative Lucas Numbers function that will return the nth value. This series starts with 2 and 1"""
     a=2
     b=1
     #comment out all but the last of the print statements if you don't want to see the count increase
@@ -47,8 +62,11 @@ def sum_series(n,n2 = 0,n3 = 1):
 
 #validating functions
 if __name__=="__main__":
+    assert fibr(11) == 89
     assert fibonacci(12) == 89
     assert lucas(12) == 199
+    assert lucasr(11) == 199
     assert sum_series(8,2,1) == 29
     assert sum_series(8) == 13
+
     print("assertions are valid")
