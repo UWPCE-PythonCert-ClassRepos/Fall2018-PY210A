@@ -7,15 +7,15 @@
 Notes for Session 10
 ####################
 
-5/10/2018
 
 A collection of notes to go over in class, to keep things organized.
 
 Lightning Talks
 ===============
 
-Anyone missed their chance?
-
+Kannappan Sethunarayanan (kanahn)
+Timothy J Pauley
+Zidan Luo
 
 Issues that came up during the week.
 ====================================

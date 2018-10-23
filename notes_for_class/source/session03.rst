@@ -13,13 +13,13 @@ Lightning Talks
 
 Up today:
 
-|
-| Andy Kwon
-|
-| Kouadio Assouman
-|
-| Stephen Soukasene
-|
+An T  Nguyen (Fyfy)
+
+Jon Serpas
+
+Kyle  Barry
+
+Ronald Frank  Tallman
 
 Are you ready? We'll do them in the middle of the session.
 
@@ -29,7 +29,7 @@ Issues that came up during the week.
 PEP08 and a linter
 ------------------
 
-It is a realy good idea to get in the habit of using consitent stle in your code -- i.e. follow PEP08.
+It is a really good idea to get in the habit of using consitent stle in your code -- i.e. follow PEP08.
 
 And this is really easy to do if you have a linter set up in your editor. If you haven't gotten that to work -- do try to do so soon!
 
