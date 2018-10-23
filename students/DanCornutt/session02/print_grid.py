@@ -1,14 +1,14 @@
 def dline(n):
-    print('+' + (n * '-') + '+' + (n * '-') + '+')
+    print('+' + (n * ' -') + ' +' + (n * ' -') + ' +')
 
 def empline(n):
-    print('|' + (n * ' ') + '|' + (n * ' ') + '|')
+    print('|' + (n * '  ') + ' |' + (n * '  ') + ' |')
 
 def print_grid(size):
     if size < 3:
         size = 3
-    elif size == 11:
-        size = 9
+    # elif size == 11:
+    #     size = 9
     mid = int((size - 1) / 2)
     dline(mid)
     for i in range(mid):
