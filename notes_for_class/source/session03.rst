@@ -26,10 +26,16 @@ Are you ready? We'll do them in the middle of the session.
 Issues that came up during the week.
 ====================================
 
+``.gitignore``
+--------------
+
+You can make your own!
+
+
 PEP08 and a linter
 ------------------
 
-It is a really good idea to get in the habit of using consitent stle in your code -- i.e. follow PEP08.
+It is a really good idea to get in the habit of using consistent stle in your code -- i.e. follow PEP08.
 
 And this is really easy to do if you have a linter set up in your editor. If you haven't gotten that to work -- do try to do so soon!
 
@@ -95,6 +101,21 @@ So "is" will work as a test for small integers, but not large ones:
 **NOTE:** This is also the case for small strings.
 
 **Important:** This is an implementation detail. Do not count on it!
+
+Review Solutions
+================
+
+I've posted my solutions to last week's assignments in the class repo::
+
+  git pull upstream master
+
+They are in::
+
+  solutions/Lesson02
+
+
+
+
 
 
 Lightning Talks
