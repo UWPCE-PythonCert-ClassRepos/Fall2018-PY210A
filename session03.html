@@ -27,7 +27,9 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lightning Talks: Fall 2018 Class" href="lightning_talks.html" />
+    <link rel="prev" title="Notes for Session 02" href="session02.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -80,9 +82,26 @@
               
             
             
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="session01.html">Notes for Session 01</a></li>
 <li class="toctree-l1"><a class="reference internal" href="session02.html">Notes for Session 02</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Notes for Session 03</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#lightning-talks">Lightning Talks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#issues-that-came-up-during-the-week">Issues that came up during the week.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pep08-and-a-linter">PEP08 and a linter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#separation-of-concerns">Separation of Concerns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#make-use-of-symmetry">Make use of symmetry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#is-vs"><code class="docutils literal notranslate"><span class="pre">is</span></code> vs <code class="docutils literal notranslate"><span class="pre">==</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Lightning Talks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#now-some-new-stuff">Now some new stuff</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#labs">Labs:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mailroom">Mailroom</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="lightning_talks.html">Lightning Talks: Fall 2018 Class</a></li>
@@ -156,32 +175,31 @@
 <div class="section" id="lightning-talks">
 <h2>Lightning Talks<a class="headerlink" href="#lightning-talks" title="Permalink to this headline">¶</a></h2>
 <p>Up today:</p>
-<div class="line-block">
-<div class="line"><br /></div>
-<div class="line">Andy Kwon</div>
-<div class="line"><br /></div>
-<div class="line">Kouadio Assouman</div>
-<div class="line"><br /></div>
-<div class="line">Stephen Soukasene</div>
-<div class="line"><br /></div>
-</div>
+<p>Fyfy Nguyen</p>
+<p>Jon Serpas</p>
+<p>Kyle  Barry</p>
+<p>Ron Tallman</p>
 <p>Are you ready? We’ll do them in the middle of the session.</p>
 </div>
 <div class="section" id="issues-that-came-up-during-the-week">
 <h2>Issues that came up during the week.<a class="headerlink" href="#issues-that-came-up-during-the-week" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="pep08-and-a-linter">
 <h3>PEP08 and a linter<a class="headerlink" href="#pep08-and-a-linter" title="Permalink to this headline">¶</a></h3>
-<p>It is a realy good idea to get in the habit of using consitent stle in your code – i.e. follow PEP08.</p>
+<p>It is a really good idea to get in the habit of using consitent stle in your code – i.e. follow PEP08.</p>
 <p>And this is really easy to do if you have a linter set up in your editor. If you haven’t gotten that to work – do try to do so soon!</p>
+<p><a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">https://www.python.org/dev/peps/pep-0008/</a></p>
+<p>Even more important that all of that:</p>
+<p><strong>Use four spaces per indent</strong></p>
+<p><strong>ALWAYS</strong></p>
 </div>
 <div class="section" id="separation-of-concerns">
 <h3>Separation of Concerns<a class="headerlink" href="#separation-of-concerns" title="Permalink to this headline">¶</a></h3>
-<p>From print_grid: if you are going to have separate functions, better for them to return a string, and then put all the printing in the calling function, on one place. That would make it more re-usable – say you want to write to a file?</p>
+<p>From print_grid: if you are going to have separate functions, better for them to return a string, and then put all the printing in the calling function, in one place. That would make it more re-usable – say you want to write to a file?</p>
 <p>This is a tiny example of what’s known as “separation of concerns”</p>
 </div>
 <div class="section" id="make-use-of-symmetry">
 <h3>Make use of symmetry<a class="headerlink" href="#make-use-of-symmetry" title="Permalink to this headline">¶</a></h3>
-<p>nice trick:</p>
+<p>Nice trick:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gen_line</span><span class="p">(</span><span class="n">char_a</span><span class="p">,</span> <span class="n">char_b</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
     <span class="n">line</span> <span class="o">=</span> <span class="n">char_a</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="p">((</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">char_b</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
     <span class="n">line</span> <span class="o">=</span> <span class="n">line</span> <span class="o">+</span> <span class="n">char_a</span> <span class="o">+</span> <span class="n">line</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -216,9 +234,24 @@
 <p><strong>NOTE:</strong> This is also the case for small strings.</p>
 <p><strong>Important:</strong> This is an implementation detail. Do not count on it!</p>
 </div>
-<div class="section" id="the-zen-of-python">
-<h3>The Zen of Python<a class="headerlink" href="#the-zen-of-python" title="Permalink to this headline">¶</a></h3>
-<p>Have you ever tried: <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">this</span></code> ?</p>
+</div>
+<div class="section" id="id1">
+<h2>Lightning Talks<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Let’s take a break and do some lightning talks…</p>
+</div>
+<div class="section" id="now-some-new-stuff">
+<h2>Now some new stuff<a class="headerlink" href="#now-some-new-stuff" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="labs">
+<h3>Labs:<a class="headerlink" href="#labs" title="Permalink to this headline">¶</a></h3>
+<p>Get a start on your own, then we’ll come together and finish it up.</p>
+<p><a class="reference external" href="https://uwpce-pythoncert.github.io/PythonCertDevel/exercises/slicing.html#exercise-slicing" title="(in PythonCert v5.0)"><span>Slicing Lab</span></a></p>
+<p><a class="reference external" href="https://uwpce-pythoncert.github.io/PythonCertDevel/exercises/list_lab.html#exercise-list-lab" title="(in PythonCert v5.0)"><span>List Lab</span></a></p>
+<p><a class="reference external" href="https://uwpce-pythoncert.github.io/PythonCertDevel/exercises/string_formatting.html#exercise-string-formatting" title="(in PythonCert v5.0)"><span>String Formatting Exercise</span></a></p>
+</div>
+<div class="section" id="mailroom">
+<h3>Mailroom<a class="headerlink" href="#mailroom" title="Permalink to this headline">¶</a></h3>
+<p>Let’s start this as a group:</p>
+<p><a class="reference external" href="https://uwpce-pythoncert.github.io/PythonCertDevel/exercises/mailroom-part1.html#exercise-mailroom-part1" title="(in PythonCert v5.0)"><span>Mailroom Part 1</span></a></p>
 </div>
 </div>
 </div>
@@ -228,6 +261,15 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="lightning_talks.html" class="btn btn-neutral float-right" title="Lightning Talks: Fall 2018 Class" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="session02.html" class="btn btn-neutral" title="Notes for Session 02" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
