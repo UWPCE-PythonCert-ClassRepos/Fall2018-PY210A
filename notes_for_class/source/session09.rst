@@ -7,16 +7,15 @@
 Notes for Session 09
 ####################
 
-
-
 A collection of notes to go over in class, to keep things organized.
 
 
 Lightning Talks
 ===============
 
-Anyone missed their chance?
-
+Cheng Liu
+Kathryn Claire  Koehn (Kate)
+Parastoo  Javadi
 
 Issues that came up during the week.
 ====================================
@@ -31,8 +30,8 @@ Issues that came up during the week.
 Let's talk about that...
 
 
-Adding parameters to a subclass __init__
-----------------------------------------
+Adding parameters to a subclass ``__init__``
+--------------------------------------------
 
 In general, when you override a method in a subclass, you want the method signature to be the same. That is -- all the parameters should be the same.
 
