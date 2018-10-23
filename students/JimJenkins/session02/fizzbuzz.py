@@ -1,26 +1,31 @@
 #!/usr/bin/env python
 
-'''
+"""
 Author: Jim Jenkins (dvlupr)
 Date: 10/18/2018
 
-'''
-import sys
+Write a program that prints the numbers from 1 to 100 inclusive.
+But for multiples of three print “Fizz” instead of the number.
+For the multiples of five print “Buzz” instead of the number.
+For numbers which are multiples of both three and five print “FizzBuzz” instead.
+"""
 
-# request how many times the user wants to run FizzBuzz
-y = int(input('How many numbers do you want to FizzBuzz test?: '))
+# request how many times to run FizzBuzz
+y = 100
+
 
 # set the sentinel value
 x = 0
+
+
 # create a while loop looking for the factors of 3 and 5
 while x != y:
-    # check to ensure the number of sequence runs is reasonable
-    if y > 500:
-        sys.exit('Number is too high for the system, please select a lower number')
     x = x + 1
-    if x % 3 == 0:
-        print (x, 'Fizz')
+    if x % 3 == 0 and x % 5 == 0:
+        print(x, 'FizzBuzz')
+    elif x % 3 == 0:
+        print(x, 'Fizz')
     elif x % 5 == 0:
         print(x, 'Buzz')
     else:
-        print(x, 'FizzBuzz')
+        print(x)
