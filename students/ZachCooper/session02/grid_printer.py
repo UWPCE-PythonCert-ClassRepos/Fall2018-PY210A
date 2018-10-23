@@ -1,12 +1,16 @@
-#! usr/bin/env python
+#!usr/bin/env python
 
 #Create function for line one of the grid
 def grid_lineOne():
-	print('+', '-', '-', '-', '-', '+', '-', '-', '-', '-', '+')
+	#print('+', '-', '-', '-', '-', '+', '-', '-', '-', '-', '+')
+	#Simplified line one to eliminate spaces
+	print("+ " + "- " * 4 + "+ " + "- " * 4 + "+")
 
 #Create function for line two of the grid
+#Simplified line 2 to eliminate spaces
 def grid_lineTwo():
-	print('|', ' ', ' ', ' ', ' ', '|', ' ', ' ', ' ', ' ', '|')
+	#print('|', ' ', ' ', ' ', ' ', '|', ' ', ' ', ' ', ' ', '|')
+	print("| " + " " * 8 + "| " + " " * 8 + "|")
 
 
 #Called each line by the line function to create grid
@@ -23,7 +27,7 @@ if __name__ == "__main__":
 	grid_lineTwo()
 	grid_lineOne()
 
-#Part 2 """add a variable for each line so I do not have to repeat each code of line more tha once"""
+#Part 2 
 def print_grid(n):
 	print('+', ('-'' ' * n), '+', ('-'' ' * n), '+')
 	for i in range(n):
