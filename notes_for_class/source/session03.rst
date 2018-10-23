@@ -13,13 +13,13 @@ Lightning Talks
 
 Up today:
 
-An T  Nguyen (Fyfy)
+Fyfy Nguyen
 
 Jon Serpas
 
 Kyle  Barry
 
-Ronald Frank  Tallman
+Ron Tallman
 
 Are you ready? We'll do them in the middle of the session.
 
@@ -41,16 +41,17 @@ Even more important that all of that:
 
 **ALWAYS**
 
+
 Separation of Concerns
 ----------------------
-From print_grid: if you are going to have separate functions, better for them to return a string, and then put all the printing in the calling function, on one place. That would make it more re-usable -- say you want to write to a file?
+From print_grid: if you are going to have separate functions, better for them to return a string, and then put all the printing in the calling function, in one place. That would make it more re-usable -- say you want to write to a file?
 
 This is a tiny example of what's known as "separation of concerns"
 
 Make use of symmetry
 --------------------
 
-nice trick:
+Nice trick:
 
 .. code-block:: python
 
@@ -96,10 +97,33 @@ So "is" will work as a test for small integers, but not large ones:
 **Important:** This is an implementation detail. Do not count on it!
 
 
-The Zen of Python
------------------
+Lightning Talks
+===============
 
-Have you ever tried: ``import this`` ?
+Let's take a break and do some lightning talks...
+
+Now some new stuff
+==================
+
+Labs:
+-----
+
+Get a start on your own, then we'll come together and finish it up.
+
+:ref:`exercise_slicing`
+
+:ref:`exercise_list_lab`
+
+:ref:`exercise_string_formatting`
+
+Mailroom
+--------
+
+Let's start this as a group:
+
+:ref:`exercise_mailroom_part1`
+
+
 
 
 
