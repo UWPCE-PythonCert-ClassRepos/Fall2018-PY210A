@@ -10,9 +10,9 @@ def fibonacci(n):
     if n == 0:
     	return n
     elif n == 1:
-    	return 1 + fibonacci(n-1)
-
-    return fibonacci(n-1) + fibonacci(n-2)
+    	return 1 
+    else:
+    	return fibonacci(n-1) + fibonacci(n-2)
 
 
 def lucas(n):
@@ -21,8 +21,8 @@ def lucas(n):
     	return 2
     elif n == 1:
     	return 1
-    
-    return lucas(n-1) + lucas(n-2)
+    else:
+    	return lucas(n-1) + lucas(n-2)
 
 
 def sum_series(n, n0=0, n1=1):
@@ -36,12 +36,17 @@ def sum_series(n, n0=0, n1=1):
     so that this function works for any first two numbers for a sum series.
     Once generalized that way, sum_series(n, 0, 1) should be equivalent to fibonacci(n).
     And sum_series(n, 2, 1) should be equivalent to lucas(n).
-    """
-    if n == fibonacci(n):
-    	return n
+    """    
+   
+    if n == 0:
+    	return n0
+    elif n == 1:
+    	return n1
+    else:
+        return sum_series(n-1, n0, n1) + sum_series(n-2, n0, n1)
+    
     
  
-
 
 if __name__ == "__main__":
     # run some tests
@@ -59,6 +64,8 @@ if __name__ == "__main__":
 
     assert lucas(4) == 7
 
+    print (sum_series(5))
+    print (fibonacci(5))
     assert sum_series(5) == fibonacci(5)
 
     # test if sum_series matched lucas
