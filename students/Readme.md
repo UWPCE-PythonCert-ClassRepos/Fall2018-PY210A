@@ -1,4 +1,6 @@
-# Welcome, Students!
+# Python code for UWPCE-PythonCert class,
+
+## Welcome, Students!
 
 When you join the course, please do the following:
 
