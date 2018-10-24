@@ -31,6 +31,15 @@ Issues that came up during the week.
 
 You can make your own!
 
+git commit and PR messages
+--------------------------
+
+AT this poiint, it's pretty obvious what you are doing. But as the projects get more complicated, it won't be.
+
+So please put meaningful commit and PR messages -- particularly PR messages!
+
+This is a **really good** habit to get into for future development work.
+
 
 PEP08 and a linter
 ------------------
@@ -54,16 +63,30 @@ From print_grid: if you are going to have separate functions, better for them to
 
 This is a tiny example of what's known as "separation of concerns"
 
-Make use of symmetry
+``for`` vs ``while``
 --------------------
 
-Nice trick:
+Quite a few folks used a ``while`` loop in ``print_grid``,
+and ``sum_series``, and ...
 
-.. code-block:: python
+But for all these cases, a ``for`` loop (and ``range()``) is a better option.
 
-    def gen_line(char_a, char_b, n):
-        line = char_a + ' ' + ((n - 1) // 2) * (char_b + ' ')
-        line = line + char_a + line[::-1]
+So: When to use ``for`` vs ``while`` ?
+
+* You can do everything with a ``while`` loop -- you never actually *need* ``for``
+
+But:
+
+``for`` is pretty handy primarily for looping through the items in am iterable -- doing the similar things to everything in a collection.
+
+And ``range()`` is an easy-to-create collection of a sequenc eof integers of a given size.
+
+So in short:
+
+Use ``while`` when you want to repeat something some unknown amount -- maybe a few times maybe thousands...
+
+Use ``for`` when you want to work with an entire collection, or a pre-determined number of loops.
+
 
 ``is`` vs ``==``
 ----------------
