@@ -88,12 +88,15 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Notes for Session 03</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#lightning-talks">Lightning Talks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#issues-that-came-up-during-the-week">Issues that came up during the week.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gitignore"><code class="docutils literal notranslate"><span class="pre">.gitignore</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#git-commit-and-pr-messages">git commit and PR messages</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pep08-and-a-linter">PEP08 and a linter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#separation-of-concerns">Separation of Concerns</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#make-use-of-symmetry">Make use of symmetry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#for-vs-while"><code class="docutils literal notranslate"><span class="pre">for</span></code> vs <code class="docutils literal notranslate"><span class="pre">while</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#is-vs"><code class="docutils literal notranslate"><span class="pre">is</span></code> vs <code class="docutils literal notranslate"><span class="pre">==</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#review-solutions">Review Solutions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id1">Lightning Talks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#now-some-new-stuff">Now some new stuff</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#labs">Labs:</a></li>
@@ -183,9 +186,19 @@
 </div>
 <div class="section" id="issues-that-came-up-during-the-week">
 <h2>Issues that came up during the week.<a class="headerlink" href="#issues-that-came-up-during-the-week" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="gitignore">
+<h3><code class="docutils literal notranslate"><span class="pre">.gitignore</span></code><a class="headerlink" href="#gitignore" title="Permalink to this headline">¶</a></h3>
+<p>You can make your own!</p>
+</div>
+<div class="section" id="git-commit-and-pr-messages">
+<h3>git commit and PR messages<a class="headerlink" href="#git-commit-and-pr-messages" title="Permalink to this headline">¶</a></h3>
+<p>AT this poiint, it’s pretty obvious what you are doing. But as the projects get more complicated, it won’t be.</p>
+<p>So please put meaningful commit and PR messages – particularly PR messages!</p>
+<p>This is a <strong>really good</strong> habit to get into for future development work.</p>
+</div>
 <div class="section" id="pep08-and-a-linter">
 <h3>PEP08 and a linter<a class="headerlink" href="#pep08-and-a-linter" title="Permalink to this headline">¶</a></h3>
-<p>It is a really good idea to get in the habit of using consitent stle in your code – i.e. follow PEP08.</p>
+<p>It is a really good idea to get in the habit of using consistent stle in your code – i.e. follow PEP08.</p>
 <p>And this is really easy to do if you have a linter set up in your editor. If you haven’t gotten that to work – do try to do so soon!</p>
 <p><a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">https://www.python.org/dev/peps/pep-0008/</a></p>
 <p>Even more important that all of that:</p>
@@ -197,14 +210,21 @@
 <p>From print_grid: if you are going to have separate functions, better for them to return a string, and then put all the printing in the calling function, in one place. That would make it more re-usable – say you want to write to a file?</p>
 <p>This is a tiny example of what’s known as “separation of concerns”</p>
 </div>
-<div class="section" id="make-use-of-symmetry">
-<h3>Make use of symmetry<a class="headerlink" href="#make-use-of-symmetry" title="Permalink to this headline">¶</a></h3>
-<p>Nice trick:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gen_line</span><span class="p">(</span><span class="n">char_a</span><span class="p">,</span> <span class="n">char_b</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-    <span class="n">line</span> <span class="o">=</span> <span class="n">char_a</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="p">((</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">char_b</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
-    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span> <span class="o">+</span> <span class="n">char_a</span> <span class="o">+</span> <span class="n">line</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-</pre></div>
-</div>
+<div class="section" id="for-vs-while">
+<h3><code class="docutils literal notranslate"><span class="pre">for</span></code> vs <code class="docutils literal notranslate"><span class="pre">while</span></code><a class="headerlink" href="#for-vs-while" title="Permalink to this headline">¶</a></h3>
+<p>Quite a few folks used a <code class="docutils literal notranslate"><span class="pre">while</span></code> loop in <code class="docutils literal notranslate"><span class="pre">print_grid</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">sum_series</span></code>, and …</p>
+<p>But for all these cases, a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop (and <code class="docutils literal notranslate"><span class="pre">range()</span></code>) is a better option.</p>
+<p>So: When to use <code class="docutils literal notranslate"><span class="pre">for</span></code> vs <code class="docutils literal notranslate"><span class="pre">while</span></code> ?</p>
+<ul class="simple">
+<li>You can do everything with a <code class="docutils literal notranslate"><span class="pre">while</span></code> loop – you never actually <em>need</em> <code class="docutils literal notranslate"><span class="pre">for</span></code></li>
+</ul>
+<p>But:</p>
+<p><code class="docutils literal notranslate"><span class="pre">for</span></code> is pretty handy primarily for looping through the items in am iterable – doing the similar things to everything in a collection.</p>
+<p>And <code class="docutils literal notranslate"><span class="pre">range()</span></code> is an easy-to-create collection of a sequenc eof integers of a given size.</p>
+<p>So in short:</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">while</span></code> when you want to repeat something some unknown amount – maybe a few times maybe thousands…</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">for</span></code> when you want to work with an entire collection, or a pre-determined number of loops.</p>
 </div>
 <div class="section" id="is-vs">
 <h3><code class="docutils literal notranslate"><span class="pre">is</span></code> vs <code class="docutils literal notranslate"><span class="pre">==</span></code><a class="headerlink" href="#is-vs" title="Permalink to this headline">¶</a></h3>
@@ -233,6 +253,17 @@
 </div>
 <p><strong>NOTE:</strong> This is also the case for small strings.</p>
 <p><strong>Important:</strong> This is an implementation detail. Do not count on it!</p>
+</div>
+</div>
+<div class="section" id="review-solutions">
+<h2>Review Solutions<a class="headerlink" href="#review-solutions" title="Permalink to this headline">¶</a></h2>
+<p>I’ve posted my solutions to last week’s assignments in the class repo:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">pull</span> <span class="n">upstream</span> <span class="n">master</span>
+</pre></div>
+</div>
+<p>They are in:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">solutions</span><span class="o">/</span><span class="n">Lesson02</span>
+</pre></div>
 </div>
 </div>
 <div class="section" id="id1">
