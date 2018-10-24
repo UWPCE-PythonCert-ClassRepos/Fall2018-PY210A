@@ -14,10 +14,10 @@ A collection of notes to go over in class, to keep things organized.
 Lightning Talks
 ===============
 
-Ryan Drovdahl
-
-Meet Shah
-
+Daniel Andrew Cornutt (Dan)
+Jackie  Cao
+Maxwell Morelly
+Thanh H Nhan
 
 
 Issues that came up during the week.
@@ -58,10 +58,6 @@ Any Questions about the homework -- or anything?
 
 Break and Lightning talks:
 
-
-Ryan Drovdahl
-
-Meet Shah
 
 
 Testing?

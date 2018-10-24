@@ -14,9 +14,9 @@ A collection of notes to go over in class, to keep things organized.
 Lightning Talks
 ===============
 
-Wayne Olson
-
-Kristian Francisco
+Adolphe Aime  Ndilingiye
+Udo (Michael) Uduhiri
+Zachary A Connaughton (Zach)
 
 Issues that came up during the week.
 ====================================
@@ -121,7 +121,7 @@ But at the time it was added, there were two goals:
 
 1) Efficient in-place operations on mutables (partly to support numpy)
 
-2) quick and easy incrementing of values, in particular integers:
+2) Quick and easy incrementing of values, in particular integers:
 
 ``i += 1``
 
@@ -144,10 +144,6 @@ Any other questions/issue before we get into classes?
 Break -- Then Lightning Talks
 =============================
 
-
-Wayne Olson
-
-Kristian Francisco
 
 Classes!
 ========
