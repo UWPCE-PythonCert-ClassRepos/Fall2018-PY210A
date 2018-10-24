@@ -57,7 +57,7 @@ I know I started out that way -- 'cause there wasn't anything else to test. But 
 
 
 Do you always need an ``__init__``?
--------------------------------
+-----------------------------------
 
 No -- you don't :-)
 
