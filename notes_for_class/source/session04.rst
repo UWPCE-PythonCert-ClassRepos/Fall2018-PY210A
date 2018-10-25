@@ -6,18 +6,17 @@
 Notes for Session 04
 ####################
 
-Instructor: Chris
-
-4/19/2018
+10/30/2018
 
 A collection of notes to go over in class, to keep things organized.
 
 Lightning Talks
 ===============
 
-Brianna Dean
-
-Aarthi Ravichander
+Guy Chiu-Kai Chan
+Jae Kim
+Yaovi Metemey (obed)
+Zach Russell  Cooper
 
 Issues that came up during the week.
 ====================================
@@ -108,9 +107,7 @@ Should we look at my solution -- or wait??
 Lightning Talks:
 ----------------
 
-Brianna Dean
-
-Aarthi Ravichander
+Let's take a break and do them...
 
 New Material
 ============
