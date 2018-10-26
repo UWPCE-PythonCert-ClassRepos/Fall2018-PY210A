@@ -22,5 +22,18 @@ def series_01():
         if fruit[:1].lower() == "p":
             print(fruit)
 
+def series_02():
+    print()
+    print("Series 2:")
+    print(fruits)
+    del fruits[-1:]
+    print(fruits)
+    find = input("What fruit should we remove?: ")
+    for fruit in fruits:
+        if fruit == find:
+            fruits.remove(fruit)
+    print(fruits)
+
 if __name__ == '__main__':
     series_01()
+    series_02()
