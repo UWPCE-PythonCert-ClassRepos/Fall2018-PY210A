@@ -21,7 +21,7 @@ pause = input("OK, let's add Kiwis to the list!")
 newlist = ["Kiwis"]
 mylist = newlist + mylist
 print(mylist)
-pause = input("Now adding Mangos to the list!")
+pause = input("Now adding Mangos to the beginning of the list!")
 mylist.insert(0,"Mangos")
 print(mylist)
 pause = input("Now displaying all items that begin with the letter 'P'")
@@ -42,7 +42,8 @@ mylist.remove(toremove)
 print("The list now contains: ",mylist)
 
 #series 3
-#there is a bug in this section
+#there is a bug in this section - if an item is removed then it skips the following item
+#I suspect because it changes the index value
 print("OK, let's move on to series 3!")
 print()
 for i in mylist:

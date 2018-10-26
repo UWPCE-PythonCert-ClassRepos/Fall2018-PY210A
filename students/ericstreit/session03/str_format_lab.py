@@ -13,16 +13,17 @@ print("file{:03} : {:.2f} {:.2e} {:.2e}".format(mytup[0], mytup[1], mytup[2], my
 print(f'file{mytup[0]:03} : {mytup[1]:.2f} {mytup[2]:.2e} {mytup[3]:.2e}')
 
 
-#Task 3
+#Task 3 formatter function
 mytup = (1,2,3,4,5)
 #define formatter function
 #does not work properly!
 #swaps the first and last tuples????
 #I practically copied this from your video
+#It looks like the value of 'l' is not being placed at the first {}
 def formatter(n):
     """string exercise task 3"""
     l = len(n)
-    print(("the {} numbers are: " + ",".join(["{}"] * l).format(l, *n)))
+    print("the {} numbers are: " + ",".join(["{}"] * l).format(l, *n))
 
 #task 4
 mytup = (4, 30, 2017, 2, 27)
@@ -52,10 +53,11 @@ print()
 
 #task 6 extra
 mytup=(1,2,3,4,5,6,7,8,9,0)
-print({:5} * 10).format(* mytup)
+print("".join(["  |   {}  "] * 10).format(*mytup), end=" |\n")
 
 #for testing
 if __name__=="__main__":
     pass
     mytup = (1,2,3,4,5,6,7,8)
+    print("my formatter is not working correctly")
     formatter(mytup)
