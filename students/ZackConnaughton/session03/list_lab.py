@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 
 def series1():
+    """
+    Shows what can be done with a simple list of fruitsself.
+    """
     fruits = ['Apples', 'Pears', 'Oranges', 'Peaches']
     print(fruits)
     response = input('Input another Fruit: ')
