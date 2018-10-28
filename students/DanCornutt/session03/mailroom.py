@@ -1,11 +1,11 @@
-#!/home/dan/cert/scripts/Fall2018-PY210A/students/DanCornutt/session03 Python3
+#!/usr/bin/env python3
 
 """
 mailroom assignment
 """
 
 donors = [("Fred Jones", [100, 200, 300]),
-            ("Amy Shumer", [2000, 4000, 1000])]
+    ("Amy Shumer", [2000, 4000, 1000])]
 
 def thank_you():
     print('do the thank you thing now!')
@@ -31,4 +31,5 @@ def main():
             report()
 
 if __name__ == "__main__":
+    print("Hello, Hi!")
     main()
