@@ -52,6 +52,7 @@ def list_users():
 def compose_email(name, amount):
     """This function will compose the thank you email"""
     print("\n\nEMAIL SENT:\n'Thank you, {}, for your generous contribution of ${}! We will be sure to ask you for more money again soon.'\n\n".format(name, amount))
+    print("Sincerely,\nDonations, Inc.\n\n")
 
 def donor_update(name):
     """This function will update the donor list with a new donor or a new amount given by a current donor"""
