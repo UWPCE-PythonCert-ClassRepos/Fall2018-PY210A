@@ -1,44 +1,57 @@
-donors = [('Fred', [100, 200, 300]),
-           ("Tara", [200, 400, 600])]
+donors = {"Timothy Tander": [100, 200, 300],
+           "Tara Towers": [200, 400, 600],
+           "Charlie Day": [700, 100, 2000],
+           "Sandra Connors": [1800, 2300, 7000],
+           "Betsy Hammond": [500, 190, 212, 55]}
 
-donors[0][1].append(800)
-
-list_of_donors = [d[0] for d in donors]
+donors["Timothy Tander"].append(800)
 
 def thank_you(full_name, donation):
-   print("Dear {}, thank you so much for your generous donation of {} dollars!".format(full_name, donation))
+   print("Dear {}, thank you so much for your generous donation of ${}!".format(full_name, donation))
 
 def make_report():
-    pass
+    total = [round(sum(i)) for i in donors.values()]
+    num_donations = [len(i) for i in donors.values()]
+    avg_donations = [round(sum(i)/len(i),2) for i in donors.values()]
+    zipped = list(zip(donors.keys(), total, num_donations, avg_donations))
+    print("Donor Name | Total Given | Num Donations | Average Donation")
+    for a,b,c,d in zipped:
+        print(a,b,c,d)
 
 def main():
     print('Welcome to the mailroom')
     answer = ' '
     while answer[0].lower() != 'q':
         print("Please select one of the following options:")
-        print("Quit: q, \n"
+        print("Quit: 'q' \n"
               "Thank you: 't' \n"
               "Report: 'r' \n")
         answer = input(' ')
         answer = answer[:1].lower().strip()
         if answer == 't':
-            full_name = input('Please enter a full name: ')
+            full_name = input('Please enter a full name (list for donors) ')
             if full_name == 'list':
-                for i in list_of_donors:
+                for i in donors.keys():
                     print(i)
-            elif full_name in list_of_donors:
-                donation = int(input('How much would you like to donate? '))
-                for i in donors:
-                    if i[0] == full_name:
-                        i[1].append(donation)
-                        thank_you(full_name, donation)
-            elif full_name not in list_of_donors:
-                donors.append((full_name,0))
+            elif full_name in donors.keys():
+                donation = float(input('How much would you like to donate? '))
+                donors[full_name].append(donation)
+                thank_you(full_name, donation)
+            elif full_name not in donors.keys():
+                donation = float(input('How much would you like to donate? '))
+                donors[full_name] = [donation]
         elif answer == 'r':
             make_report()
 
 if __name__ == '__main__':
     main()
+
+
+
+
+
+
+
 
 
 
