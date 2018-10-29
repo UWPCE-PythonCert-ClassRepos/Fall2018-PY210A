@@ -2,15 +2,27 @@
 
 
 def file_format(number):
+    """
+    takes a number and returns a file format as a string file_XXX with the numbers
+    """
     return 'file_' + '{:03.0f}'.format(number) + ' :   '
 
 def three_sig_fig(number):
+    """
+    takes a number and returns the same number with two decimal spaces shown
+    """
     return '{:.2f}'.format(number)
 
 def scientific_notation(number):
+    """
+    takes a number and returns it with exponential scientific_notation
+    """
     return "{:.2e}".format(number)
 
 def task_one(file_num, two_dec, exp1, exp2):
+    """
+    function that performs actions to satisfy task one of session three in PY210
+    """
     output_string = ""
     output_string += file_format(file_num)
     output_string += three_sig_fig(two_dec)
@@ -22,10 +34,18 @@ def task_one(file_num, two_dec, exp1, exp2):
 
 
 def zeros(num):
+    """
+    returns a number padded to the left with '0's up to a length of three_sig_fig
+    """
+
     return "0" * (3-len(num)) + num
 
 
 def r_num(num, _num):
+    """
+    rounds a number num with a next number _num as input
+    returns a single number as a form_string
+    """
     if int(_num) >= 5:
         output = str(int(num) + 1)
     else:
@@ -34,11 +54,17 @@ def r_num(num, _num):
 
 
 def task_2_decimal(num):
+    """
+    returns a number with two decimal places for task two of session three of PY201
+    """
     decimal_index = num.find('.')
     output = num[:decimal_index + 2] + r_num(num[decimal_index + 2], num[decimal_index + 3])
     return output
 
 def task_2_sci(num):
+    """
+    returns a number with explonential notation for task two of session three of PY201
+    """
     decimal_index = num.find('.')
     if decimal_index == -1:
         length = len(num)
@@ -50,6 +76,9 @@ def task_2_sci(num):
     return output_string
 
 def task_two(file_num, two_dec, exp1, exp2):
+    """
+    Function that performs the tasks requred by task two of session three PY201
+    """
     num1 = two_dec
     num2 = exp1
     num3 = exp2
@@ -57,6 +86,9 @@ def task_two(file_num, two_dec, exp1, exp2):
 
 
 def task_three(*t):
+    """
+    Takes an arbritary number of arguments as t and returns a string that explains the quantity and lists the numbers
+    """
     form_string = "{:d}, " * (len(t) -1) + "{:d}"
     output_string = F"the " + str(len(t)) + " numbers are: " + form_string
     output = output_string.format(*t)
@@ -64,6 +96,9 @@ def task_three(*t):
 
 
 def task_four(*t):
+    """
+    takes in a specific date-time format and returns a string in a month-day-year-hour-minute format with leading zeros as needed
+    """
     hour = '{:02.0f}'.format(t[0])
     minute = '{:02.0f}'.format(t[1])
     year = '{:04.0f}'.format(t[2])
@@ -72,6 +107,10 @@ def task_four(*t):
     return(F"{month} {day} {year} {hour} {minute}")
 
 def task_five(l, bonus=False):
+    """
+    returns a string explain fruit weights as provided by an input listself.
+    bonus if true returns the fruit names in all capital letters and a 20% increase to the fruit weight in the string returned.
+    """
     fruit1 = l[0][:-1]
     fruit1_weight = l[1]
     fruit2 = l[2][:-1]
@@ -85,6 +124,9 @@ def task_five(l, bonus=False):
 
 
 def longest(values):
+    """
+    takes a list of values and returns the length of the longest value
+    """
     cur_longest = 0
     for i in values:
         if len(i) > cur_longest:
@@ -92,6 +134,9 @@ def longest(values):
     return(cur_longest)
 
 def task_six(l, pad=3):
+    """
+    takes a list of name-age-cost records and returns a printable string with the data in columns padded by the value pad
+    """
     column_1 = []
     column_2 = []
     column_3 = []
@@ -106,11 +151,8 @@ def task_six(l, pad=3):
     output = ""
     #print(l)
     for line in l:
-        #print('{:<{width}}'.format(line[0], width=column_widths[0]) + '{:<{width}}'.format(line[1], width=column_widths[1])+ '{:>{width}}'.format(line[2], width=column_widths[2]))
         output += ('{:<{width}}'.format(line[0], width=column_widths[0]) + '{:<{width}}'.format(line[1], width=column_widths[1])+ '{:>{width}}'.format(line[2], width=column_widths[2]) + '\n')
     return output
-
-
 
 
 if __name__ == '__main__':
