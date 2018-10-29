@@ -1,3 +1,5 @@
+#! python3
+
 #Python assignment 1
 
 #most common exceptions
