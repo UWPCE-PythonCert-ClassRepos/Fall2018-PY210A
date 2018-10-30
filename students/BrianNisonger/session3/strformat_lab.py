@@ -1,21 +1,36 @@
 def task_one(seq):
+    """
+    Format strings w/ .format
+    """
     return ("File_{:0>3d}".format(seq[0]),"{:.2f}".format(seq[1]),"{:.2E}".format(seq[2]),"{:.3G}".format(seq[3]))
 
 def task_two(seq):
+    """
+    Format strings w/ fstring
+    """
     return (f'File_{seq[0]:0>3d}',f'{seq[1]:.2f}',f'{seq[2]:.2E}',f'{seq[3]:.3G}')
 
 def formatter(seq):
+    """
+    Variable length format strings
+    """
     format_string=""
     for number in (seq):
         format_string+="{:d},"
     format_string="the {} numbers are:".format(len(seq))+format_string[0:len(format_string)-1]
     return format_string.format(*seq)
     
-def task_four(seq):  
+def task_four(seq):
+    """
+    Rearrange tuple using fstrings
+    """  
     str_out=f'{seq[3]:0>2d} {seq[4]} {seq[2]} {seq[0]:0>2d} {seq[1]}'
     print(str_out)
 
 def task_five(seq):
+    """
+    Using fstrings specifically
+    """
     str_orange=seq[0]
     str_lemon=seq[2]
     str_orange=str_orange[0:len(str_orange)-1]
@@ -25,6 +40,9 @@ def task_five(seq):
     return string_out
     
 def task_six(seq):
+    """
+    Align info in a grid
+    """
         for item in alignment_tuple:
             print(f'{item[0]:<3} {item[1]:<15} {item[2]:<7}')
   
