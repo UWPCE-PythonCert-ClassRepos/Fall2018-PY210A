@@ -5,12 +5,13 @@ a template for the series assignment
 
 def fibonacci(n):
     """ compute the nth Fibonacci number """
-    x,y = 1,1
-    for num in range(n-1):
+    x = 0
+    y = 1
+    for num in range(0, n):
         x,y = y,x+y
     return x
-    print (fibonacci(0))
-    pass
+print (fibonacci(7))
+
 
 def lucas(n):
     """ compute the nth Lucas number """
@@ -24,7 +25,7 @@ def lucas(n):
         x=y
         y=z
     return y
-    print (lucas(0))
+print (lucas(0))
 
 
 def sum_series(n,n0=0,n1=1):
@@ -33,7 +34,7 @@ def sum_series(n,n0=0,n1=1):
 
     :param n0=0: value of zeroth element in the series
     :param n1=1: value of first element in the series
-    
+
     This function should generalize the fibonacci() and the lucas(),
     so that this function works for any first two numbers for a sum series.
     Once generalized that way, sum_series(n, 0, 1) should be equivalent to fibonacci(n).
