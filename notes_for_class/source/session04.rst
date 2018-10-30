@@ -21,6 +21,77 @@ Zach Russell  Cooper
 Issues that came up during the week.
 ====================================
 
+Built in names
+--------------
+
+Python has a number of "key words" that are reserved. If you try to use them as a variable name, you will get an error:
+
+.. code-block:: ipython
+
+    In [1]: for = 5
+      File "<ipython-input-1-36df406aa65d>", line 1
+        for = 5
+            ^
+    SyntaxError: invalid syntax
+
+Sometimes a bit confusing, as it's not REALLY a syntax error, but rather using a keyword as a variable....
+
+But there are also a LOT of "built in" names. Try::
+
+    dir(__builtins__)
+
+You can use these names for variable, but when you do, it willwrite over the built-in one, which means that you then can't use it in the udual way. For instance, a ``list`` is the list type, you can make a list out of any sequence with it:
+
+.. code-block:: ipython
+
+    In [6]: list("this")
+    Out[6]: ['t', 'h', 'i', 's']
+
+But if you use it as a name, it then won't work in the usual way:
+
+.. code-block:: ipython
+
+    In [7]: list = [1,2,3,4,5]
+
+    In [8]: list
+    Out[8]: [1, 2, 3, 4, 5]
+
+    In [9]: list("this")
+    ---------------------------------------------------------------------------
+    TypeError                                 Traceback (most recent call last)
+    <ipython-input-9-c89f7438771a> in <module>()
+    ----> 1 list("this")
+
+    TypeError: 'list' object is not callable
+
+Moral of the story:
+
+**Don't "shadow" built in names**
+
+Use things like::
+
+    my_list
+    infile
+
+or even misspellings or adding an underscore:
+
+``klass`` or ``cls`` or ``_class`` instead of ``class``
+
+Hopefully your editor will warn you -- otherwise, think about it when you get a strange error like:
+
+.. code-block:: ipython
+
+    In [14]: input = "this was some input"
+
+    In [15]: input("=>")
+    ---------------------------------------------------------------------------
+    TypeError                                 Traceback (most recent call last)
+    <ipython-input-15-56a225daeb09> in <module>()
+    ----> 1 input("=>")
+
+    TypeError: 'str' object is not callable
+
+
 Mutable default parameters
 --------------------------
 
@@ -28,7 +99,7 @@ There was a video on this -- any questions about it?
 
 If not then we'll move on...
 
-This is a real "gotcha" in Python. One of you wrote a non-recursive solution to the sum_series problem. It worked great -- EXCEPT if it got called more than once! Any idea what the problem is?
+This is a real "gotcha" in Python. Someone wrote a non-recursive solution to the sum_series problem. It worked great -- EXCEPT if it got called more than once! Any idea what the problem is?
 
 .. code-block:: python
 
@@ -95,10 +166,34 @@ Slicing and List labs
 
 Any questions?
 
+Altering a list while looping through it
+........................................
+
+what could go wrong with this code?
+
+.. code-block:: python
+
+    for i in a_list:
+        if some_condition:
+            a_list.remove(i)
+
+Let's try it out ...
+
+My solutions
+------------
+
 Let's look at my solutions quickly.
 
+Sorting
+.......
+
+Anyone confused about sorting? Shall we go over it?
+
+``examples/session04/sort_example.py``
+
+
 mailroom
---------
+........
 
 Anyone get it done?
 
@@ -119,7 +214,7 @@ This gets fun now!
 mailroom part 2
 ---------------
 
-How might you use dictionaries in mailroom? If you haven't finished it without dicts, whynot add them now?
+How might you use dictionaries in mailroom? If you haven't finished it without dicts, why not add them now?
 
 trigrams
 --------

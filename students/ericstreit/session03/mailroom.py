@@ -4,6 +4,7 @@
 #!/usr/bin/env python3
 
 #define variables - create donor list
+
 donor1 = ("Anna Fang", [23.53, 5000])
 donor2 = ("Tom Natsworthy", [99, 783, 3])
 donor3 = ("Hester Shaw", [5, 92, 101.23])
@@ -56,8 +57,10 @@ def compose_email(name, amount):
 
 def donor_update(name):
     """This function will update the donor list with a new donor or a new amount given by a current donor"""
+#    l = len(donors)
+#    print(name)
 #variable if a name is found in the search. default is 0 / False
-    found = False
+    found = 0
 #for loop to search for a donor name in the database. If found it will flag the found variable as True and add the addtional amount
     for i in range(len(donors)):
         if name in donors[i]:
