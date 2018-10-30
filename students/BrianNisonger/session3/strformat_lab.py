@@ -43,8 +43,8 @@ def task_six(seq):
     """
     Align info in a grid
     """
-        for item in alignment_tuple:
-            print(f'{item[0]:<3} {item[1]:<15} {item[2]:<7}')
+    for item in alignment_tuple:
+        print(f'{item[0]:<3} {item[1]:<15} {item[2]:<7}')
   
 if __name__ == "__main__":
     seq=( 2, 123.4567, 10000, 12345.67)
