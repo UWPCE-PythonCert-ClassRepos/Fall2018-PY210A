@@ -1,4 +1,4 @@
-#Task 1
+T(ask 1
 tup = (2, 123.4567, 10000, 12345.67)
 
 print('file_{:>03}: {}, {:.2e}, {:.2e}'.format(tup[0], str(round(tup[1], 2)), tup[2], tup[3]))
@@ -28,9 +28,15 @@ print(f'The weight of an {lst[0][:-1].upper()} is {lst[1]*1.2} and the weight of
 
 
 #Task 6
+lster = [['Dan Watts', 'Tina Tallman', 'Fanny Mcbride'], [124124, 5352 ,235232],
+         ['$12439', '$129.99', '$19048.44']]
 
+dashes = '-' * 40
 
-
+print(dashes)
+for i in range(0,len(lster)):
+    print('{:<20s}{:<12d}{:<12s}'.format(lster[0][i], lster[1][i], lster[2][i]))
+print(dashes)
 
 
 

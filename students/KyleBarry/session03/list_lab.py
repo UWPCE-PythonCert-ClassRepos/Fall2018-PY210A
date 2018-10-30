@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 def main():
+    #Some of the series interfere with each other, so you can comment in/out the ones
+    #you want to test
 	#Series 1
 	fruits = ['Apples', 'Pears', 'Oranges', 'Peaches']
 
@@ -13,16 +15,16 @@ def main():
 	print(', '.join(fruits))
 
 	while True:
-		num_response = input('enter an integer between 1-5: ')
-		try:
-			num_response = int(num_response)
-		except ValueError:
-			print('Please enter an integer between 1-5: ')
-			continue
-		if num_response in range(1,6):
-			break
-		else:
-			print('Please enter an integer between 1-5: ')
+        num_response = input('enter an integer between 1-5: ')
+        try:
+            num_response = int(num_response)
+        except ValueError:
+            print('Please enter an integer between 1-5: ')
+            continue
+        if num_response in range(1,6):
+            break
+        else:
+            print('Please enter an integer between 1-5: ')
 
 	print(num_response, ': ' + fruits[num_response-1])
 

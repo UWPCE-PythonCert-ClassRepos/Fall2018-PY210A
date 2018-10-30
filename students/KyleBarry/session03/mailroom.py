@@ -1,3 +1,4 @@
+#Establish some data to work with in a dictionary
 donors = {"Timothy Tander": [100, 200, 300],
            "Tara Towers": [200, 400, 600],
            "Charlie Day": [700, 100, 2000],
@@ -7,16 +8,23 @@ donors = {"Timothy Tander": [100, 200, 300],
 donors["Timothy Tander"].append(800)
 
 def thank_you(full_name, donation):
-   print("Dear {}, thank you so much for your generous donation of ${}!".format(full_name, donation))
+   print("\n Dear {}, thank you so much for your generous donation of ${}!\n".format(full_name, donation))
 
 def make_report():
     total = [round(sum(i)) for i in donors.values()]
     num_donations = [len(i) for i in donors.values()]
     avg_donations = [round(sum(i)/len(i),2) for i in donors.values()]
-    zipped = list(zip(donors.keys(), total, num_donations, avg_donations))
+    zipped = list(zip(list(donors.keys()), total, num_donations, avg_donations))
     print("Donor Name | Total Given | Num Donations | Average Donation")
-    for a,b,c,d in zipped:
-        print(a,b,c,d)
+    zipped = [list(i) for i in zipped]
+    for i in zipped:
+        print(i)
+# TypeError: unsupported format string passed to list.__format__]
+# I can't seem to figure out why I'm getting this error when the below is
+# uncommented
+
+#    for i in range(len(zipped)):
+#        print('{:>20s}{:<12d}{:<10f}{:>12f}'.format(zipped[i][0],zipped[i][1], zipped[i],[2], zipped[i][3]))
 
 def main():
     print('Welcome to the mailroom')
@@ -40,19 +48,12 @@ def main():
             elif full_name not in donors.keys():
                 donation = float(input('How much would you like to donate? '))
                 donors[full_name] = [donation]
+                thank_you(full_name, donation)
         elif answer == 'r':
             make_report()
 
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
-
-
 
 
 

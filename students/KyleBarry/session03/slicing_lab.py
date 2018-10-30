@@ -1,4 +1,3 @@
-
 def first_last_ex(seq):
 	""" 
 	Return a sequence with the first and last values swapped.
