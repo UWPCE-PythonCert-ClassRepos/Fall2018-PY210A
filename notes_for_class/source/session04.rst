@@ -180,12 +180,20 @@ what could go wrong with this code?
 Let's try it out ...
 
 My solutions
-............
+------------
 
 Let's look at my solutions quickly.
 
+Sorting
+.......
+
+Anyone confused about sorting? Shall we go over it?
+
+``examples/session04/sort_example.py``
+
+
 mailroom
---------
+........
 
 Anyone get it done?
 
