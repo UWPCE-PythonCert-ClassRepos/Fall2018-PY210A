@@ -1,3 +1,16 @@
-grid_plus = '+'
-grid_minus = '-'
-print(grid_plus, (grid_minus * 4))
+def grid_printer():
+    print(
+'''
++ - - - - + - - - - +
+|         |         |
+|         |         |
+|         |         |
+|         |         |
++ - - - - + - - - - +
+|         |         |
+|         |         |
+|         |         |
+|         |         |
++ - - - - + - - - - +
+''')
+grid_printer()
