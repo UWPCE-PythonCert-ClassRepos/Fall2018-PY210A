@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-def exchange_first_last(a_string):
+def exchange_first_last():
     """
     Get the basics of sequence slicing down.
     Args:
@@ -12,20 +12,15 @@ def exchange_first_last(a_string):
     # Change sequence of input string to list to make it mutable.
     str_list = list(a_string)
 
-    # Assign a name for the first list.
     str_1st = str_list[0]
-
-    # Assign the first list value with the last list value.
     str_list[0]=str_list[-1]
+    str_list[-1]=str_1st
 
-    # Swap the last list value with the first list value.
-    str_last[-1]=str_1st
+    # Conver the final list to sequence of string.
+    answer = "".join(tuple(str_list))
 
-# Conver the final list to sequence of string.
-    answer = "".join(tuple(a_string))
-
-# Print out the list joined string.
-    return answer
+    # Print out the list joined string.
+    print(answer)
 
 def main():
     exchange_first_last()
