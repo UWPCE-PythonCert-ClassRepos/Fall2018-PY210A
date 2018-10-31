@@ -12,9 +12,10 @@ A collection of notes to go over in class, to keep things organized.
 Lightning Talks
 ===============
 
-Ornob Siddiquee
-
-Andrew Wall
+Brian E Nisonger
+Carol Louise  Farris
+Dianna  Tingg
+Manmeet S Dosanjh
 
 
 Issues that came up during the week.
@@ -88,9 +89,7 @@ Anyone want to look at theirs?
 Lightning Talks
 ===============
 
-Ornob Siddiquee
-
-Andrew Wall
+Let's take a break and do them now.
 
 New Assignments
 ===============
@@ -98,9 +97,8 @@ New Assignments
 Comprehensions
 --------------
 
-It turns out the Comprehensions lab was not in Canvas!
 
-It is now. But let's take a few mintues to go through it in class:
+Let's take a few minutes to go through it in class:
 
 https://uwpce-pythoncert.github.io/PythonCertDevel/exercises/comprehensions_lab.html
 
