@@ -58,7 +58,9 @@ def report():
     col4_size = int(max(len("Average Gift"), avg_max) * 1.25)
 
     print("Count max is: " + str(count_max))
-
+    print(rpt_sheet)
+    rpt_sheet.sort(key=return_total, reverse=True)
+    print(rpt_sheet)
     sheet = "\n".join(("Donor Name" + (col1_size - len("Donor Name")) * " " +
      "| Total Given" + (col2_size - len("Total Given")) * " " +
      "| Num Gifts" + (col3_size - len("Num Gifts")) * " " +
@@ -72,6 +74,9 @@ def report():
         "   $" + (col4_size - len(str(round(r[3], 2))) - 3) * " " +  str(round(r[3], 2)))
 
     print(sheet)
+
+def return_total(elem):
+    return elem[1]
 
 
 def main():
