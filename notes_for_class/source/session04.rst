@@ -101,6 +101,8 @@ If not then we'll move on...
 
 This is a real "gotcha" in Python. Someone wrote a non-recursive solution to the sum_series problem. It worked great -- EXCEPT if it got called more than once! Any idea what the problem is?
 
+(``examples\session04\series_with_mutable.py``)
+
 .. code-block:: python
 
     def sum_series(nth=1, sequence=[0,1]):
@@ -179,10 +181,7 @@ what could go wrong with this code?
 
 Let's try it out ...
 
-My solutions
-------------
-
-Let's look at my solutions quickly.
+``examples/session04/deleting_in_loop.py``
 
 Sorting
 .......
@@ -191,13 +190,20 @@ Anyone confused about sorting? Shall we go over it?
 
 ``examples/session04/sort_example.py``
 
+My solutions
+------------
+
+Let's look at my solutions quickly.
 
 mailroom
 ........
 
 Anyone get it done?
 
-Should we look at my solution -- or wait??
+Should we look at my solution -- or review one of yours?
+
+Or wait ?
+
 
 Lightning Talks:
 ----------------
