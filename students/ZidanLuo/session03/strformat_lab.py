@@ -29,7 +29,7 @@ ls = []
 for donor in donors:
 	i = len(str(donor[2]))
 	ls.append(i)
-	length = max(ls) + 5
+length = max(ls) + 5
 
 
 print('{:10}{:>5}{:>{length}}'.format('Name', 'Age', 'Cost', length = length))
