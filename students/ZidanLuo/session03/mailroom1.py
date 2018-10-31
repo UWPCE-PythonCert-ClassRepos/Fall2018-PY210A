@@ -1,8 +1,8 @@
 import sys
 
 #Create a list of data of donors
-donors = [("Fred Jones", [100]), 
-("Amy Shumer", [2000]),
+donors = [("Fred Jones", [100, 20]), 
+("Amy Shumer", [2000, 99]),
 ("Yu Wang",[5]),
 ("Jin Liu",[520]),
 ("Doron Levy",[3]) ]
@@ -14,6 +14,17 @@ prompt = "\n".join(("Welcome to the mailroom!",
 	      "c - Create a Report",
 	      "q - Quit", 
 	      ">>>  "))
+
+def get_length_a():
+	ls = []
+	ls2 = []
+	for donor in donors:
+		i = len(str(sum(donor[1])))
+		ls.append(i)
+		ls2.append(len(donor[0]))
+		width1 = max(ls2) + 8
+		width2 = max(ls) + 8
+	return width1, width2
 
 def in_list(donor_name):
 	for names in donors:
@@ -54,15 +65,16 @@ def thank_you():
 
 def creat_a_report():
 	new_donors = sorted(donors,key=lambda x: sum(x[1]))
-	print("Donar Name          |Total Given| Num Gifts | Average Gift")
-	print("----------------------------------------------------------")
+	width1,width2 = get_length_a()
+	print("{:{width1}}{}{:^{width2}}{}{:^10}{}{:^{width2}}".format("Donor Name", "|", "Total Given", "|", "Num Gifts", "|", "Average Gift", width1 = width1, width2 = width2))	
+	print("-" * (width1 + width2*2 + 15))
 	for donor in new_donors:
-		print('{:20}'.format(donor[0]), end="")
+		print('{:{width1}}'.format(donor[0], width1 = width1), end="")
 		print('{:1}'.format('$'),end="")
-		print('{:>12}'.format(sum(donor[1])),end="")
-		print('{:>11}'.format(len(donor[1])),end=" ")
+		print('{:{width2}}'.format(sum(donor[1]), width2=width2), end="")
+		print('{:>12}'.format(len(donor[1])),end=" ")
 		print('{:1}'.format('$'),end="")
-		print('{:>12.2f}'.format(round(sum(donor[1])/len(donor[1]),2)),end="")
+		print('{:>{width2}.2f}'.format(round(sum(donor[1])/len(donor[1]),2), width2 = width2), end="")
 
 		print()
 
