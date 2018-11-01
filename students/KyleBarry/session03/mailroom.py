@@ -1,4 +1,6 @@
 #Establish some data to work with in a dictionary
+from datetime import datetime
+
 donors = {"Timothy Tander": [100, 200, 300],
            "Tara Towers": [200, 400, 600],
            "Charlie Day": [700, 100, 2000],
@@ -8,24 +10,18 @@ donors = {"Timothy Tander": [100, 200, 300],
 donors["Timothy Tander"].append(800)
 
 def thank_you(full_name, donation):
-   print("\n Dear {}, thank you so much for your generous donation of ${}!\n".format(full_name, donation))
-
+    now = datetime.now().strftime("%Y-%m-%d")
+    with open(f"{full_name}_{now}", 'w') as f:
+        f.write(f"Dear {full_name}\n\n")
+        f.write(f"\tThank you so much for your generous donation of {donation}!\n\n")
+    
 def make_report():
-    total = [round(sum(i)) for i in donors.values()]
-    num_donations = [len(i) for i in donors.values()]
-    avg_donations = [round(sum(i)/len(i),2) for i in donors.values()]
-    zipped = list(zip(list(donors.keys()), total, num_donations, avg_donations))
-    print("Donor Name | Total Given | Num Donations | Average Donation")
-    zipped = [list(i) for i in zipped]
-    for i in zipped:
-        print(i)
-# TypeError: unsupported format string passed to list.__format__]
-# I can't seem to figure out why I'm getting this error when the below is
-# uncommented
 
-#    for i in range(len(zipped)):
-#        print('{:>20s}{:<12d}{:<10f}{:>12f}'.format(zipped[i][0],zipped[i][1], zipped[i],[2], zipped[i][3]))
-
+    print("{:^20}|{:^20}|{:^20}|{:^20}".format("Donor Name", "No. Donations","Avg. Donation", "Total Donations"))
+    for k,v in donors.items():
+        print("{:<20}|{:>20}|{:>20}|{:>20}".format(k, len(v), sum(v)/len(v),
+                                                   sum(v)))
+ 
 def main():
     print('Welcome to the mailroom')
     answer = ' '
