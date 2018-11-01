@@ -4,9 +4,10 @@
 #!/usr/bin/env python3
 
 #define variables - create donor list
-donor1 = ("Anna Fang", [23, 5000])
+
+donor1 = ("Anna Fang", [23.53, 5000])
 donor2 = ("Tom Natsworthy", [99, 783, 3])
-donor3 = ("Hester Shaw", [5, 92, 101])
+donor3 = ("Hester Shaw", [5, 92, 101.23])
 donor4 = ("Katherine Valentine", [1000, 2000, 3000])
 donor5 = ("Grike", [1])
 donors = [donor1] + [donor2] + [donor3] + [donor4] + [donor5]
@@ -52,6 +53,7 @@ def list_users():
 def compose_email(name, amount):
     """This function will compose the thank you email"""
     print("\n\nEMAIL SENT:\n'Thank you, {}, for your generous contribution of ${}! We will be sure to ask you for more money again soon.'\n\n".format(name, amount))
+    print("Sincerely,\nDonations, Inc.\n\n")
 
 def donor_update(name):
     """This function will update the donor list with a new donor or a new amount given by a current donor"""
@@ -65,7 +67,7 @@ def donor_update(name):
             print("How much $$ did they donate this time?: ")
             amount = int(input(": "))
             donors[i][1].append(amount)
-            found = 1
+            found = True
             break
         else:
             continue
@@ -73,10 +75,9 @@ def donor_update(name):
         #if the name was not found then add the name to the list of donors as well as the amount donated
         print("\n\nA new donor!! Adding {} to the list of donors".format(name))
         print("\n\nHow much $$ did they donate?: ")
-        amount = int(input(": "))
+        amount = float(input(": "))
         add_donor = (name, [amount])
         donors.append(add_donor)
-#        print(donors)
 #after adding the information to the database, send to function to send the thank you
     compose_email(name, amount)
 
@@ -85,7 +86,7 @@ def report():
     print("\n", "\n", "{:<25}{:5}{:5}{}".format("Donor Name", "| Total Given", "| Num Gifts", "| Average Gift"))
     print("{:-<80}".format(""))
     for i in range(len(donors)):
-        print("{} ${} {} {}".format(donors[i][0], sum(donors[i][1]), len(donors[i][1]), sum(donors[i][1]) // len(donors[i][1])))
+        print("{:<26} ${:<11.2f} {:<11} ${:.2f}".format(donors[i][0], sum(donors[i][1]), len(donors[i][1]), sum(donors[i][1]) / len(donors[i][1])))
     # for i in range(len(donors)):
     #     print("{} ${}".format(donors[i][0], sum(donors[i][1])))
 
