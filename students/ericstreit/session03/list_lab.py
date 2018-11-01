@@ -46,10 +46,12 @@ print("The list now contains: ",mylist)
 #I suspect because it changes the index value
 print("OK, let's move on to series 3!")
 print()
-copy_list = mylist
+copy_listXXXXXXXX = mylist
+print(id(mylist))
 print("here is the copied list")
-print(copy_list)
-for i in copy_list:
+print(copy_listXXXXXXXX)
+print(id(copy_listXXXXXXXX))
+for i in copy_listXXXXXXXX:
     choice = input("Do you like {}?: (y/n)".format(i))
     if choice == "y":
         continue
