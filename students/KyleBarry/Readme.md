@@ -1,0 +1,1 @@
+This director is used for course assignments
