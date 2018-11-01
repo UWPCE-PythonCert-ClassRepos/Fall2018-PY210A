@@ -23,3 +23,10 @@ x = [another_fruit] + a_list
 a_list.insert(0,another_fruit)
 print(x)
 print(a_list)
+
+# Display all the fruits that begin with “P”, using a for loop.
+for i in range(len(a_list)):
+    if a_list[i][0] == "P":
+        print(a_list[i])
+    else:
+        print("")
