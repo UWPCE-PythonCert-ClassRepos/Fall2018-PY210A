@@ -23,10 +23,19 @@ def reset_destination():
 
 def file_parse():
     students = open('students.txt')
-    print(students[0])
+    program_dict = {}
+    program_set = set()
     for line in students:
-        pass
-        #print(line.split(':')[1].strip('\n').split(','))
+        for record in line.split(':')[1].strip('\n').split(','):
+            if record and record == record.lower() and not record.strip() == 'languages':
+                program_value = record.strip()
+                if program_value in program_set:
+                    program_dict[program_value] += 1
+                else:
+                    program_dict[program_value] = 1
+                    program_set.add(program_value)
+    for p in program_set:
+        print(p + " " + str(program_dict[p]))
 
 
 if __name__ == '__main__':
