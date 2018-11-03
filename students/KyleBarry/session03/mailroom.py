@@ -2,7 +2,6 @@
 #Establish some data to work with in a dictionary
 from datetime import datetime
 
-
 donors = {"Timothy Tander": [100, 200, 300],
            "Tara Towers": [200, 400, 600],
            "Charlie Day": [700, 100, 2000],
@@ -39,7 +38,9 @@ def thank_you():
 def make_report():
     print("{:^20}|{:^20}|{:^20}|{:^20}".format("Donor Name", "No. Donations","Avg. Donation", "Total Donations"))
     for k,v in donors.items():
-        print("{:<20}|{:>20}|{:>20}|{:>20}".format(k, len(v), sum(v)/len(v), sum(v)))
+        print("{:<20}|{:>20}|{:>20}|{:>20}".format(k, len(v),
+                                                   "$" + str(round(sum(v)/len(v),2)),
+                                                   "$" + str(sum(v))))
 
 
 def exiting():
@@ -62,6 +63,3 @@ options_dict = {"1": thank_you, "2": make_report, "3": exiting}
 
 if __name__ == '__main__':
     main(prompt, options_dict)
-
-
-
