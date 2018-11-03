@@ -4,6 +4,7 @@
 Author: Jim Jenkins (dvlupr)
 Date: 10/13/2018
 
+<<<<<<< HEAD
 '''
 
 # functions returns a name error because hello is not defined.
@@ -20,7 +21,7 @@ def typeerror():
 
 # function returns a syntax error because the equation has a spelling error for while
 def syntaxerror():
-    whille x % 2 == 0:
+    whille x % 2 == 0
     return syntaxerror
 
 
@@ -35,4 +36,5 @@ nameerror()
 typeerror()
 syntaxerror()
 attributeError()
+
 
