@@ -1,7 +1,9 @@
 #!/usr/local/bin/python3
-#Establish some data to work with in a dictionary
 from datetime import datetime
+import csv
 
+
+#Establish some data to work with in a dictionary
 donors = {"Timothy Tander": [100, 200, 300],
            "Tara Towers": [200, 400, 600],
            "Charlie Day": [700, 100, 2000],
@@ -42,6 +44,21 @@ def make_report():
                                                    "$" + str(round(sum(v)/len(v),2)),
                                                    "$" + str(sum(v))))
 
+    # Create csv file for report data 
+    now = datetime.now().strftime("%Y-%m-%d")
+    with open(f"report_{now}.csv", "w") as f:
+        writer = csv.writer(f)
+        writer.writerow(["Donor Name", "No. Donations", "Avg Donation", "Total Donations"])
+       
+        names = [k for k in donors.keys()]
+        no_dons = [len(v) for v in donors.values()]
+        avg_don = [round(sum(v)/len(v),2) for v in donors.values()]
+        total_dons = [sum(v) for v in donors.values()]
+        zipped = zip(names, no_dons, avg_don, total_dons)
+
+        for i in zipped:
+            writer.writerow(i)
+
 
 def exiting():
     print("Quitting program!")
@@ -51,13 +68,14 @@ def exiting():
 def main(prompt, options_dict):
     print('Welcome to the mailroom')
     while True:
+        # Run appropriate function based on user input, or ask for valid input
         answer = input(prompt)
         if answer in options_dict:
             options_dict[answer]()
         else:
             print("Please make a valid selection")
 
-
+# Dispatch dictionary to handle possible user input
 options_dict = {"1": thank_you, "2": make_report, "3": exiting}
 
 
