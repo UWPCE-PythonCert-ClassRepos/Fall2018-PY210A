@@ -52,5 +52,3 @@ frozen = frozenset('marathon')
 inter = pset.intersection(frozen)
 union = pset.union(frozen)
 print(inter, union)
-
-
