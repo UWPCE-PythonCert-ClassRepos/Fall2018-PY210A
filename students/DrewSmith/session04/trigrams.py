@@ -6,8 +6,8 @@ import pathlib
 import string
 
 words = "I wish I may I wish I might".split()
-punctuations = ['.', '?', '!', ',', '\n', '"', '(', ')']
-ending_punctuations = ['.', '?', '!']
+punctuations = set(['.', '?', '!', ',', '\n', '"', '(', ')'])
+ending_punctuations = set(['.', '?', '!'])
 
 def make_trigrams(words):
     tris = {}
@@ -21,9 +21,8 @@ def build_text(word_pairs):
     has_punctuation = 0
     max_sentences_per_paragraph = 5
     max_iterations = 500
-    #Only start paragraphs with items that have a third word
-    keys_choice = [key for key in word_pairs 
-        if len(word_pairs[key]) > 0 and key[0] not in punctuations and key[1] not in punctuations]
+    #Only start paragraphs with items that don't have punctuation
+    keys_choice = [key for key in word_pairs if set(key).isdisjoint(punctuations)]
     output = []
     while iterations < max_iterations:
         iterations += 1
@@ -72,8 +71,9 @@ def process_text(text_list):
         text = text.replace(punctuation, f" {punctuation}")
     return text.split()
 
-directory = pathlib.Path("/uw/python/projects/IntroToPython/files/").absolute()
-text_list = read_file(directory / "sherlock.txt")
-text = process_text(text_list)
-trigrams = make_trigrams(text)
-print(build_text(trigrams))
+if __name__ == '__main__':
+    directory = pathlib.Path("/uw/python/projects/IntroToPython/files/").absolute()
+    text_list = read_file(directory / "sherlock.txt")
+    text = process_text(text_list)
+    trigrams = make_trigrams(text)
+    print(build_text(trigrams))
