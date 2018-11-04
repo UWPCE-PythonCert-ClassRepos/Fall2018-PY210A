@@ -60,15 +60,15 @@ def stats(donations):
     for d in donations[1]:
         total += float(d)
     num_of_donations = len(donations[1])
-    avg_of_donations = total / num_of_donations
+    avg_of_donations = '{:.2f}'.format(total / num_of_donations)
     return [name, total, num_of_donations, avg_of_donations]
 
 
-def longest(values, min=10):
+def longest(values, min_column=12):
     """
     takes a list of values and returns the length of the longest value
     """
-    cur_longest = 10
+    cur_longest = min_column
     for i in values:
         if len(i) > cur_longest:
             cur_longest = len(i)
@@ -86,24 +86,26 @@ def data_header(widths):
     """
     takes in column widths and outputs a data header for a donor report in a string format for printing
     """
-    output_string = ""
-    output_string += '{:<{width0}}|{:<{width1}}|{:<{width2}}|{:<{width3}}'.format('Donor Name', 'Total Given', 'Num Gifts', 'Average Gift', width0=widths[0], width1=widths[1], width2=widths[2], width3=widths[3])
+    output_string = "\n"
+    output_string += '{:<{width0}}|{:<{width1}}|{:^{width2}}|{:^{width3}}'.format('Donor Name', 'Total Given', 'Num Gifts', 'Average Gift', width0=widths[0], width1=widths[1], width2=widths[2], width3=widths[3])
     output_string += '\n' + '-' * (sum(widths)+3)
     return output_string
 
 
 def data_print(info, widths):
     """
-    takes in donor information and widths and returns a string formatted for printing for a donor report.
+    takes in donor information and widths and returns a string formatted for
+    printing for a donor report.
     """
     output_string = ""
-    output_string += '{:<{width0}} ${:<{width1}} ${:<{width2}} ${:<{width3}}'.format(info[0], info[1], info[2], info[3], width0=widths[0], width1=widths[1], width2=widths[2], width3=widths[3])
+    output_string += '{:<{width0}} ${:>{width1}.2f} {:^{width2}} ${:>{width3}}'.format(info[0], info[1], info[2], info[3], width0=widths[0], width1=widths[1]-1, width2=widths[2], width3=widths[3]-1)
     return output_string
 
 
 def report(donors):
     """
-    takes in the full donor list and returns a report to the terminal with the donors name, total given, number of donations and average donations
+    takes in the full donor list and returns a report to the terminal with the
+    donors name, total given, number of donations and average donations
     """
     output = []
     for i in donors:
@@ -116,6 +118,7 @@ def report(donors):
     print(data_header(column_widths))
     for j in output:
         print(data_print(j, column_widths))
+    print("")
 
 
 

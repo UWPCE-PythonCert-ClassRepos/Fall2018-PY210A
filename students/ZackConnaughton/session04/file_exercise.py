@@ -3,7 +3,10 @@ import os
 
 def copy_file(file):
     outfile = open('destination/' + file, 'wb')
+    x = 1
     for line in open('source/' + file, 'rb'):
+        print(x)
+        x += 1
         outfile.write(line)
     outfile.close()
 
