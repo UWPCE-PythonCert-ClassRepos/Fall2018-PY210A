@@ -55,4 +55,6 @@ def random_text(tris, words):
     print(" ".join(new_text))
 
 if __name__ == "__main__":
-    get_text("http://www.gutenberg.org/files/1342/1342-h/1342-h.htm")
+    """Passing in Moby Dick for now, but any URL from gutenberg project
+    works"""
+    get_text("http://www.gutenberg.org/files/2701/2701-h/2701-h.htm")

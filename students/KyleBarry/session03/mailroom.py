@@ -28,7 +28,7 @@ def thank_you():
             donation = float(input('How much would you like to donate? '))
             donors[full_name] = [donation]
 
-        with open(f"{full_name}_{now}", 'w') as f:
+        with open(f"{full_name}_{now}.txt", 'w') as f:
             f.write(f"Dear {full_name}\n\n")
             f.write(f"\tThank you so much for your generous donation of {donation}!\n\n")
             f.write("\t\t\t\t\tSincerely, Donor Team")
@@ -49,7 +49,8 @@ def make_report():
     with open(f"report_{now}.csv", "w") as f:
         writer = csv.writer(f)
         writer.writerow(["Donor Name", "No. Donations", "Avg Donation", "Total Donations"])
-       
+
+        # Zip lists of values to pass to writerow
         names = [k for k in donors.keys()]
         no_dons = [len(v) for v in donors.values()]
         avg_don = [round(sum(v)/len(v),2) for v in donors.values()]
