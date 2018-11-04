@@ -5,23 +5,30 @@ read file from source by line, remove characters: - , ( ) and save text as _edit
 take edited text, create trigram
 """
 
-words = "I wish I might I wish I might".split()
+RM_CHAR = {'(': '', ')': '', ',': '', '--': ' '}
 
 def cp_f(source):
-    #read file from source
+    """
+    read txt file from source
+    call clean_txt function
+    write txt file to destination
+    """
     with open(source, 'r') as f_in, open(source + "_edit", 'w') as f_out:
         while True:
-            ln = f_in.readline()
-            if not ln:
+            next_ln = f_in.readline()
+            if not next_ln:
                 break
-            f_out.write(clean_txt(ln))
-        f_in.closed
-        f_out.closed
+            f_out.write(clean_txt(next_ln, RM_CHAR))
+        f_in.closed, f_out.closed
 
 
-def clean_txt(string):
-    new_string = string.replace('--', ' ')
-    return new_string
+def clean_txt(ln, del_lst):
+    for k, v in del_lst.items():
+        print(k, v)
+        print(ln)
+        ln = ln.replace(k, v)
+        print(ln)
+    return ln
 
 def make_trigrams(source):
     cp_f(source)
