@@ -4,6 +4,7 @@ trigrams
 import random
 import pathlib
 import string
+import sys
 
 words = "I wish I may I wish I might".split()
 punctuations = set(['.', '?', '!', ',', '\n', '"', '(', ')'])
@@ -72,8 +73,13 @@ def process_text(text_list):
     return text.split()
 
 if __name__ == '__main__':
-    directory = pathlib.Path("/uw/python/projects/IntroToPython/files/").absolute()
-    text_list = read_file(directory / "sherlock.txt")
+    try:
+        filename = sys.argv[1]
+    except IndexError:
+        print("You must pass in a filename")
+        sys.exit(1)
+    directory = pathlib.Path('./')
+    text_list = read_file(directory / filename)
     text = process_text(text_list)
     trigrams = make_trigrams(text)
     print(build_text(trigrams))
