@@ -18,6 +18,11 @@ print(reverse_string("This is a string"))
 
 
 def last3_first3_middle3(seq):
-    list_string = list(seq)
-    return seq[-3:3] + str(list_string/2)
-print(last3_first3_middle3("This is a string"))
+    str_length = len(seq)//3
+    first = seq[:str_length]
+    second = seq[str_length:2 * (str_length)]
+    third = seq[-str_length:]
+    return third + first + second
+print(last3_first3_middle3("aaabbbccc"))
+
+assert last3_first3_middle3("aaabbbccc") == "cccaaabbb"
