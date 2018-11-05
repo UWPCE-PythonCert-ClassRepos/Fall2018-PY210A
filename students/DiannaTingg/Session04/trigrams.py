@@ -77,6 +77,7 @@ def read_file(file):
 
     return text
 
+
 if __name__ == "__main__":
 
     # Get filename from user at command line
