@@ -97,7 +97,14 @@ while count <= max_count:
         else:
             print('wrong answer')
 
-
+"""
+for fruit in fruit2[:}:
+    print(fruit, ind)
+    if fruit == ans:
+        del fruit2[ind]
+    else:
+        ind +=1
+"""
 
 # SERIES 4
 
