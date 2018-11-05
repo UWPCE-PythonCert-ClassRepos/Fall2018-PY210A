@@ -57,36 +57,47 @@ def thank_one():
     # Set default for new_donor to True
     new_donor = True
 
+    # If donor exists in dictionary, they are not new
     for x in donors:
         if x == name:
             donors[x].append(donation)
             new_donor = False
             break
 
+    # Add donor to dictionary if they are new
     if new_donor:
         donors[name] = [donation]
 
     # Print thank you e-mail
     print()
-    print(thank_you(name, donation))
+    personal_dict = make_personal_dict(name, donation)
+    print(thank_you(personal_dict))
 
 
-# Print thank you e-mail
-def thank_you(name, donation):
-    letter = datetime.datetime.now().strftime("%B %d, %Y") + f"\n\nDear {name}:\n\nThank you so much for the " \
-            f"generous donation of ${donation:,.2f}.\nWe will use the money to provide tiny cars to clowns in need." \
-            "\n\nBest regards,\nDianna Tingg\nTiny Clown Car Foundation"
+# Make a personal dictionary for one person's donation
+def make_personal_dict(name, donation):
+    d = {"date": datetime.datetime.now().strftime("%B %d, %Y"), "name": name, "donation": "{:,.2f}".format(donation)}
+    return d
+
+
+# Print thank you e-mail using personal dictionary
+def thank_you(personal_dict):
+    letter = "{date}\n\nDear {name}:\n\nThank you so much for the generous donation of ${donation}.\n" \
+             "We will use the money to provide tiny cars to clowns in need.\n\nBest regards,\n" \
+             "Dianna Tingg\nTiny Clown Car Foundation".format(**personal_dict)
     return letter
 
 
-# Send Thank You Letters to All Donors
+# Send Thank You Letters to All Donors for their most recent donation
 def thank_all():
     path = input("Enter the path where you want the letters saved (Example: C:\\Users\\dtingg\\)"
                  "or press Enter to use the default directory: ")
 
     for person in donors:
         with open(path + person + " " + datetime.datetime.now().strftime("%m-%d-%Y")+".txt", "w+") as outfile:
-            outfile.write(thank_you(person, donors[person][-1]))
+            donor_dict = make_personal_dict(person, donors[person][-1])
+            donor_letter = thank_you(donor_dict)
+            outfile.write(donor_letter)
 
     print("Thank you letters have been generated for all donors.")
 
