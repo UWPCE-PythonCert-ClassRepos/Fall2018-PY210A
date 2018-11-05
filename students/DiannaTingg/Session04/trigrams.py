@@ -60,14 +60,22 @@ def read_file(file):
 
         lines = f.readlines()
 
+        # Remove headers
+        for i in range(len(lines)):
+            if lines[i].startswith("*** START OF THIS PROJECT GUTENBERG EBOOK"):
+                lines = lines[i+1:]
+                break
+
+        # Clean up remaining text
         for l in lines:
+
             # Remove whitespace at start and end of line
             strip_line = l.strip()
+
             # Split line based on spaces and add words to text list
             text.extend(strip_line.split())
 
     return text
-
 
 if __name__ == "__main__":
 
