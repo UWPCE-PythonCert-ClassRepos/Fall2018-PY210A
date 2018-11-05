@@ -10,22 +10,20 @@ def fibonacci(n):
     for num in range(0, n):
         x,y = y,x+y
     return x
-print (fibonacci(7))
-
+print (fibonacci(3))
 
 def lucas(n):
     """ compute the nth Lucas number """
     x = 2
     y = 1
-
-    if (n==0):
+    if n == 0:
         return x
-    for num in range(2, n+1):
-        z=x+y
-        x=y
-        y=z
+    for num in range(2, n + 1):
+        z = x + y
+        x = y
+        y = z
     return y
-print (lucas(0))
+print (lucas(7))
 
 
 def sum_series(n,n0=0,n1=1):
@@ -40,7 +38,9 @@ def sum_series(n,n0=0,n1=1):
     Once generalized that way, sum_series(n, 0, 1) should be equivalent to fibonacci(n).
     And sum_series(n, 2, 1) should be equivalent to lucas(n).
     """
-    pass
+    return fibonacci(2)
+    return lucas(3)
+print (sum_series(2, 3, 4))
 
 if __name__ == "__main__":
     # run some tests
@@ -58,7 +58,9 @@ if __name__ == "__main__":
 
     assert lucas(4) == 7
 
-    assert sum_series(5) == fibonacci(5)
+    assert sum_series(5) == fibonacci(4)
+
+    assert sum_series(3,0,1) == fibonacci(3)
 
     # test if sum_series matched lucas
     assert sum_series(5, 2, 1) == lucas(5)
