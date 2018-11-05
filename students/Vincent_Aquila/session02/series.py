@@ -37,7 +37,6 @@ for i in range(10):
 
 
 def sum_series(n, n0 = 0, n1 = 1):
-    #could not get the sum_series to work
     """
     compute the nth value of a summation series.
 
@@ -51,12 +50,17 @@ def sum_series(n, n0 = 0, n1 = 1):
     """
     if n == 0:
         return n0
-    if n == 1:
+    elif n == 1:
         return n1
-    return sum_series(n-1, n0, n0+n1)
+    else:
+        return sum_series(n - 1, n0, n1) + sum_series(n - 2, n0, n1)
+
+for i in range(10):
+    print(sum_series(i))
+    
 
 if __name__ == "__main__":
-    #assertion tests, Fibonacci and Lucas tests worked, but couldn't get sum_series to work
+    #assertion tests
     assert Fibonacci(0) == 0
     assert Fibonacci(1) == 1
     assert Fibonacci(7) == 13
@@ -65,9 +69,7 @@ if __name__ == "__main__":
     assert Lucas(1) == 1
     assert Lucas(4) == 7
 
-    #assert sum_series(5) == Fibonacci(5)
-
-    #test if sum_series matched lucas
-    #assert sum_series(5, 2, 1) == Lucas(5)
+    assert sum_series(5) == Fibonacci(5)
+    assert sum_series(5, 2, 1) == Lucas(5)
 
     print("tests passed")

@@ -41,7 +41,7 @@ my_fruits = ["Strawberries"] + my_fruits
 
 print_fruit_list(my_fruits)
 
-# Add another fruit to the beginning fo the list using insert and print the list
+# Add another fruit to the beginning of the list using insert and print the list
 print("\nI'm going to add another fruit to the beginning of this list.")
 my_fruits.insert(0, "Blueberries")
 print_fruit_list(my_fruits)
@@ -79,7 +79,7 @@ user_delete_fruit = ""
 while user_delete_fruit not in my_fruits_doubled:
     user_delete_fruit = input("\nWhich fruit would you like to delete?: ").capitalize()
 
-for x in my_fruits_doubled:
+for x in my_fruits_doubled[:]:
     if x == user_delete_fruit:
         my_fruits_doubled.remove(x)
 
