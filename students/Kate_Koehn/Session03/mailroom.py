@@ -1,4 +1,4 @@
-#!/usr/bin python3
+#!/usr/bin/env python3
 
 """
 mailroom assignment
@@ -7,8 +7,11 @@ mailroom assignment
 # Mailroom Part 1
 
 #List of previous donors names and their donation amounts
-donors = [("Rick Sanchez", [3.00, 1.00]), ("Liz Lemon", [4000.00, 3000.00, 6000.00]), ("Andy Dwyer", [10.00]), ###Need to convert to dict, but sets do not support indexing, so indexing below will need to be updated
-          ("Brendan Small", [3.00, 10.00]), ("Coach McGuirk", [2.00, 1.00])]
+donors = {"Rick Sanchez": [3.00, 1.00],
+          "Liz Lemon": [4000.00, 3000.00, 6000.00],
+          "Andy Dwyer": [10.00],
+          "Brendan Small": [3.00, 10.00],
+          "Coach McGuirk": [2.00, 1.00]}
 
 
 #menu to give user options to Create a Report, Send a Thank you, or Quit
@@ -54,7 +57,7 @@ def thanks():
         #return list of previous donor names
         elif donor_name == "L":
             for name in donors:
-                print(name[0])
+                print(name)
 
     #set initial donation amount to 0
     donation = 0
@@ -66,17 +69,11 @@ def thanks():
         else:
             donation = float(donation)
 
-    #initialize new donor
-    new_donor = True
 
     #check if donor already exists in donors dict, if not, append name and donation
-    for i in range(len(donors)):
-        if donors[i][0] == donor_name:
-            donors[i][1].append(donation)
-            new_donor = False
-            break
-    if new_donor:
-        donors.append((donor_name, [donation]))
+    donations = donors.setdefault(donor_name, [])
+    donations.append(donation)
+
 
     #call email function to print thank-you email
     email(donor_name, donation)
@@ -84,19 +81,23 @@ def thanks():
 
 #function to print a thank-you email
 def email(donor_name, donation):
-    print("\n\nDear {},"
+    message = ("\n\nDear {},"
     "\n\nThanks for your money! Your donation of ${:.2f} will be summarily used to buy me beer.\n\n"
-    "Kind regards,\nKate Koehn".format(donor_name, donation))
-
+    "Kind regards,\nKate Koehn").format(donor_name, donation)
+    file_name = "{}.txt".format(donor_name)
+    with open(file_name, "w") as f:
+        f.write(message)
 
 
 #create a report of all previous donors and their donations
 def create_report():
     print("\n", "\n", "{:<20}{:5}{:5}{}".format("Donor Name", "| Total Given", "| Num Gifts", "| Average Gift"))
     print("{:-<60}".format(""))
-    for donor in range(len(donors)):
-        print("{:<22} ${:<13.2f} {:<10} ${:.2f}".format(donors[donor][0], sum(donors[donor][1]), len(donors[donor][1]),
-                                                sum(donors[donor][1]) / len(donors[donor][1])))
+    for donor, gifts in donors.items():
+        total = sum(gifts)
+        num_gifts = len(gifts)
+        avg_gift = total / num_gifts
+        print("{:<22} ${:<13.2f} {:<10} ${:.2f}".format(donor, total, num_gifts, avg_gift))
 
 
 #welcome screen function
