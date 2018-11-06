@@ -84,10 +84,27 @@ print(s3.issubset(s2))
 print(s4.issubset(s2))
 
 
+"""Create a set with the letters in ‘Python’ and add ‘i’ to the set."""
+pythonic_set = set(['P','y','t','h','o','n'])
+print(pythonic_set)
+pythonic_set.add('i')
 
-"""Create a set with the letters in ‘Python’ and add ‘i’ to the set.
-Create a frozenset with the letters in ‘marathon’.
+
+"""Create a frozenset with the letters in ‘marathon’.
 display the union and intersection of the two sets."""
+
+frozen_marathon = frozenset(['m', 'a', 'r', 'a', 't', 'h', 'o', 'n'])
+print(frozen_marathon)
+
+#union
+newSet = pythonic_set|frozen_marathon
+print(newSet)
+
+#intersection
+intersectingSet = pythonic_set.intersection(frozen_marathon)
+print(intersectingSet)
+
+
 
 
     
