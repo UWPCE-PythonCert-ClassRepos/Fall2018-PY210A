@@ -1,30 +1,49 @@
 """
 trigrams
 """
+
+
+
+#Import modules
+from pathlib import Path
 import random
+
+#set folder paths
+data_folder = Path("C:\pythonuw\Fall2018-PY210A\students\ericstreit\session04/")
+
+# set the variables
+small_file_to_open = data_folder / "sherlock_small.txt"
 words = "I wish I may I wish I might".split()
 
-print(words)
+#grab text from a file to be used for trigrams
+with open(small_file_to_open, 'r') as infile:
+    scrape = infile.read()
+    infile.closed
+collection = scrape.split()
+print(collection)
 
 def make_trigrams(words):
     tris = {}
     for w1, w2, w3 in zip(words[:-2], words[1:-1], words[2:]):
         #print(w1, w2, w3)
-        # print(w1)
-        # print(w2)
-        # print(w3)
+        #print(w1)
+        #print(w2)
+        #print(w3)
         pair = (w1, w2)
         if pair in tris:
             tris[pair].append(w3)
         else:
             tris[pair] = [w3]
 
+    print("the dictonary contains {}".format(tris))
     return tris
+
 
 def print_trigrams():
     sentence = ""
     #start off with a pair
-    pair = ('wish', 'I')
+    pair = ('I', 'was')
+    #pair = ('wish', 'I')
     #while loop to check if the pair exists in the dictionary
     while pair in tris:
         #get the pair value of the pair
@@ -54,7 +73,9 @@ def print_trigrams():
         #print(second_word)
         #print(pv_word)
         #append what we have to the sentence string
-        sentence = sentence + " " + first_word + " " + second_word + " " + pv_word
+        #this needs to be fixed, I think I really only want to append the new pv_word
+        #sentence = sentence + " " + first_word + " " + second_word + " " + pv_word
+        sentence = sentence + " " + pv_word
         #now join the pair's second word with the value word to create the new tupple to search for
         new_pair = (second_word, pv_word)
         print('creating a new tupple pair from "{}" and "{}" which creates {}'.format(second_word, pv_word,new_pair))
@@ -68,16 +89,14 @@ def print_trigrams():
         print('now go thru the beginning of the loop again looking for a key match using {}'.format(pair))
         print()
         #pause in case things break
-        pause = input('press a key')
+        #pause = input('press a key')
     #the while loop has ended, let's show what we've found
     print("-" * 80)
     print('No more pairs were found! Here is the full sentence: ')
     print(sentence)
 
 
-    #while start is:
 
 
-
-tris = make_trigrams(words)
+tris = make_trigrams(collection)
 print_trigrams()
