@@ -1,5 +1,7 @@
 def Fibonacci(n):
 	"""Return the nth value of the fibonacci sequence"""
+	if n < 0:
+		return None
 	if n == 0:
 		return 0
 	elif n == 0:
@@ -13,12 +15,16 @@ def Fibonacci(n):
 
 def Lucas(n):
 	"""return the nth value of the Lucaas Numbers with one argument"""
+	if n <0:
+		return None
 	if n == 0:
 		return 2
 	elif n == 1:
 		return 1
 	else:
 		return Lucas(n-2) + Lucas(n-1)
+
+
 
 
 def sum_series(n, a=0, b=1):
