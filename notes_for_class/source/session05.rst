@@ -7,6 +7,8 @@
 Notes for Session 05
 ####################
 
+November 6, 2018 -- Election Day!!!
+
 A collection of notes to go over in class, to keep things organized.
 
 Lightning Talks
@@ -43,13 +45,6 @@ And don't use "Hungarian Notation" -- it is really non-pythonic, and sometimes a
 
 The best way to do this is with a linter in your editor -- like the Anaconda package in Sublime. A number of you are getting really annoyed by all the "noise" that the linter creates. But if you keep your code in PEP8 style, it won't be there!
 
-sorting
--------
-
-``.sort()`` vs ``sorted()``
-
-What is the "key" thing? how do you make one?
-
 
 Minor Issues
 ------------
@@ -71,6 +66,29 @@ Getting an arbitrary key from a dict
 ------------------------------------
 
 See ``arbitrary_key.py`` in `examples/session05`
+
+Coding Workflow
+---------------
+
+As you are developing your code, you *really* want to have an quick and efficient way to run you code and see if it's working, how it's changed, etc.
+
+You may have noticed that for a program like Mailroom, you may have to do a few steps if user interaction to get to the part of the code you are working on. So how do you work on that efficiently?
+
+The "right" way to do it is something called "Test Driven Development", which we will get to soon. But in the meantime:
+
+* You want to break your code down into small functions that each do one thing.
+
+* You should be able to run each function by itself.
+
+If you are doing that, then as you develop your code, you can write and run each function until it's doing what it's supposed to do, and THEN put it all together.
+
+One way to run a function is to call it in the ``__name__ == "__main__"`` block. You can then comment and uncomment each call as you work on your code.
+
+Also: you really, really need a way to run your code with a couple keystrokes!!
+
+I'll demonstrate this when we review code.
+
+
 
 Review of last week's assignments
 =================================
