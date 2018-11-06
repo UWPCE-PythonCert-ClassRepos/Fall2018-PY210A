@@ -1,23 +1,24 @@
 #!/usr/bin/env python3
 
 import random
+import sys
 
 
 """
-trigrams
-read file from source by line, remove characters: - , ( ) and save text as _edit
+trigrams hw session 4
+Read file from source by line, remove unwanted characters, save text as _edit,
 take edited text, create trigram
 """
 
-RM_CHAR = {'(': '', ')': '', ',': '', '--': ' '}
+RM_CHAR = {'(': '', ')': '', ',': '', '--': ' ', "'": "", '"': ''}
 
 def cp_f(source, chars):
-    """Reads file, removes unwanted characters, saves to new
-    "_edit" file, returns new file path.
+    """Read file then save to new "_edit" file.
 
     Keyword arguments:
     source -- relative filepath of file to be processed
     chars -- dict where k: characters to remove & v: change k to
+    returns relative path to new text file
     """
 
     destination = "{}_edit{}".format(source[:-4], source[-4:])
@@ -32,15 +33,28 @@ def cp_f(source, chars):
 
 
 def clean_txt(ln, del_lst):
+    """Remove unwanted characters from string.
+
+    Keyword arguments:
+    ln -- imput string of text
+    del_lst -- dictionary of characters to remove and replcement values
+    returns edited string
+    """
+
     for k, v in del_lst.items():
         ln = ln.replace(k, v)
     return ln
 
-def find_next():
-    pass
-
 
 def make_trigrams(source):
+    """Create trigram, return made trigram
+
+    Keyword arguments:
+    source -- relative path of input txt file
+    returns string of new trigram
+    """
+
+
     with open(source) as f_in:
         text = f_in.read().split()
         word_count = len(text)
@@ -55,22 +69,27 @@ def make_trigrams(source):
                 tris[(w1, w2)] = [w3]
     f_in.closed
 
-
     last_key = random.choice(list(tris.keys()))
     new_text = (last_key[0].title() + " " + last_key[1])
-    print(new_text)
     for x in range(word_count):
         next_key = (last_key[1], random.choice(tris.setdefault(last_key, text)))
         new_text += " " + str(next_key[1])
         last_key = next_key
-        print("finished loop {}".format(x))
-        print(new_text)
+    new_text += "."
+    return new_text
 
-    return tris
-
+def create_book(frm):
+    f_nm = frm
+    f_edit = cp_f("./" + f_nm, RM_CHAR)
+    return make_trigrams(f_edit)
 
 
 if __name__ == "__main__":
-    f_nm = "sherlock_small.txt"
-    f_edit = cp_f("./" + f_nm, RM_CHAR)
-    new_book = make_trigrams(f_edit)
+    try:
+        f_name = sys.argv[1]
+    except IndexError:
+        print("You must pass in a filename!")
+        sys.exit(1)
+
+    new_book = create_book(f_name)
+    print(new_book)
