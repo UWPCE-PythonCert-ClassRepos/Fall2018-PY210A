@@ -1,33 +1,18 @@
 # Lesson 03 Exercise: Slicing Lab
 
 
-def format_seq(seq, new_seq):
-    """
-    Format new sequence so it matches the type of the original sequence.
-    """
-    if type(seq) == str:
-        return "".join(new_seq)
-    elif type(seq) == tuple:
-        return tuple(new_seq)
-    else:
-        return new_seq
-
-
 def exchange_first_last(seq):
     """
     Return sequence with first and last items exchanged.
     """
-    # Create new list and set it to the last element of the original sequence
-    new_seq = [seq[-1]]
+    # If sequence only has one element, return the original sequence
+    if len(seq) == 1:
+        return seq
 
-    # Add the middle elements from the original sequence
-    new_seq.extend(seq[1:-1])
+    # Slices for the last element, middle elements, and first element
+    new_seq = seq[-1:] + seq[1:-1] + seq[:1]
 
-    # Add the first element from the original sequence
-    new_seq.append(seq[0])
-
-    # Run new sequence through formatting function
-    return format_seq(seq, new_seq)
+    return new_seq
 
 
 def remove_every_other(seq):
@@ -58,15 +43,10 @@ def reverse_elements(seq):
     Return a sequence with the elements reversed (just with slicing).
     """
 
-    new_seq = []
+    # Make a copy of the sequence and step by -1
+    new_seq = seq[::-1]
 
-    i = -1
-
-    while i >= -len(seq):
-        new_seq.append(seq[i])
-        i -= 1
-
-    return format_seq(seq, new_seq)
+    return new_seq
 
 
 def last_first_middle_third(seq):
@@ -76,9 +56,9 @@ def last_first_middle_third(seq):
     # Using the length of the sequence, figure out roughly what one third should be
     one_third = len(seq) // 3
 
-    new_seq = list(seq[-one_third:])
-    new_seq.extend(seq[:-one_third])
-    return format_seq(seq, new_seq)
+    new_seq = seq[-one_third:] + seq[:-one_third]
+
+    return new_seq
 
 
 # Write tests for each of the functions above
