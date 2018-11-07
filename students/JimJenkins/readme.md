@@ -4,7 +4,14 @@ This site contains the assignments and some extra files for the Python 210A cour
 
 ## Getting Started
 
-The files are divided into session numbers, each session correlates to a specific class. The difficulty of the coding increases as the session numbers increase.
+The files are divided into lesson numbers, each lesson correlates to a specific class. The difficulty of the coding increases as the session numbers increase.
+
+* **Lesson 01 -** 
+* **Lesson 02 -** 
+* **Lesson 03 -**
+* **Lesson 04 -** 
+* **Lesson 05 -** 
+* *...*
 
 ### Prerequisites
 
@@ -18,11 +25,7 @@ python --version
 
 ## Authors
 
-* **Jim Jenkins** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+* **Jim Jenkins (dvlupr@uw.edu)** 
 
 ## Acknowledgments
 
