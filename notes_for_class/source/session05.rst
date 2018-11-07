@@ -61,11 +61,51 @@ loops through the keys. So no need for:
 
 ``for k in dict.keys():``
 
+``sum``
+-------
+
+Did everyone find the ``sum()`` built in function?
+
+How about ``max()`` and ``min()``
+
 
 Getting an arbitrary key from a dict
 ------------------------------------
 
 See ``arbitrary_key.py`` in `examples/session05`
+
+nifty formatting
+----------------
+
+what the heck is this?
+
+.. code-block:: python
+
+    def data_print(info, widths):
+        """
+        takes in donor information and widths and returns a string formatted for
+        printing for a donor report.
+        """
+        output_string = ""
+        output_string += '{:<{width0}} ${:>{width1}.2f} {:^{width2}} ${:>{width3}}'.format(info[0], info[1], info[2], info[3], width0=widths[0], width1=widths[1]-1, width2=widths[2], width3=widths[3]-1)
+
+cleaned up a bit::
+
+    '{:<{widths[0]}} ${:>{widths[1]}.2f}'.format( "fred", 100, widths=widths)
+
+islice
+------
+
+This constuct is pertty cool for trigrams::
+
+  for w1, w2, w3 in zip(word_list[:-2], word_list[1:-1], word_list[2:]):
+
+but remeber that slicing makes a copy -- so this is making three copies of the full work list. Computers have a LOT of memory these days, but it's still better to not waste it.
+
+Turns out there is a alternative:
+
+https://docs.python.org/3.7/library/itertools.html#itertools.islice
+
 
 Coding Workflow
 ---------------
@@ -125,7 +165,7 @@ Exceptions
 
 Exceptions take a little while to "wrap your head around".
 
-Shall we do the Excercise together?
+Shall we do the Exercise together?
 
 https://uwpce-pythoncert.github.io/PythonCertDevel/exercises/except_exercise.html
 
