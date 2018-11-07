@@ -7,14 +7,17 @@
 Notes for Session 05
 ####################
 
+November 6, 2018 -- Election Day!!!
+
 A collection of notes to go over in class, to keep things organized.
 
 Lightning Talks
 ===============
 
-Ornob Siddiquee
-
-Andrew Wall
+Brian E Nisonger
+Carol Louise  Farris
+Dianna  Tingg
+Manmeet S Dosanjh
 
 
 Issues that came up during the week.
@@ -42,13 +45,6 @@ And don't use "Hungarian Notation" -- it is really non-pythonic, and sometimes a
 
 The best way to do this is with a linter in your editor -- like the Anaconda package in Sublime. A number of you are getting really annoyed by all the "noise" that the linter creates. But if you keep your code in PEP8 style, it won't be there!
 
-sorting
--------
-
-``.sort()`` vs ``sorted()``
-
-What is the "key" thing? how do you make one?
-
 
 Minor Issues
 ------------
@@ -65,11 +61,74 @@ loops through the keys. So no need for:
 
 ``for k in dict.keys():``
 
+``sum``
+-------
+
+Did everyone find the ``sum()`` built in function?
+
+How about ``max()`` and ``min()``
+
 
 Getting an arbitrary key from a dict
 ------------------------------------
 
 See ``arbitrary_key.py`` in `examples/session05`
+
+nifty formatting
+----------------
+
+what the heck is this?
+
+.. code-block:: python
+
+    def data_print(info, widths):
+        """
+        takes in donor information and widths and returns a string formatted for
+        printing for a donor report.
+        """
+        output_string = ""
+        output_string += '{:<{width0}} ${:>{width1}.2f} {:^{width2}} ${:>{width3}}'.format(info[0], info[1], info[2], info[3], width0=widths[0], width1=widths[1]-1, width2=widths[2], width3=widths[3]-1)
+
+cleaned up a bit::
+
+    '{:<{widths[0]}} ${:>{widths[1]}.2f}'.format( "fred", 100, widths=widths)
+
+islice
+------
+
+This constuct is pertty cool for trigrams::
+
+  for w1, w2, w3 in zip(word_list[:-2], word_list[1:-1], word_list[2:]):
+
+but remeber that slicing makes a copy -- so this is making three copies of the full work list. Computers have a LOT of memory these days, but it's still better to not waste it.
+
+Turns out there is a alternative:
+
+https://docs.python.org/3.7/library/itertools.html#itertools.islice
+
+
+Coding Workflow
+---------------
+
+As you are developing your code, you *really* want to have an quick and efficient way to run you code and see if it's working, how it's changed, etc.
+
+You may have noticed that for a program like Mailroom, you may have to do a few steps if user interaction to get to the part of the code you are working on. So how do you work on that efficiently?
+
+The "right" way to do it is something called "Test Driven Development", which we will get to soon. But in the meantime:
+
+* You want to break your code down into small functions that each do one thing.
+
+* You should be able to run each function by itself.
+
+If you are doing that, then as you develop your code, you can write and run each function until it's doing what it's supposed to do, and THEN put it all together.
+
+One way to run a function is to call it in the ``__name__ == "__main__"`` block. You can then comment and uncomment each call as you work on your code.
+
+Also: you really, really need a way to run your code with a couple keystrokes!!
+
+I'll demonstrate this when we review code.
+
+
 
 Review of last week's assignments
 =================================
@@ -88,9 +147,7 @@ Anyone want to look at theirs?
 Lightning Talks
 ===============
 
-Ornob Siddiquee
-
-Andrew Wall
+Let's take a break and do them now.
 
 New Assignments
 ===============
@@ -98,9 +155,8 @@ New Assignments
 Comprehensions
 --------------
 
-It turns out the Comprehensions lab was not in Canvas!
 
-It is now. But let's take a few mintues to go through it in class:
+Let's take a few minutes to go through it in class:
 
 https://uwpce-pythoncert.github.io/PythonCertDevel/exercises/comprehensions_lab.html
 
@@ -109,7 +165,7 @@ Exceptions
 
 Exceptions take a little while to "wrap your head around".
 
-Shall we do the Excercise together?
+Shall we do the Exercise together?
 
 https://uwpce-pythoncert.github.io/PythonCertDevel/exercises/except_exercise.html
 

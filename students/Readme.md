@@ -1,22 +1,15 @@
-# Class Repository
+# Python code for UWPCE-PythonCert class,
 
-Class notes are published here:
+## Welcome, Students!
 
-https://uwpce-pythoncert-classrepos.github.io/Fall2018-PY210A/
+When you join the course, please do the following:
 
-This repository is used for submitting and reviewing student's work for the
-Fall 2018 classrooom section of University of Washington Continuing and Professional
-Education Python certificate program.
+1. Create a directory named after you. This is a public repository, so if you want to remain anonymous, you don't need to use your full name.
+  * It can be your first name.
+  * It can be your GitHub handle.
+  * It can be an arbitrary nickname &mdash; just make sure to let your instructor know!
 
-https://www.pce.uw.edu/certificates/python-programming
-
-## Structure of the Repo
-
-The class repo has three top level directories:
-
-* `examples`: Used to store example code and example documents for the class.
-
-* `solutions`: Used to post solutions to the exercises.
-
-* `students`: Used for the students to submit their work. Each student needs to
-create a directory for their work. This process will be discussed in class.
+2. Create a README for your directory.
+  * Feel free to personalize it a bit! You can make these pages with [Markdown](https://guides.github.com/features/mastering-markdown/) or [ReStructuredText](http://docutils.sourceforge.net/rst.html).
+  * Share some things about what makes you you.
+  * Tell us what you want to get out of this course.

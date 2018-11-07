@@ -13,23 +13,38 @@ Lightning Talks
 
 Up today:
 
-|
-| Andy Kwon
-|
-| Kouadio Assouman
-|
-| Stephen Soukasene
-|
+Fyfy Nguyen
+
+Jon Serpas
+
+Kyle  Barry
+
+Ron Tallman
 
 Are you ready? We'll do them in the middle of the session.
 
 Issues that came up during the week.
 ====================================
 
+``.gitignore``
+--------------
+
+You can make your own!
+
+git commit and PR messages
+--------------------------
+
+AT this poiint, it's pretty obvious what you are doing. But as the projects get more complicated, it won't be.
+
+So please put meaningful commit and PR messages -- particularly PR messages!
+
+This is a **really good** habit to get into for future development work.
+
+
 PEP08 and a linter
 ------------------
 
-It is a realy good idea to get in the habit of using consitent stle in your code -- i.e. follow PEP08.
+It is a really good idea to get in the habit of using consistent stle in your code -- i.e. follow PEP08.
 
 And this is really easy to do if you have a linter set up in your editor. If you haven't gotten that to work -- do try to do so soon!
 
@@ -41,22 +56,37 @@ Even more important that all of that:
 
 **ALWAYS**
 
+
 Separation of Concerns
 ----------------------
-From print_grid: if you are going to have separate functions, better for them to return a string, and then put all the printing in the calling function, on one place. That would make it more re-usable -- say you want to write to a file?
+From print_grid: if you are going to have separate functions, better for them to return a string, and then put all the printing in the calling function, in one place. That would make it more re-usable -- say you want to write to a file?
 
 This is a tiny example of what's known as "separation of concerns"
 
-Make use of symmetry
+``for`` vs ``while``
 --------------------
 
-nice trick:
+Quite a few folks used a ``while`` loop in ``print_grid``,
+and ``sum_series``, and ...
 
-.. code-block:: python
+But for all these cases, a ``for`` loop (and ``range()``) is a better option.
 
-    def gen_line(char_a, char_b, n):
-        line = char_a + ' ' + ((n - 1) // 2) * (char_b + ' ')
-        line = line + char_a + line[::-1]
+So: When to use ``for`` vs ``while`` ?
+
+* You can do everything with a ``while`` loop -- you never actually *need* ``for``
+
+But:
+
+``for`` is pretty handy primarily for looping through the items in am iterable -- doing the similar things to everything in a collection.
+
+And ``range()`` is an easy-to-create collection of a sequenc eof integers of a given size.
+
+So in short:
+
+Use ``while`` when you want to repeat something some unknown amount -- maybe a few times maybe thousands...
+
+Use ``for`` when you want to work with an entire collection, or a pre-determined number of loops.
+
 
 ``is`` vs ``==``
 ----------------
@@ -95,11 +125,49 @@ So "is" will work as a test for small integers, but not large ones:
 
 **Important:** This is an implementation detail. Do not count on it!
 
+Review Solutions
+================
 
-The Zen of Python
------------------
+I've posted my solutions to last week's assignments in the class repo::
 
-Have you ever tried: ``import this`` ?
+  git pull upstream master
+
+They are in::
+
+  solutions/Lesson02
+
+
+
+
+
+
+Lightning Talks
+===============
+
+Let's take a break and do some lightning talks...
+
+Now some new stuff
+==================
+
+Labs:
+-----
+
+Get a start on your own, then we'll come together and finish it up.
+
+:ref:`exercise_slicing`
+
+:ref:`exercise_list_lab`
+
+:ref:`exercise_string_formatting`
+
+Mailroom
+--------
+
+Let's start this as a group:
+
+:ref:`exercise_mailroom_part1`
+
+
 
 
 
