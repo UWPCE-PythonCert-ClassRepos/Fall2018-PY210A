@@ -1,7 +1,10 @@
 def Fibonacci(n):
 	"""Return the nth value of the fibonacci sequence"""
+<<<<<<< HEAD
 	if n < 0:
 		return None
+=======
+>>>>>>> 7914c9814014bed6a13757875ca0cca14595f249
 	if n == 0:
 		return 0
 	elif n == 0:
@@ -15,8 +18,11 @@ def Fibonacci(n):
 
 def Lucas(n):
 	"""return the nth value of the Lucaas Numbers with one argument"""
+<<<<<<< HEAD
 	if n <0:
 		return None
+=======
+>>>>>>> 7914c9814014bed6a13757875ca0cca14595f249
 	if n == 0:
 		return 2
 	elif n == 1:
@@ -25,8 +31,11 @@ def Lucas(n):
 		return Lucas(n-2) + Lucas(n-1)
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 7914c9814014bed6a13757875ca0cca14595f249
 def sum_series(n, a=0, b=1):
 """Calculates series at given index"""
 	if n < 0:

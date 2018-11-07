@@ -6,6 +6,7 @@ for num in range(1,101):
 	elif num % 5 == 0:
 		print('Buzz')
 	else:
+<<<<<<< HEAD
 		print(num)
 
 
@@ -41,3 +42,6 @@ def fizzbuzz3(n):
 
 
 			# the if not(i% 3) is a double negative
+=======
+		print(num)
+>>>>>>> 7914c9814014bed6a13757875ca0cca14595f249
