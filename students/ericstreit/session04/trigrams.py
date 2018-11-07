@@ -9,7 +9,7 @@ from pathlib import Path
 import random
 
 #set folder paths
-data_folder = Path("C:\pythonuw\Fall2018-PY210A\students\ericstreit\session04/")
+data_folder = Path("C:\pythonuw\Fall2018-PY210A\students\ericstreit\files/")
 
 # set the variables
 small_file_to_open = data_folder / "sherlock_small.txt"
