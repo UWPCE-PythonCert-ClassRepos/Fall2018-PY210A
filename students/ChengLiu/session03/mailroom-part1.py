@@ -6,38 +6,27 @@ Cheng Liu
 Mailroom Part 1
 """
 
-donors = [("Fred Jones", [100, 200, 300]), ("Amy Shume", [2000, 1000, 3000]),("David Cook",[500,100,400])]
-
-
-def current_donor(donors):
-    for donor in donors:
-        return donor[0]
-
-def add_donation(donors):
-    donor_name []= None
-    for donor in donors:
-        donor_name = donor_name.append(donor[0])
-
-    new_name = input("Enter the Full Name: ").title()
-    for donor in donors:
-        if new_name != donor[0]:
-            print('Not found')
-        elif new_name == donor[0]:
-            print('Found')
-
-
-
-
+donors = [("Fred Jones", [100, 200, 300]), ("Amy Shume", [2000, 1000, 3000])]
 
 
 def thank_you():
     FN = ""
+    selection = None
     while True:
         FN = input("Type 'list' to show the donor names, or enter the Full Name to send a Thank You: ")
         FN = FN.lower()
         if FN == "list":
             for donor in donors:
                 print(donor[0])
+        elif FN not in donors:
+            donors.append(FN)
+            selection = FN
+        else:
+            selection = FN
+
+
+
+
 
 
 
