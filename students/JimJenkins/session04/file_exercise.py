@@ -12,9 +12,6 @@ Date: 11/05/2018
         binary files.
         Test it with both text and binary files (maybe jpeg or something of your choosing).
 
-
-
-
 """
 
 import os
