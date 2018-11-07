@@ -6,6 +6,7 @@ This version uses a dict for the main db, and exception handling to
 check input
 """
 
+import os
 import sys
 import math
 
@@ -26,6 +27,14 @@ def get_donor_db():
             'paul allen': ("Paul Allen", [663.23, 43.87, 1.32]),
             'mark zuckerberg': ("Mark Zuckerberg", [1663.23, 4300.87, 10432.0]),
             }
+
+
+OUT_PATH = "thank_you_letters"
+
+
+def prepare_to_run():
+    if not os.path.isdir(OUT_PATH):
+        os.mkdir(OUT_PATH)
 
 
 def list_donors():
@@ -197,7 +206,8 @@ def save_letters_to_disk():
         letter = gen_letter(donor)
         # I don't like spaces in filenames...
         filename = donor[0].replace(" ", "_") + ".txt"
-        print("writting letter to:", donor[0])
+        print("writing letter to:", donor[0])
+        filename = os.path.join(OUT_PATH, filename)
         open(filename, 'w').write(letter)
 
 
@@ -216,6 +226,8 @@ def quit():
 
 
 if __name__ == "__main__":
+
+    prepare_to_run()
 
     donor_db = get_donor_db()
 
