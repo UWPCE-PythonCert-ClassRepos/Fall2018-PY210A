@@ -38,10 +38,20 @@ for line in lines:
 des_file.close()
 
 
-count = 0
-for line in src_file:
+ori_file = 'students.txt'
+src_file = open(ori_file, 'r')
+lines = src_file.readori_file = 'students.txt'
+src_file = open(ori_file, 'r')
+lines = src_file.readlines()
+
+counts = dict()
+for line in lines:
     line = line.rstrip()
-    if not line.startswith ('From ') : continue
-    word = line.split()
-    print (word[1])
-count = count + 1
+    words = line.split()
+    for word in words:
+        counts[word] = counts.get(word, 0) + 1
+
+for key, val in counts.items():
+    print(key, val)
+
+#todo need to determine how to remove the names and nicknames
