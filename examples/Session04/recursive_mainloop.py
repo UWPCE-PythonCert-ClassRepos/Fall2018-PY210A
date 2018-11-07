@@ -25,6 +25,7 @@ def mainloop():
         # else:  # no expected response -- start the loop again
         #     mainloop()
 
+
 def second_loop():
     while True:
         ans = input('type "a", "b", or "go back')
