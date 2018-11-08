@@ -4,25 +4,41 @@
 Date: November 6th, 2018
 Created by: Carol Farris
 Purpose: Mailroom 2
-Goal: Use dict to switch between users selections (completed),
-    write thank you letter to the file, 
+Goal: Use Anaconda linter to write PEP8 Python code
+    Comment functions correctly
+    Use dict to switch between users selections (completed),
+    write thank you letter to the file,
     try to use the dict and .format() to produce the template
     rather than using one big string.
 """
 
 import sys
-     
+import os
+OUT_PATH = "thank_you_letters"
 
-#Part 1 of Thank You letter. Gets information from user and stores it.
+
+def prepare_to_write_to_disk():
+    """
+    Check OUT_PATH specified is a directory, if not, it will make it
+
+    """
+    if not os.path.isdir(OUT_PATH):
+        os.mkdir(OUT_PATH)
+
+
 def thankyou():
+    """
+    :param:
+    :returns:
+    """
     getPerson = ''
-    while getPerson not in donor_db :
+    while getPerson not in donor_db:
         getPerson = input('Please type the donors first and last name or '
                        'type list to get donor list ==>')
         getPerson = getPerson.strip().lower().title()
-        if getPerson == 'List' :
+        if getPerson == 'List':
             for key in donor_db:
-                print (key)
+                print(key)
         elif getPerson == 'x':
             exitout()
         else:
@@ -33,12 +49,18 @@ def thankyou():
             print(type(getDonation))
             if getPerson in donor_db:
                 donor_db[getPerson].append(getDonation)
-            else:    
-                donor_db[getPerson] =  [getDonation] 
-            printThankYou(getPerson,getDonation)                 
+            else:
+                donor_db[getPerson] = [getDonation]
+            printThankYou(getPerson, getDonation)
 
-#Part 2 of thank you letter. Prints the letter using string formatting.
-def printThankYou(getPerson, getDonation):                                           
+
+def printThankYou(getPerson, getDonation):
+    """
+    Assembles thank you letter for person and donation specified
+
+    :param: User provided person and donation amount
+    :returns: none (will return letter to save to disk shortly)######
+    """
     print("\n\nDear {},\n\n".format(getPerson))  #add dear and , to dictionary
     print("Thank you for your generous donation of ${} to our cause".format(getDonation))
     print("Because of donors like you, we are able to execute our mission to support \n" #add to above dictionary
@@ -83,7 +105,11 @@ def main():
         answer = input(' ==> ')
         answer = answer.strip() #Strip any whitespace
         answer = answer[0:1].lower() # this allows you to always make sure you get the first letter only. 
-        user_choices.get(answer)()     
+        user_choices.get(answer,retry)()
+
+def retry():
+    print("Please use the actual choices!")
+    return None             
         
 
 if __name__ == '__main__' :
@@ -97,6 +123,27 @@ if __name__ == '__main__' :
             } 
 
     main()
+
+    """
+    import math, import os, import sys
+    filename = os.path.join("thank_you_letters", filename)
+
+    #could also make that your variable:
+    OUT_PATH = thank_you_letters #at the top, a convention for constants.
+    filename = os.path.join(OUT_PATH, filename)
+
+    THEN, create a prepare to run function to make sure it works. 
+    when it is empty, type pass.
+
+    Then, you can 
+
+    def prepare_to_run()
+    if not os.path.isdir():  
+        os.mkdir(OUT_PATH)
+
+
+    filename = os.path.join(OUT_PATH, filename)
+    """
 
 
 
