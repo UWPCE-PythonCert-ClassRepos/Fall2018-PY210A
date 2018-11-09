@@ -2,8 +2,15 @@
 #Mailroom Part 2 Project
 #
 #!/usr/bin/env python3
+#import libraries
+from textwrap import dedent
+from pathlib import Path
+import os
 
 #define variables -
+#data_folder = Path("C:\pythonuw\Fall2018-PY210A\students\ericstreit\files")
+data_folder = r'C:\pythonuw\Fall2018-PY210A\students\ericstreit\files'
+
 # create donor list
 donors = {"Anna Fang": [23.53, 5000],
           "Tom Natsworthy": [99, 783, 3],
@@ -15,8 +22,7 @@ donors = {"Anna Fang": [23.53, 5000],
 
 # create menu dictionaries ARE BOTTOM OF THE PAGE
 
-
-#define function
+#define functions
 
 def thankyou():
     """This is the thank you menu that routes to the listuser or donor_update function"""
@@ -25,23 +31,30 @@ def thankyou():
     thankyou_dict.get(choice, badchoice)()
 
 def badchoice():
-    """ returns if valid menu input is not given"""
+    """ returns if a valid menu input is not given"""
     print("I did not understand, please try again!")
 
 def send_all():
-    print("send thank you to all")
+    """ sends a thank you to all donors """
+    print("sending a 'Thank You' to all donors!")
+    for donor in donors:
+        amount = sum(donors.get(donor))
+        file_write(donor, amount)
+        #print(compose_email(donor, amount))
+
 
 def send_one():
+    """ creates a single thank you, generating a printed email on screen """
     name = input("Enter name of the donor to thank: ")
     money = float(input("Enter how much money they donated: "))
     if donor_find(name) != True:
         donor_add(name, money)
     else:
         donor_contribute(name, money)
-    compose_email(name, money)
+    print(compose_email(name, money))
 
 def donor_contribute(name, money):
-    """ updates the db with the money the donor contributed """
+    """ updates the db with money the donor contributed """
     money_list = [money]
     money_update = donors.get(name) + money_list
     donors[name] = money_update
@@ -53,17 +66,31 @@ def list_donors():
         print(donor)
 
 def compose_email(name, amount):
-    """This function will compose the thank you email"""
-    print("\n\nEMAIL SENT:\n'Thank you, {}, for your generous contribution of ${}! We will be sure to ask you for more money again soon.'\n\n".format(name, amount))
-    print("Sincerely,\nDonations, Inc.\n\n")
+    """This function composes the thank you email txt"""
+    return dedent('''
+    \n\nEMAIL SENT:\n
+    Dear {},
+    Thank you for your generous contribution of ${:.2f}! We will be sure to ask you for more money again soon.
+
+    Sincerely,
+    Donations, Inc'''.format(name, amount))
+
+def file_write(donor, amount):
+    """This function will call upon the compose_email function and then write the contents to a file with the donors name"""
+    #replaces whitespace with underscores and add the .txt extension to the end. Stolen from teacher :)
+    filename = donor.replace(" ", "_") + ".txt"
+    data_file = os.path.join(data_folder, filename)
+    with open(data_file, 'w') as outfile:
+        outfile.write(compose_email(donor, amount))
+    outfile.close
 
 def donor_find(name):
-    """This function will search for a donor in the db"""
+    """This function will search for a donor in the db and return True if found """
     if name in donors:
         return True
 
 def donor_add(name, money):
-    """This function adds a donor to the db"""
+    """This function simply adds a donor to the db and the amount of money donated"""
     donors[name] = [money]
 
 def report():
@@ -91,8 +118,6 @@ def mainmenu():
         #takes the first letter of the choice and makes it lower case
         choice = choice[0:1].lower()
         menu_dict.get(choice, badchoice)()
-        #print("\nPlease enter 'S', 'R' or 'Q'")
-        #not needed but entering options other than s,  r or q will generate an error. I'm thinking the best way to handle this would be configuring a try exception that we learn later
 
 
 
