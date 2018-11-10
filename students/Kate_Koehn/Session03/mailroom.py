@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin python3
 
 """
 mailroom assignment
@@ -7,11 +7,8 @@ mailroom assignment
 # Mailroom Part 1
 
 #List of previous donors names and their donation amounts
-donors = {"Rick Sanchez": [3.00, 1.00],
-          "Liz Lemon": [4000.00, 3000.00, 6000.00],
-          "Andy Dwyer": [10.00],
-          "Brendan Small": [3.00, 10.00],
-          "Coach McGuirk": [2.00, 1.00]}
+donors = [("Rick Sanchez", [3.00, 1.00]), ("Liz Lemon", [4000.00, 3000.00, 6000.00]), ("Andy Dwyer", [10.00]),
+          ("Brendan Small", [3.00, 10.00]), ("Coach McGuirk", [2.00, 1.00])]
 
 
 #menu to give user options to Create a Report, Send a Thank you, or Quit
@@ -30,7 +27,8 @@ def menu():
         if response == "3":
             break
         elif response == "1":
-            create_report()
+####need to create report function            
+            pass
         elif response == "2":
             thanks()
         else:
@@ -39,11 +37,11 @@ def menu():
 
 #Thank the user for their donation
 def thanks():
-
+    
     #initialize input
     donor_name = ""
 
-    while donor_name == "" or donor_name == "E" or donor_name == "L":
+    while donor_name == "" or donor_name == "exit" or donor_name == "list":
         print("\n~ Thanking Your Donors ~\n")
         donor_name = input("Please choose from your list of options:\n\n"
                      "To send a thank you to a new donor, please type the full name of the donor you would like to thank and press 'Enter'. \n"
@@ -57,7 +55,7 @@ def thanks():
         #return list of previous donor names
         elif donor_name == "L":
             for name in donors:
-                print(name)
+                print(name[0])
 
     #set initial donation amount to 0
     donation = 0
@@ -69,11 +67,17 @@ def thanks():
         else:
             donation = float(donation)
 
+    #initialize new donor 
+    new_donor = True
 
     #check if donor already exists in donors dict, if not, append name and donation
-    donations = donors.setdefault(donor_name, [])
-    donations.append(donation)
-
+    for i in range(len(donors)):
+        if donors[i][0] == donor_name:
+            donors[i][1].append(donation)
+            new_donor = False
+            break
+    if new_donor:
+        donors.append((donor_name, [donation]))
 
     #call email function to print thank-you email
     email(donor_name, donation)
@@ -81,30 +85,18 @@ def thanks():
 
 #function to print a thank-you email
 def email(donor_name, donation):
-    message = ("\n\nDear {},"
-    "\n\nThanks for your money! Your donation of ${:.2f} will be summarily used to buy me beer.\n\n"
-    "Kind regards,\nKate Koehn").format(donor_name, donation)
-    file_name = "{}.txt".format(donor_name)
-    with open(file_name, "w") as f:
-        f.write(message)
-
-
-#create a report of all previous donors and their donations
-def create_report():
-    print("\n", "\n", "{:<20}{:5}{:5}{}".format("Donor Name", "| Total Given", "| Num Gifts", "| Average Gift"))
-    print("{:-<60}".format(""))
-    for donor, gifts in donors.items():
-        total = sum(gifts)
-        num_gifts = len(gifts)
-        avg_gift = total / num_gifts
-        print("{:<22} ${:<13.2f} {:<10} ${:.2f}".format(donor, total, num_gifts, avg_gift))
+     print("Dear {donor_name},\n",
+     "\nThanks for your money! Your donation of ${donation:.2f} will be summarily used to buy me beer.\n",
+     "\nKind regards,\n",
+     "Kate Koehn".format())
+    ######having issue with formatting - "donation" throws KeyError
 
 
 #welcome screen function
 def main():
-    print("Welcome to the Mailroom, Parts 1 and 2!")
+    print("Welcome to the Mailroom, Part 1!")
     menu()
-    print("Thanks for the dough, Smell you later!")
+    print("Smell you later!")
 
 
 if __name__ == "__main__":
