@@ -17,10 +17,14 @@ def print_donors():
 
 
 def thank_you():
-    # ask use for donor's name
+    # ask user for donor's name
     while True:
-        name = input("Enter a donor's name "
-                "(or 'list' to see all donors or 'menu' to exit)>")
+        # add exception
+        try:
+            name = input("Enter a donor's name "
+                        "(or 'list' to see all donors or 'menu' to exit)>")
+        except (KeyboardInterrupt, EOFError):
+            return None
         if name == "list":
             print_donors()
         elif name == "menu":
@@ -29,10 +33,21 @@ def thank_you():
             break
 
     # ask user for donation amount
-    dollar = input("Enter a donation amount (or 'menu' to exit)>")
-    if dollar == "menu":
-        return
-    dollar = float(dollar)
+    while True:
+        # add exception
+        try:
+            dollar = input("Enter a donation amount (or 'menu' to exit)>")
+        except (KeyboardInterrupt, EOFError):
+            return None
+        if dollar == "menu":
+            return
+        # add exception
+        try:
+            dollar = float(dollar)
+        except ValueError:
+            print("Input must be a number")
+        else:
+            break
 
     # add new name and donation amount to the donors history
     if name.title() in donors:
@@ -54,6 +69,7 @@ def thank_to_all():
         letter = "Dear {d_name},\n\n    Thank you for your donation of ${d_dollar}.\n\nBest,\nDonation Group".format(**d)
         with open(name + '.txt', 'w') as f:
             f.write(letter)
+        print("The thank you letter for {d_name} has been sent".format(**d))
 
 def make_report():
     # use comprehensions
@@ -80,7 +96,10 @@ def main():
     while answer != "q":
         print("Please select from the following")
         print("Quit: 'q',\nSend a Thank You to a single donor : 't',\nReport: 'r',\nSend letters to all donors: 's'")
-        answer = input(" => ")
+        try:
+            answer = input(" => ")
+        except (KeyboardInterrupt, EOFError):
+            return None
         answer = answer.strip()
         answer = answer[:1].lower()
         if answer == 't':
