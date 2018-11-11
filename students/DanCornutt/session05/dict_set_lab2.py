@@ -16,7 +16,7 @@ def c_dict():
     return food_prefs
 
 def chris_text(food_prefs):
-    """prints text about chris.
+    """returns text about chris.
 
     """
     body = """Chris is from {}, and he likes {} cake, {} fruit, {} salad,
@@ -35,7 +35,18 @@ def hex_dict():
     return h_dict.items()
 
 
+def a_dict():
+    """creates dictionary of number of A's from c_dict.values()
+    """
+    a_dict_count = dict(c_dict())
+    for k, v in a_dict_count.items():
+        a_dict_count[k] = v.count("a")
+    return a_dict_count
+
+
 if __name__ == "__main__":
     print(chris_text(c_dict())) #1
 
     print(hex_dict()) #2/#3
+
+    a_dict()
