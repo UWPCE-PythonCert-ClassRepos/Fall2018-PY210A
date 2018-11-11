@@ -81,7 +81,6 @@ def add_money():
 
 def report():
     rpt_sheet = []
-
     len_col = OrderedDict({
         "n_size": len("Donor Name"),
         "t_size" : len("Total Given"),
@@ -89,7 +88,6 @@ def report():
         "ag_size": len("Average Gift")
     })
 
-    #name_max, give_max, count_max, avg_max = 0, 0, 0, 0
     for d in DONORS.items():
         if len(d[0]) > len_col["n_size"]:
             len_col["n_size"] = len(d[0])
@@ -100,20 +98,9 @@ def report():
         if len(str(sum(d[1])/len(d[1]))) > len_col["ag_size"]:
             len_col["ag_size"] = len(str(sum(d[1])/len(d[1])))
         rpt_sheet.append((d[0], sum(d[1]), len(d[1]), sum(d[1])/len(d[1])))
-
-    # col1_size = int(max(len("Donor Name"), name_max) * 1.5)
-    # col2_size = int(max(len("Total Given"), give_max) * 1.25)
-    # col3_size = int(max(len("Num Gifts"), count_max) * 1.25)
-    # col4_size = int(max(len("Average Gift"), avg_max) * 1.25)
-    #
-    # print("Count max is: " + str(count_max))
     rpt_sheet.sort(key=return_total, reverse=True)
+
     sheet = (
-    # ("Donor Name" + (col1_size - len("Donor Name")) * " " +
-    #  "| Total Given" + (col2_size - len("Total Given")) * " " +
-    #  "| Num Gifts" + (col3_size - len("Num Gifts")) * " " +
-    #  "| Average Gift" + (col4_size - len("Average Gift")) * " ",
-    #  (col1_size + col2_size + col3_size + col4_size + 6) * "-")
         "{nm:{mnm}} | {tot:<{mtot}} | {ng:<{mng}} | {ag:<{mag}}\n{header}".format(
             nm="Donor Name", mnm=len_col["n_size"],
             tot="Total Given", mtot=len_col["t_size"],
@@ -122,26 +109,21 @@ def report():
             header=("-" * sum(len_col.values()))
         )
     )
-
-    # for r in rpt_sheet:
-    #     sheet = sheet + ("\n{:{}}" + r[0] + (col1_size - len(r[0])) * " " +
-    #     " $" + (col2_size - len(str(round(r[1], 2)))) * " " + str(round(r[1], 2)) +
-    #     (col3_size - len(str(r[2]))) * " " + str(r[2]) +
-    #     "   $" + (col4_size - len(str(round(r[3], 2))) - 3) * " " +  str(round(r[3], 2)))
-    for name, donations in DONORS.items():
+    for d in rpt_sheet:
         sheet = sheet + (
             "\n{n:{n_size}} |${t:>{t_size},.2f} | {ng:>{ng_size}} |$ {avg_g:<{ag_size},.2f}"
             .format(
-                n=name, n_size=len_col['n_size'],
-                t=sum(donations), t_size=len_col['t_size'],
-                ng=len(donations), ng_size=len_col['ng_size'],
-                avg_g=sum(donations)/len(donations), ag_size=len_col['ag_size']
+                n=d[0], n_size=len_col['n_size'],
+                t=d[1], t_size=len_col['t_size'],
+                ng=d[2], ng_size=len_col['ng_size'],
+                avg_g=d[3], ag_size=len_col['ag_size']
                 )
         )
     print(sheet)
 
 
 def return_total(elem):
+    """sorting function for list"""
     return elem[1]
 
 
