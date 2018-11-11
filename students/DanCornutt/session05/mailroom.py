@@ -4,6 +4,8 @@
 mailroom assignment part 2 & 3
 """
 from operator import itemgetter
+from collections import OrderedDict
+
 
 DONORS = {
     "Fred Jones": [100.01, 200, 300], "Amy Shumer": [2000, 4000, 1000],
@@ -12,14 +14,14 @@ DONORS = {
     }
 
 WELCOME_PROMPT = (
-    "Welcome, please select from the following\n"
+    "Welcome to the main menu, please select from the following\n"
     "Quit: 'q'\n"
     "Thank you: 't'\n"
     "Report: 'r'\n"
     )
 
 THANK_YOU_PROMPT: (
-    "Thank you menu, please select from the following:\n"
+    "Welcome to the thank you menu, please select from the following:\n"
     "Type a full name of donor to see their donations or add new donor\n"
     "Type 'list' if you would like to see the entire donor list\n"
     "Type 'Q' to quit this menu."
@@ -27,9 +29,9 @@ THANK_YOU_PROMPT: (
 )
 
 
-
 def thank_you():
-    """Prompts for user input thank you menu response. Validates repsonse is expected, repeats menu if not.
+    """Prompts for user input thank you menu responseselfself.
+    Validates repsonse is expected, repeats menu if not.
     """
     answer = "q"
     while answer != "Q":
@@ -37,13 +39,13 @@ def thank_you():
             "Please input:\n"
             "A full name of donor\n"
             "Or type 'list' if you would like to see the entire list\n"
-            "Or type 'Q' to quit.")
+            "Or type 'Q' to quit this menu.")
         answer = input("=> ").strip().title()
         if answer == 'List':
             donor_list()
-        elif answer.isalnum and answer != 'Q':
+        elif not answer.isalnum or answer.upper() != 'Q':
             add_donation(answer)
-            break
+            continue
         else:
             print("I am sorry, the name must be letters only")
 
@@ -54,18 +56,12 @@ def add_donation(donor_name):
     :param1: donar name
     """
     donation = add_money()
-    if not donation:
-        if donor_name in DONORS.keys():
-            DONORS[donor_name].append(donation)
-        else:
-            DONORS[donor_name] = donation
+    if donation:
+        DONORS.setdefault(donor_name, []).append(donation)
         print(
             "Thank you {} for your donation of ${:,.2f} dollars!".format(
                 donor_name, float(donation))
         )
-    else:
-        print("Exiting donation menu.")
-        quit_menu()
 
 
 def add_money():
@@ -81,43 +77,67 @@ def add_money():
         print("Donation Error, numbers only. Value must be number greater than 0.01")
         return None
     else:
-        return donation
+        return float(donation)
 
 def report():
-#TODO format with dictionary
     rpt_sheet = []
-    name_max, give_max, count_max, avg_max = 0, 0, 0, 0
-    for d in donors:
-        if len(d[0]) > name_max:
-            name_max = len(d[0])
-        if len(str(sum(d[1]))) > give_max:
-            give_max = len(str(sum(d[1])))
-        if len((d[1])) > count_max:
-            count_max = len((d[1]))
-        if len(str(sum(d[1])/len(d[1]))) > avg_max:
-            avg_max = len(str(sum(d[1])/len(d[1])))
+
+    len_col = OrderedDict({
+        "n_size": len("Donor Name"),
+        "t_size" : len("Total Given"),
+        "ng_size": len("Num Gifts"),
+        "ag_size": len("Average Gift")
+    })
+
+    #name_max, give_max, count_max, avg_max = 0, 0, 0, 0
+    for d in DONORS.items():
+        if len(d[0]) > len_col["n_size"]:
+            len_col["n_size"] = len(d[0])
+        if len(str(sum(d[1]))) > len_col["t_size"]:
+            len_col["Tt_size"] = len(str(sum(d[1])))
+        if len((d[1])) > len_col["ng_size"]:
+            len_col["ng_size"] = len((d[1]))
+        if len(str(sum(d[1])/len(d[1]))) > len_col["ag_size"]:
+            len_col["ag_size"] = len(str(sum(d[1])/len(d[1])))
         rpt_sheet.append((d[0], sum(d[1]), len(d[1]), sum(d[1])/len(d[1])))
 
-    col1_size = int(max(len("Donor Name"), name_max) * 1.5)
-    col2_size = int(max(len("Total Given"), give_max) * 1.25)
-    col3_size = int(max(len("Num Gifts"), count_max) * 1.25)
-    col4_size = int(max(len("Average Gift"), avg_max) * 1.25)
-
-    print("Count max is: " + str(count_max))
-    print(rpt_sheet)
+    # col1_size = int(max(len("Donor Name"), name_max) * 1.5)
+    # col2_size = int(max(len("Total Given"), give_max) * 1.25)
+    # col3_size = int(max(len("Num Gifts"), count_max) * 1.25)
+    # col4_size = int(max(len("Average Gift"), avg_max) * 1.25)
+    #
+    # print("Count max is: " + str(count_max))
     rpt_sheet.sort(key=return_total, reverse=True)
-    print(rpt_sheet)
-    sheet = "\n".join(("Donor Name" + (col1_size - len("Donor Name")) * " " +
-     "| Total Given" + (col2_size - len("Total Given")) * " " +
-     "| Num Gifts" + (col3_size - len("Num Gifts")) * " " +
-     "| Average Gift" + (col4_size - len("Average Gift")) * " ",
-     (col1_size + col2_size + col3_size + col4_size + 6) * "-"))
+    sheet = (
+    # ("Donor Name" + (col1_size - len("Donor Name")) * " " +
+    #  "| Total Given" + (col2_size - len("Total Given")) * " " +
+    #  "| Num Gifts" + (col3_size - len("Num Gifts")) * " " +
+    #  "| Average Gift" + (col4_size - len("Average Gift")) * " ",
+    #  (col1_size + col2_size + col3_size + col4_size + 6) * "-")
+        "{nm:{mnm}} | {tot:<{mtot}} | {ng:<{mng}} | {ag:<{mag}}\n{header}".format(
+            nm="Donor Name", mnm=len_col["n_size"],
+            tot="Total Given", mtot=len_col["t_size"],
+            ng="Num Gifts", mng=len_col['ng_size'],
+            ag="Average Gift", mag=len_col["ag_size"],
+            header=("-" * sum(len_col.values()))
+        )
+    )
 
-    for r in rpt_sheet:
-        sheet = sheet + ("\n" + r[0] + (col1_size - len(r[0])) * " " +
-        " $" + (col2_size - len(str(round(r[1], 2)))) * " " + str(round(r[1], 2)) +
-        (col3_size - len(str(r[2]))) * " " + str(r[2]) +
-        "   $" + (col4_size - len(str(round(r[3], 2))) - 3) * " " +  str(round(r[3], 2)))
+    # for r in rpt_sheet:
+    #     sheet = sheet + ("\n{:{}}" + r[0] + (col1_size - len(r[0])) * " " +
+    #     " $" + (col2_size - len(str(round(r[1], 2)))) * " " + str(round(r[1], 2)) +
+    #     (col3_size - len(str(r[2]))) * " " + str(r[2]) +
+    #     "   $" + (col4_size - len(str(round(r[3], 2))) - 3) * " " +  str(round(r[3], 2)))
+    for name, donations in DONORS.items():
+        sheet = sheet + (
+            "\n{n:{n_size}} |${t:>{t_size},.2f} | {ng:>{ng_size}} |$ {avg_g:<{ag_size},.2f}"
+            .format(
+                n=name, n_size=len_col['n_size'],
+                t=sum(donations), t_size=len_col['t_size'],
+                ng=len(donations), ng_size=len_col['ng_size'],
+                avg_g=sum(donations)/len(donations), ag_size=len_col['ag_size']
+                )
+        )
     print(sheet)
 
 
@@ -127,7 +147,8 @@ def return_total(elem):
 
 def donor_list():
     """prints donor in dict"""
-    print(DONORS.keys())
+    for k in DONORS:
+        print(k)
 
 
 def unknown():
