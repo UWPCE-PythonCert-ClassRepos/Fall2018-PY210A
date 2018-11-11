@@ -14,41 +14,69 @@ DONORS = {
     }
 
 WELCOME_PROMPT = (
-    "Welcome to the main menu, please select from the following\n"
-    "Quit: 'q'\n"
-    "Thank you: 't'\n"
-    "Report: 'r'\n"
+    "Welcome to the main menu, please select from the following:\n"
+    "1 - Send Thank You to a single donor.\n"
+    "2 - Create a report from Donor history.\n"
+    "3 - Send letters to all donors.\n"
+    "4 - Modify Donor Database.\n"
+    "5 - Quit\n"
     )
 
-THANK_YOU_PROMPT: (
-    "Welcome to the thank you menu, please select from the following:\n"
-    "Type a full name of donor to see their donations or add new donor\n"
-    "Type 'list' if you would like to see the entire donor list\n"
-    "Type 'Q' to quit this menu."
-
+DATABASE_PROMPT = (
+    "Welcome to the database menu, please select from the following:\n"
+    "1 - See list of donors.\n"
+    "2 - Add new donor or edit existing.\n"
+    "3 - Quit this menu.\n"
 )
 
-
-def thank_you():
-    """Prompts for user input thank you menu responseselfself.
-    Validates repsonse is expected, repeats menu if not.
+def check_donor(name, write=False):
+    """Returns True if user is in DB. Writes user if write=True
+    :param1: name of donor
     """
-    answer = "q"
-    while answer != "Q":
-        print(
-            "Please input:\n"
-            "A full name of donor\n"
-            "Or type 'list' if you would like to see the entire list\n"
-            "Or type 'Q' to quit this menu.")
-        answer = input("=> ").strip().title()
-        if answer == 'List':
-            donor_list()
-        elif not answer.isalnum or answer.upper() != 'Q':
-            add_donation(answer)
-            continue
-        else:
-            print("I am sorry, the name must be letters only")
+    if not write:
+        return name in DONORS.keys()
+    else:
+        DONORS[name] = []
 
+
+def write_donor(name):
+    """Writes thank you email to file"""
+    text = """Dearest {donor}, \n
+    We greatly thank you for your recent contribution of ${recent:.2f}.\n
+    It will go straight to the person who needs it the most, our CEO.\n
+    Please give more next time.\n
+    \tLove,\n
+    \t\t\tThe Team""".format(donor=name, recent=DONORS[name][-1])
+    with open(name.replace(" ","") + "_thank_you.txt", 'w') as f_out:
+        f_out.write(text)
+
+
+def thank_you(donor="", all_users=False):
+    """Writes thank you letter to file, if all_users is True write letters for all users in database
+    """
+    if all_users:
+        for d in DONORS:
+            write_donor(d)
+    else:
+        donor = input("Type Donor Name =>").title()
+        if check_donor(donor):
+            write_donor(donor)
+        else:
+            print("Sorry I could not find the donor, exiting...")
+
+
+def donor_db():
+    """Editing Donor Menu"""
+    menu_selection(DATABASE_PROMPT, DATABASE_DISPATCH)
+
+
+def edit_donor():
+    answer = input("input donor name=> ").strip().title()
+    if answer:
+        add_donation(answer)
+    else:
+        print("The name must be letters only, returning...")
+        thank_you()
 
 def add_donation(donor_name):
     """adds donation to donor records, adds donor if new donor
@@ -78,6 +106,12 @@ def add_money():
         return None
     else:
         return float(donation)
+
+
+def thank_you_all():
+    """Writes thank you email to all users"""
+    thank_you(all_users=True)
+
 
 def report():
     rpt_sheet = []
@@ -153,15 +187,17 @@ def menu_selection(prompt, dispatch_dict):
             break
 
 MAIN_DISPATCH = {
-    "t": thank_you,
-    "r": report,
-    "q": quit_menu
+    "1": thank_you,
+    "2": report,
+    "3": thank_you_all,
+    "4": quit_menu,
     }
 
-# THANK_YOU_DISPATCH = {
-#     "l": donor_list,
-#     "q": quit_menu
-# }
+DATABASE_DISPATCH = {
+    "1": donor_list,
+    "2": edit_donor,
+    "3": quit_menu
+}
 
 if __name__ == "__main__":
     menu_selection(WELCOME_PROMPT, MAIN_DISPATCH)
