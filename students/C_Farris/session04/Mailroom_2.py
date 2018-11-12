@@ -48,7 +48,7 @@ def thankyou():
         elif getPerson == 'x':
             exitout()
         else:
-            # In next version, input needs to be checked to ensure entry is numeric and sensible.
+            #   In next version, input needs to be checked to ensure entry is numeric and sensible.
             getDonation = int(input("Please enter donation amount:"
                                 "==>"))
             print("the type of getDonation is...")
