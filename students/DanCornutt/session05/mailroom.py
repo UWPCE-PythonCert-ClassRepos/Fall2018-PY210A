@@ -190,7 +190,8 @@ MAIN_DISPATCH = {
     "1": thank_you,
     "2": report,
     "3": thank_you_all,
-    "4": quit_menu,
+    "4": donor_db,
+    "5": quit_menu,
     }
 
 DATABASE_DISPATCH = {
