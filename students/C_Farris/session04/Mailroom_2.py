@@ -10,6 +10,12 @@ Goal: Use Anaconda linter to write PEP8 Python code
     write thank you letter to the file,
     try to use the dict and .format() to produce the template
     rather than using one big string.
+
+update: need to work on all donors...first show you can print to all donors
+         next, you need to print to disk
+
+         then, try to just print to disk from a single thank you. 
+         ...so no longer just printing to the command line.     
 """
 
 import sys
@@ -34,7 +40,7 @@ def thankyou():
     getPerson = ''
     while getPerson not in donor_db:
         getPerson = input('Please type the donors first and last name or '
-                       'type list to get donor list ==>')
+                          'type list to get donor list ==>')
         getPerson = getPerson.strip().lower().title()
         if getPerson == 'List':
             for key in donor_db:
@@ -42,7 +48,7 @@ def thankyou():
         elif getPerson == 'x':
             exitout()
         else:
-            #In next version, input needs to be checked to ensure entry is numeric and sensible.
+            # In next version, input needs to be checked to ensure entry is numeric and sensible.
             getDonation = int(input("Please enter donation amount:"
                                 "==>"))
             print("the type of getDonation is...")
@@ -52,6 +58,20 @@ def thankyou():
             else:
                 donor_db[getPerson] = [getDonation]
             printThankYou(getPerson, getDonation)
+
+
+def alldonors():
+    """
+    Print thank you letters to all donors.
+    first retrieve donor list, print to last donation and collective donations.
+
+    will have to pass the person and the donation amount to "print thank you"
+
+    pass
+    """
+    for key, value in donor_db:
+        sumDonations = round(float(sum(value)), 2)  # total Given
+        printThankYou(key, sumDonations)
 
 
 def printThankYou(getPerson, getDonation):
@@ -69,30 +89,41 @@ def printThankYou(getPerson, getDonation):
         "Sincerely,\n\n"  #Add as separate value
         "Team Umizoomi\n") #add as separate value
 
-#Part 1 of make Report. Calculates values to be put into report 	    
+
 def makereport():
+    """
+    Calculates values to put into report
+    :param:
+    :return:
+    """
     donorReport = []
-    #count = 0
-    for key, value in donor_db.items()  :
-        #count +=1
-        sumDonations = round(float(sum(value)),2) #total Given
+    for key, value in donor_db.items():
+        sumDonations = round(float(sum(value)), 2)  # total Given
         numDonations = len(value)
-        avgDonations = round(float(sum(value)/len(value)),2)
-        donorReport.append([sumDonations, key, numDonations,avgDonations ])
+        avgDonations = round(float(sum(value) / len(value)), 2)
+        donorReport.append([sumDonations, key, numDonations, avgDonations])
     sortedReport = sorted(donorReport)
     ascendingReport = sortedReport[::-1]
     printReport(ascendingReport)
 
-#Part 2 of Make report. Prints the calculated values to the console
-def printReport(ascendingReport):
-    for donor in ascendingReport:
-        print('{:<20}'.format(donor[1]),'{:<15}'.format(donor[0]),
-              '{:>5}'.format(donor[2]),'{:>25}'.format(donor[3]))    
 
-#generate a clean exit when user specifies an 'x'
+def printReport(ascendingReport):
+    """
+    print report using f.strings
+    :param: sorted list in ascending order that contains required information
+            for each donor
+    :return: It prints, neet to put into a return statement####
+    """
+    for donor in ascendingReport:
+        print('{:<20}'.format(donor[1]), '{:<15}'.format(donor[0]),
+              '{:>5}'.format(donor[2]), '{:>25}'.format(donor[3]))
+
+# generate a clean exit when user specifies an 'x'
+
+
 def exitout():
     print("Exiting program...\n")
-    sys.exit()	
+    sys.exit()
 
 
 def main():
@@ -100,27 +131,35 @@ def main():
     answer = ""
     while answer != 'x':
         print("\n\nPlease select from the following:")
-        print("x - Exit\nt - Thank you letter\n"
-             "r - Create a Report\n")
+        print("x - Exit\nt - Thank you letter\n" +
+              "a - send thank you letters to all donors\n" +
+              "r - Create a Report\n")
         answer = input(' ==> ')
-        answer = answer.strip() #Strip any whitespace
-        answer = answer[0:1].lower() # this allows you to always make sure you get the first letter only. 
+        answer = answer.strip()   #Strip any whitespace
+        answer = answer[0:1].lower()   # this allows you to always make sure you get the first letter only. 
         user_choices.get(answer,retry)()
 
-def retry():
-    print("Please use the actual choices!")
-    return None             
-        
 
-if __name__ == '__main__' :
-    user_choices = {'t': thankyou, 'r': makereport, 'x': exitout}
+def retry():
+    """
+    will prompt user to retry selection to make it valid
+
+    :param: none
+    :return: none
+    """
+    print("Please use the actual choices!")
+    return None
+
+
+if __name__ == '__main__':
+    user_choices = {'t': thankyou, 'r': makereport, 'x': exitout, 'a' : alldonors}
 
     donor_db = {"William Gates, III": [653772.32, 12.17],
-            "Jeff Bezos": [877.33],
-            "Paul Allen": [663.23, 43.87, 1.32],
-            "Mark Zuckerberg": [1663.23, 4300.87, 10432.0],
-            "John Galt": [25.00, 9038.01, 0.01]
-            } 
+                "Jeff Bezos": [877.33],
+                "Paul Allen": [663.23, 43.87, 1.32],
+                "Mark Zuckerberg": [1663.23, 4300.87, 10432.0],
+                "John Galt": [25.00, 9038.01, 0.01]
+                }
 
     main()
 
