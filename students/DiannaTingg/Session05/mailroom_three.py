@@ -129,18 +129,9 @@ def sort_key(person):
 # Create a report
 def create_report():
 
-    # donor_summary = []
-    #
-    # for person in donors:
-    #     name = person
-    #     total_given = sum(donors[person])
-    #     times_donated = len(donors[person])
-    #     avg_gift = total_given / times_donated
-    #     donor_summary.append([name, total_given, times_donated, avg_gift])
-
-    # Using list comprehension: name, total given, times donated, average gift
-    donor_summary = [[person, sum(donors[person]), len(donors[person]), sum(donors[person]) / len(donors[person])] for
-                     person in donors]
+    # Using comprehension: name, total given, times donated, average gift
+    donor_summary = [[person, sum(donations), len(donations), sum(donations) / len(donations)]
+                     for person, donations in donors.items()]
 
     # Sort Donor Summary by total given in descending order
     donor_summary = sorted(donor_summary, key=sort_key, reverse=True)
