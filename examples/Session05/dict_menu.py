@@ -6,6 +6,7 @@ from Lesson 4, video 3 Python's missing switch statement
 def menu_selection(prompt, dispatch_dict):
     while True: #this loops forever, until quit is selected
         response = input(prompt)
+        response = response[:1].lower()
         if dispatch_dict.get(response, unknown)() == "exit menu":
             break
 
