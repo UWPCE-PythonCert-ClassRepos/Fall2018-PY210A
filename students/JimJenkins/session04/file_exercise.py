@@ -52,6 +52,8 @@ for line in lines:
         counts[word] = counts.get(word, 0) + 1
 
 for key, val in counts.items():
+    if key == 'Swift':
+        counts.pop('Swift')
     print(key, val)
 
 #todo need to determine how to remove the names and nicknames
