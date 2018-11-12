@@ -3,7 +3,7 @@
 """
 Date: November 11, 2018
 Created by: Carol Farris
-title: list Lab
+Title: list Lab
 Goal: learn list functions
 """
 
