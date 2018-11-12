@@ -51,7 +51,8 @@ def main():
     print(the_fruits)
     
     print('series 3')
-    for item in the_fruits:
+    
+    for item in the_fruits[:]:
         fruit_choice = input('Do you like {}? (y/n): '.format(item)).lower()
 #         while fruit_choice not in ['y' or 'n']:
 #             fruit_choice = input('Please choose y or n')
@@ -65,7 +66,7 @@ def main():
             the_fruits.remove(item)
             print('{} has been removed from the list: '.format(item))
             print(the_fruits)
-            fruit_choice = input('Do you like {}? (y/n): '.format(item))
+            #fruit_choice = input('Do you like {}? (y/n): '.format(item))
 #         else:
 #             print('Please choose y or n')
 #             fruit_choice = input('Do you like {}? (y/n): '.format(item))
@@ -74,16 +75,16 @@ def main():
     print('Series 4')
     
     n = len(the_fruits)
-    fruit_copy = the_fruits
-    for item in range (len(the_fruits)):
-        #fruit_copy.append(the_fruits)
-        fruit_copy[item] = fruit_copy[item][:-1]
-    print(the_fruits)
-    print(fruit_copy)
-    print("The original list is {} minus the last item.".format(the_fruits[0:n-1]))
-    print("The original list items spelled backwards is {}: ".format(fruit_copy))
-    #break
+    reverse_fruits = []
+    for fruit in the_fruits:
+        r_fruit = fruit[::-1] 
+        reverse_fruits.append(r_fruit)
         
+    print(the_fruits)
+    print(reverse_fruits)
+    print("The original list is {} minus the last item.".format(the_fruits[0:n-1]))
+    print("The original list items spelled backwards is {}: ".format(reverse_fruits))
+   
     
 
     
