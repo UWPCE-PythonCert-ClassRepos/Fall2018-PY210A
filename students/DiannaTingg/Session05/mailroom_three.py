@@ -1,7 +1,8 @@
 # Lesson 05 Assignment: Mailroom, Part 3
 
-# Import module
+# Import modules
 import datetime
+import os
 
 # Make a dictionary that holds donor names and a history of the amounts they donated
 donors = {"Jimmy Fallon": [500.00, 700.00], "Taylor Swift": [1000.00], "Dan White": [200.00, 300.00, 400.00],
@@ -109,11 +110,24 @@ def thank_you(personal_dict):
 
 # Send Thank You Letters to All Donors for their most recent donation
 def thank_all():
-    path = input("Enter the path where you want the letters saved (Example: C:\\Users\\dtingg\\)"
-                 "or press Enter to use the default directory: ")
+    directory = input("Enter the path where you want the letters saved (Example: C:\\Users\\dtingg\\)"
+                      "or press Enter to use the default directory: ").strip()
+
+    # Check if directory exists
+    if directory == "":
+        pass
+    else:
+        if not os.path.isdir(directory):
+            try:
+                os.mkdir(directory)
+            except (FileNotFoundError, PermissionError):
+                print("Sorry, that directory doesn't exist.")
+                return
 
     for person in donors:
-        with open(path + person + " " + datetime.datetime.now().strftime("%m-%d-%Y")+".txt", "w+") as outfile:
+        path = os.path.join(directory, person + " " + datetime.datetime.now().strftime("%m-%d-%Y")+".txt")
+
+        with open(path, "w") as outfile:
             donor_dict = make_personal_dict(person, donors[person][-1])
             donor_letter = thank_you(donor_dict)
             outfile.write(donor_letter)
