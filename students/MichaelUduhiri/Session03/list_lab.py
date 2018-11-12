@@ -32,7 +32,17 @@ if delete_fruit in fruits:
 print(fruits)
 
 '''Series 3'''
-like_fruit = input("Do you ")
+print(fruits)
+like_fruit = input("Do you like " + str.lower(fruits[0]) + "? ")
+if like_fruit == "no":
+    fruits.remove(fruits[0])
+while like_fruit != "yes" or "no":
+    print(like_fruit)
+print(fruits)
 
 
 '''Series 4'''
+new_fruit_list = fruits[::-1]
+new_fruit_list.reverse
+reverse_new_fruit_list = [i[::-1] for i in new_fruit_list]
+print(reverse_new_fruit_list)
