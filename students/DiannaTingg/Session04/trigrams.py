@@ -8,11 +8,8 @@ def make_trigrams(words):
     tris = {}
 
     for i in range(len(words)-2):
-        pair = words[i:i+2]
+        pair = tuple(words[i:i+2])
         follower = words[i+2]
-
-        # Convert to a tuple
-        pair = (pair[0], pair[1])
 
         # If in dictionary, append value, otherwise add it
         if pair in tris:
@@ -23,30 +20,26 @@ def make_trigrams(words):
 
 
 # Get random word from dictionary
-def get_random_word(d):
+def get_random_pair(d):
     word = random.choice(list(d.keys()))
     return word
 
 
 # Use dictionary to build new text
 def use_trigrams(d):
-    start = get_random_word(d)
+    start = get_random_pair(d)
 
-    alternate_word = ""
-
-    text_words = [start[0], start[1]]
+    text_words = list(start)
 
     while len(text_words) < 250:
-        pair = (text_words[-2], text_words[-1])
+        pair = tuple(text_words[-2:])
 
         if pair in d:
-            text_words.append(random.choice(list(d[pair])))
-
+            text_words.append(random.choice(d[pair]))
         else:
-            while pair not in d:
-                alternate_word = get_random_word(d)
+            alternate_word = get_random_pair(d)
 
-            text_words.append([alternate_word[0], [alternate_word[1]]])
+            text_words.append(list(alternate_word))
 
     text_words[0] = text_words[0].capitalize()
     final_text = " ".join(text_words) + "!"
