@@ -15,7 +15,7 @@ Notes for each Session
     session03
     session04
     session05
-..    session06
+    session06
 ..    session07
 ..    session08
 ..    session09
