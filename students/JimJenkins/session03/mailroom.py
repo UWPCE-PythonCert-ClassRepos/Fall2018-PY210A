@@ -43,27 +43,22 @@ def send_thankyou():
                 print(donation_list[i][0])
         #donor in list
         elif donor_name in donation_list:
-            donation_amount = input('\nHow much was contributed?: ')
+            donation_amount = int(input('\nHow much was contributed?: '))
             add_donation(donor_name, donation_amount)
-            create_email(donor_name)
+            create_email(donor_name, donation_amount)
             break
         #donor not in list
         elif donor_name not in donation_list:
             add_donor(donor_name)
-            donation_amount = input('\nHow much was donated?: ')
+            donation_amount = int(input('\nHow much was donated?: '))
             add_donation(donor_name, donation_amount)
-            create_email(donor_name)
+            create_email(donor_name, donation_amount)
             break
 
 
 def create_report():
     print(menu['2'])
-
-    print("{} | {} | {} | {}".format('Donor Name:', 'Total Given:', 'Num Gifts:', 'Average Gift:'))
-    for donor in donation_list:
-        print('{:<15}   ${:>9,.2f}'.format(donor['name'], donor['donation_amount']))
-
-    return
+    return report_creator()
 
 
 def quit():
@@ -72,24 +67,45 @@ def quit():
 
 
 def add_donor(a):
-    #donation_list{0][1] = 'Clarence Thomas'
-    #if donation_list[0][1] == a
-    #donation_list[1][1].append(donation)
+    indicator = False
+    for i, donor in enumerate(donation_list):
+        if a == (donation_list[i][0]):
+            indicator = True
 
-    if a not in donation_list:
+    if(indicator == False):
         donation_list.append(a)
         print('Added', a, 'to the donors list.')
 
 
 def add_donation(a, b):
-    if a in enumerate(donation_list):
-        donation_list.append(b)
+    for i, donor in enumerate(donation_list):
+        if a == (donation_list[i][0]):
+            donation_list.append(b)
+    print('Added ${:.2f} to the donation list for {}.'.format(b, a))
 
 
-#donation_list[3][1].append(donation)
+def create_email(a, b):
+    print('\n\nDear {}: '
+          '\n\nThank you for your contribution of ${:.2f}. Your donation will help.'
+          '\n\nSincerely, The Non-Profit'.format(a, b))
+    print(donation_list)
 
-def create_email(a):
-    print('create email', a)
+
+def average(a):
+    return sum(a) / len(a)
+
+
+def count(a):
+    return len(a)
+
+
+def report_creator():
+    print(' ')
+    print("{:<20} | {:^16} | {:^16} | {:^17}".format('Donor Name:', 'Total Given:', 'Num Gifts:', 'Average Gift:'))
+    print('=' * 80)
+    for i, donor in enumerate(donation_list):
+        user = donation_list[i][1]
+        print('{:<20} | ${:>15,.2f} | ${:>15,.2f} | {:^15}'.format(donation_list[i][0], sum(user), average(user), count(user)))
 
 
 #menu
@@ -120,31 +136,4 @@ while True:
 
 
 if __name__ == '__main__':
-    #main()
-    '''
-    print('<<<<< unit tests >>>>>>')
-    assert show_list('yes') is None
-    assert show_list('no') is None
-    assert search_donors('Clarence Thomas') is None
-    assert search_donors('clarence Thomas') is None
-    assert search_donors('Robert Bork') is None
-    assert search_donors('Ruth Bader Ginsberg') is None
-    assert add_donor('Sandra Day Oconnor') is None
-    print(donor_list)
-    assert get_donation_amount(200.00)is None
-    '''
-
-
-"""
-#from class discussion
-
-def menu_selection(prompt, dispatch_dict):
-    while True: #runs until quit is selected
-        response = input(prompt)
-        response = response[:1].lower()
-        If dispatch_dict.get(response, unknown)() == 'exit menu'
-            break
-
-main_dispatch = 
-
-"""
+    main()
