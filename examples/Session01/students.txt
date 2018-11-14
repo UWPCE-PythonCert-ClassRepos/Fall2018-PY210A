@@ -10,7 +10,7 @@ Daniel Andrew Cornutt (Dan): python, java, VBA
 Manmeet S Dosanjh: SQL, python
 Carol Louise  Farris: Javascript, html, css
 Parastoo  Javadi: python
-Jim Jenkins:
+Jim Jenkins: basic,
 Jae Kim: powershell,
 Jugal Kishore: basic, C++, C,
 Kathryn Claire  Koehn (Kate): Python,
@@ -22,7 +22,7 @@ Adolphe Aime  Ndilingiye: java,
 An T  Nguyen (Fyfy): SQL,
 Thanh H Nhan: C#, ASP.net
 Brian E Nisonger: perl, C, SQL
-Timothy J Pauley:
+Timothy J Pauley: C#, scala, Java, javascript
 Austen  Rawle: javascript, ruby, .net, java
 Jon Serpas: python, bash, SQL, javascript
 Kannappan Sethunarayanan (kanahn): python, java
