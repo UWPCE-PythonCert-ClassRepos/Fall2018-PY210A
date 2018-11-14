@@ -1,22 +1,22 @@
 """
-this program uses dictionaries for menus 
+this program uses dictionaries for menus
 from Lesson 4, video 3 Python's missing switch statement
 """
 
 def menu_selection(prompt, dispatch_dict):
     while True: #this loops forever, until quit is selected
         response = input(prompt)
-        if dispatch_dict[response]() == "exit menu":
+        if dispatch_dict.get(response, unknown)() == "exit menu":
             break
 
 def fun1():
-    print("You selected the first option.")		
+    print("You selected the first option.")
 
 def fun2():
-    print("You selected the second option.")	
+    print("You selected the second option.")
 
 def fun3():
-    print("You selected the third option.")	
+    print("You selected the third option.")
 
 def fun4():
 	print("You selected the fourth option.")
@@ -27,6 +27,10 @@ def sum_menu():
 def quit():
     print("Quitting the menu now.")
     return "exit menu"
+
+def unknown():
+    print("that was not a valid response")
+    return None
 
 main_prompt = ("You are in the main menu now\n"
 			   "What do you want to do?\n"
@@ -45,7 +49,7 @@ main_dispatch = {"1" : fun1,
 
 sub_prompt = ("\nYou are in a sub-menu now\n"
 			  "What do you want to do?\n"
-			  "Type 1, 2, 3, or 4, or q to exit >>"	
+			  "Type 1, 2, 3, or 4, or q to exit >>"
 			  )
 
 sub_dispatch = {"1" : fun1,
@@ -57,7 +61,7 @@ sub_dispatch = {"1" : fun1,
 
 if __name__ == "__main__":
     #try a couple menu selections
-    menu_selection(main_prompt, main_dispatch)				
+    menu_selection(main_prompt, main_dispatch)
 
 
 

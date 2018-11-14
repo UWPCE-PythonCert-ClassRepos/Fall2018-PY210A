@@ -15,8 +15,11 @@ Lightning Talks
 ===============
 
 Brian E Nisonger
+
 Carol Louise  Farris
+
 Dianna  Tingg
+
 Manmeet S Dosanjh
 
 
