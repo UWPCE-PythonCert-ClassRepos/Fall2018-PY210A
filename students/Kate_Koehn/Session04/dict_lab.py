@@ -8,19 +8,19 @@ Dictionary Lab
 cake_pref = {"name": "Chris", "city": "Seattle", "cake": "ChocolaTe"}
 print(cake_pref)
 
-# #delete the entry for cake
-# del cake_pref["cake"]
-# print(cake_pref)
+#delete the entry for cake
+del cake_pref["cake"]
+print(cake_pref)
 
-# #add entry for "fruit" with "Mango" and display dict
-# cake_pref["fruit"] = "Mango"
-# print(cake_pref)
+#add entry for "fruit" with "Mango" and display dict
+cake_pref["fruit"] = "Mango"
+print(cake_pref)
 
-# #display whether or not "cake" is in dict
-# print("cake" in cake_pref)
+#display whether or not "cake" is in dict
+print("cake" in cake_pref)
 
-# #display whether or not "Mango" is in dict
-# print("Mango" in cake_pref.values())
+#display whether or not "Mango" is in dict
+print("Mango" in cake_pref.values())
 
 #t_count = {}
 for keys, letter in cake_pref.items():
