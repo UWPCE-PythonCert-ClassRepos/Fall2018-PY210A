@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Dictionaries 1"""
+ 
 # Create a dictionary containing “name”, “city”, and “cake” for “Chris” from “Seattle” who likes “Chocolate” 
 # (so the keys should be: “name”, etc, and values: “Chris”, etc.)
 my_dict = {"name": "Chris","city": "Seattle","cake": "Chocolate"}
@@ -12,9 +13,11 @@ my_dict.popitem()
 del my_dict["cake"]
 print(my_dict)
 
+
 # Add an entry for “fruit” with “Mango” and display the dictionary.
 dict = my_dict
 my_dict['fruit'] = 'Mango'
+
 print(my_dict)
 
 # Display whether or not “cake” is a key in the dictionary (i.e. False) (now).
@@ -80,4 +83,3 @@ zz = f.intersection(s1)
 
 print("intersection", z)
 print("intersection with", zz)
-
