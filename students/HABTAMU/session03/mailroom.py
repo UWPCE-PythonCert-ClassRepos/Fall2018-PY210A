@@ -60,10 +60,18 @@ def exit_program():
 def main():
     while True:
         response = input(prompt)
-        arg_dict = {"T":send_thankyou(), "R":create_report(), "Q":exit_program()}
-        arg_dict.get(response,"Not a valid option")
+        if response == "T":
+            send_thankyou()
+
+        elif response == "R":
+            create_report()
+
+        elif response == "Q":
+            exit_program()
+
+        else:
+            print("No a valid option")
 
 if __name__ == '__main__':
     main()
-
 
