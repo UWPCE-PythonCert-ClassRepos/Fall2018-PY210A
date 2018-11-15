@@ -31,7 +31,6 @@ def build_trigrams(words):
             trigrams[pair].append(follower)
         else:
             trigrams[pair] = [follower]
-
     return trigrams
 
 
