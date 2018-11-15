@@ -1,12 +1,18 @@
 #!/usr/bin python3
 import sys
+import math
 
-donors_info = [("Bill Gates", [3500, 5500, 7500]),
-               ("Paul Alen", [3000, 3700, 3900]),
-               ("Jeff Benzo", [3300, 5000, 7500]),
-               ("Mark Zuckerberg", [33565.37, 465.37, 545.37, 7506]),
-               ("Warren Buffett", [3303.17, 334.17, 5080, 7500])
-               ]
+# handy utility to make pretty printing easier
+from textwrap import dedent
+
+def get_donors_db():
+    return {'Bill Gates': ("bill gates", [3500, 5500, 7500]),
+            'Paul Alen': ("paul alen", [3000, 3700, 3900]),
+            'Jeff Benzo': ("jeff benzo", [3300, 5000, 7500]),
+            'Mark Zuckerberg': ("mark zuckerberg", [33565.37, 465.37, 545.37, 7506]),
+            'Warren Buffett': ("warren buffett", [3303.17, 334.17, 5080, 7500])
+            }
+
 
 prompt = "\n".join(("\n Please choose from the following!:",
                     " Choices are ?:",
@@ -20,18 +26,19 @@ def send_thankyou():
     while d_name == "list":
         d_name = input("Enter a donor name Or Type \'list' if you don't know the name ?: ")
         if d_name == "list":
-            for name in donors_info:
-                print(f"- {name[0]}")
+            for name in get_donors_db():
+                print(f"- {name[::1]}")
             continue
 
-    for name in donors_info:
+    for name in get_donors_db():
         if name[0] == d_name:
             new_name = name
             break
     else:
         print("New Donor added!")
         new_name = (d_name, [])
-        donors_info.append(new_name)
+        #get_donors_db.append(new_name)
+        get_donors_db.update(new_name)
 
     contribution = float(input(f"Enter {d_name} contribution :? "))
     new_name[1].append(contribution)
@@ -48,7 +55,7 @@ def create_report():
     print("{:<20}| {:<10} | {:<10} | {:<10}".format("Donor Name", "Total Given", " Num Gifts", "Average Gift"))
     print("-" * 60)
     # donors_info.sort(key=report_sort, reverse=True)
-    for name in donors_info:
+    for name in get_donors_db():
         print("{:<21} ${:>11.2f} {:>12} ${:>12.2f}".format(
             name[0], sum(name[1]), len(name[1]), sum(name[1]) / len(name[1])))
 
@@ -60,18 +67,11 @@ def exit_program():
 def main():
     while True:
         response = input(prompt)
-        if response == "T":
-            send_thankyou()
-
-        elif response == "R":
-            create_report()
-
-        elif response == "Q":
-            exit_program()
-
-        else:
-            print("No a valid option")
-
+        arg_dict = {"T": send_thankyou(), "R": create_report(),
+                    "Q": exit_program()}
+        arg_dict.get(response, "Not a valid option")
+        
 if __name__ == '__main__':
     main()
+
 
