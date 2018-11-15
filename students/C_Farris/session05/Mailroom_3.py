@@ -5,8 +5,10 @@ Date: November 13th, 2018
 Created by: Carol Farris
 Purpose: Mailroom 3
 Goal: Add as many exception handlers as possible (added 3 for User input)
-      Add comprehensions...need to complete
+      Added one comprehension: makereport()
       update code to continue to keep clean PEP8 code (ongoing)
+Note: I chose to only do one comprehension as I am seeing I will need to refactor my code for testability anyway!
+      I will shoot to add more comprehensions in Mailroom 4
 """
 
 import sys
@@ -94,7 +96,6 @@ def thankyou():
             exitout()
         else:
             try:
-                print(donor_db[getPerson])
                 donation = getDonation()
                 donor_db[getPerson].append(donation)
             except KeyError:
@@ -111,7 +112,9 @@ def alldonors():
     first retrieve donor list, print to last donation and collective donations.
     will have to pass the person and the donation amount to "print thank you"
     """
+    print("###############################################################")
     print("Printing to file thank you letters to all donors in database...")
+    print("###############################################################")
     for key, value in donor_db.items():
         sumDonations = round(float(sum(value)), 2)  # total Given
         donorLetter = assemble_thank_you(key, sumDonations)
@@ -133,12 +136,9 @@ def makereport():
     :param:
     :return:
     """
-    donorReport = []
-    for key, value in donor_db.items():
-        sumDonations = round(float(sum(value)), 2)  # total Given
-        numDonations = len(value)
-        avgDonations = round(float(sum(value) / len(value)), 2)
-        donorReport.append([sumDonations, key, numDonations, avgDonations])
+    donorReport = [[round(float(sum(value)), 2), key, len(value),
+                    round(float(sum(value) / len(value)), 2)]
+                    for key, value in donor_db.items()]
     sortedReport = sorted(donorReport)
     ascendingReport = sortedReport[::-1]
     printReport(ascendingReport)
@@ -158,6 +158,9 @@ def printReport(ascendingReport):
 
 
 def exitout():
+    """
+    produces a clean exit from the program
+    """
     print("Exiting program...\n")
     sys.exit()
 
@@ -185,9 +188,9 @@ def retry():
     :param: none
     :return: none
     """
-    print("##########_ERROR_##############")
+    print("\n\n\n##########_ERROR_##############")
     print("Please use the actual choices!")
-    print("##########________##############")
+    print("###############################\n\n\n")
     return None
 
 
