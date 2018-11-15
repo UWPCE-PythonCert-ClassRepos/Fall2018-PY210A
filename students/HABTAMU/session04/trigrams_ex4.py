@@ -46,16 +46,17 @@ def strip_punc(my_punc):
 
 def build_txt(trigrams):
     """
-    Build up some new “fake” text, first pick a random key pair to start with from a dict trigrams.
+    Build up some new “fake” text and one big string sentence , first pick a random key pair to start with from a dict trigrams.
     arguments:
-        dict trigrams
+        dict_key from trigrams
     return:
         list: fake_txt[]
+        sent_str:
     """
 
     fake_txt = []
-    pair_txt = random.choice(list(trigrams.keys()))
-    fake_txt.extend(pair_txt)
+    # pair_txt = random.choice(list(trigrams.keys()))
+    # fake_txt.extend(pair_txt)
 
     while len(fake_txt) < 50:
         pair = tuple(fake_txt[-2:])
@@ -69,19 +70,19 @@ def build_txt(trigrams):
         one_word = random.choice(followers)
         fake_txt.append(one_word)
 
-    print(fake_txt)
-    x = " ".join(fake_txt)
-    return x
+    # concatenate list item into strings
+    sent_str = " ".join(fake_txt)
+    print(sent_str)
 
 
 if __name__ == "__main__":
     #get the filename from the command line
+    try:
+        f_name = sys.argv[1]
+    except IndexError:
+        print("Youn must pass in a filename")
+        sys.exit(1)
     words = read_in_data(f_name)
-    # try:
-    #     f_name = sys.argv[1]
-    # except IndexError:
-    #     print("Youn must pass in a filename")
-    #     sys.exit(1)
     trigrams = build_trigrams(words)
     new_txt = build_txt(trigrams)
     #print(new_txt)
