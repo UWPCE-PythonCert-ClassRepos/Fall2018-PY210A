@@ -6,46 +6,93 @@
 #Purpose: Slicing Lab
 
 
-"""Write some functions that take a sequence as an argument, and return a copy of that sequence:
-with the first 4 and the last 4 items removed, and then every other item in the remaining sequence.
-with the elements reversed (just with slicing).
-with the last third, then first third, then the middle third in the new order.
-NOTE: These should work with ANY sequence – but you can use strings to test, if you like."""
-
-
-myList = [1,2,3,4,5,6,7,8,9,10,11,12]
-myString = "The Quick Brown Fox Jumped Over The Lazy Dog"
-
 
 def swapfirstlast(n):
-    print("value before swapping:")
-    print(n)
-    newList = [n[-1], n[1:-1], n[0]]
-    print(*newList)
+    """
+    print sequence with first and last items exchanged
+    :param(n):  sequence to print
+    :return: modified sequence
+    """
+    print (n[-1:] + n[1:-1] + n[:1])
+    return (n[-1:] + n[1:-1] + n[:1])
+
 
 def everyotheritem(n):
+    """
+    Prints every other item in sequence.
+    :param(n):  Sequence to print
+    :return: modified sequence
+    """
     print(n[1::2])
-    pass
+    return(n[1::2])
 
 
-"""#remove every other item in the list
- def everyotherremoved(n):
-     altList = n #remove every other item
-
-     return 
+def middle_every_other(n):
+    print(n[3:-4:2])
+    return(n[3:-4:2])
 
 
-#first four and last four items removed
-def first4last4removed(n):
-    alist= n
+def reverseTheList(n):
+    """"
+    Returns the reverse of the sequence
+    :param(n):  Sequence to reverse
+    :return: modified sequence
+    """
+    print(n[::-1])
+    return(n[::-1])
 
 
-def elementsReversed(n): """
+def mixByThirds(n):
+    """
+    Returns sequence mixed by thirds last, first, middle third
+    :param(n): Sequence to mix
+    :return: modified sequence
+    """
+    eachDiv = int(len(n) / 3)
+    if len(n) % 3 == 0:
+        return(n[(2 * eachDiv): (3 * eachDiv)] +
+               n[0: eachDiv] + n[eachDiv: (2 * eachDiv)])
+    elif len(n) % 3 == 2:
+        return(n[(2 * eachDiv + 1): ((3 * eachDiv) + 2)] +
+               n[0: eachDiv] + n[eachDiv: (2 * eachDiv + 1)])
+    else:
+        return(n[(2 * eachDiv): (3 * eachDiv + 1)] +
+               n[0: eachDiv] + n[eachDiv: (2 * eachDiv)])
+
+
 if __name__ == '__main__':
+
+    myList = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13)
+    myString = "Python3Python3Python3Python3"
+    myTest = "Together"
+    myTest2 = "Python3"
+
     swapfirstlast(myList)
     swapfirstlast(myString)
+
     everyotheritem(myList)
     everyotheritem(myString)
 
+    middle_every_other(myList)
+    middle_every_other(myString)
 
+    reverseTheList(myList)
+    reverseTheList(myString)
 
+    mixByThirds(myList)
+    mixByThirds(myString)
+    mixByThirds(myTest)
+    mixByThirds(myTest2)
+
+    assert swapfirstlast(tuple(myList)) == (13, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1)
+    assert swapfirstlast(myString) == '3ython3Python3Python3PythonP'
+    assert everyotheritem(myList) == (2, 4, 6, 8, 10, 12)
+    assert everyotheritem(myString) == 'yhnPto3yhnPto3'
+    assert middle_every_other(myList) == (4, 6, 8)
+    assert middle_every_other(myString) == 'hnPto3yhnPt'
+    assert reverseTheList(tuple(myList)) == (13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
+    assert reverseTheList(myString) == '3nohtyP3nohtyP3nohtyP3nohtyP'
+    assert mixByThirds(tuple(myList)) == (9, 10, 11, 12, 13, 1, 2, 3, 4, 5, 6, 7, 8)
+    assert mixByThirds(myString) == 'on3Python3Python3Python3Pyth'
+    assert mixByThirds(myTest) == 'herToget'
+    assert mixByThirds(myTest2) == 'on3Pyth'
