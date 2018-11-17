@@ -5,6 +5,7 @@ Date: October 30, 2018
 Created by: Carol Farris
 Purpose: String Formatting Lab
 Goal: Gain familiarity with string formatting
+
 """
 
 from decimal import Decimal
