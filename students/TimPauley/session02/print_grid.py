@@ -23,5 +23,4 @@ def print_grid(size):
 
 
 
-print_grid(7)
 
