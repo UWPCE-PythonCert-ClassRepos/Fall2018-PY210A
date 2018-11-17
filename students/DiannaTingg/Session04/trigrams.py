@@ -24,7 +24,7 @@ def make_trigrams(words):
 def get_random_pair(d):
     while True:
         pair = random.choice(list(d.keys()))
-        if pair[0].isupper():
+        if pair[0][0].isupper():
             return pair
 
 
