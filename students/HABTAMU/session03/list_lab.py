@@ -61,8 +61,8 @@ else:
 
 a_list = ["Apples", "Pears", "Oranges", "Peaches"]
 for i, name in enumerate(a_list):
-    answer = input("Do you like {} (y/n) ?:".format(a).strip().lower())
     a = a_list[i]
+    answer = input("Do you like {} (y/n) ?:".format(a).strip().lower())
     if answer == 'y':
         print(a_list)
     elif answer == 'n':
