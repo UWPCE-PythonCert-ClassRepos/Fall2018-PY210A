@@ -67,13 +67,13 @@ def read_file(file):
                 break
 
         # Clean up remaining lines
-        for l in lines:
+        for line in lines:
             # Skip empty lines
-            if l == "\n":
+            if line == "\n":
                 continue
             else:
                 # Remove whitespace at start and end of line
-                strip_line = l.strip()
+                strip_line = line.strip()
 
                 # Split line based on spaces and add words to text list
                 text.extend(strip_line.split())
