@@ -21,14 +21,75 @@ Zachary A Connaughton (Zach)
 Issues that came up during the week.
 ====================================
 
-gitHub Pull Requests
---------------------
 
-Make sure to make a comment on a PR what it is about:
+chaining or, etc.
+-----------------
 
-* Which assignment it is
+this looks pretty nifty:
 
-* What you want reviewed
+.. code-block:: python
+
+    while answer != 'x' or 'r' or 't' or 'a':
+        do_something()
+
+But does that mean what you expect it to?
+
+will it ever be ``False``?
+
+Let's play with that...
+
+Operator Precedence
+...................
+
+This table tells you which opertors have "Precedence" over each other -- that is, which are evaluated first:
+
+https://docs.python.org/3/reference/expressions.html#operator-precedence
+
+When in doubt -- add parenthesis to make it clear. Cis there a way to add parentheses that works for the above?
+
+Comparison Chaining
+...................
+
+Another complication in all this is chaining of comparisons:
+
+https://docs.python.org/3/reference/expressions.html#comparisons
+
+It allows you to do nifty (and very readable) things like:
+
+.. code-block:: python
+
+    if a < b < c:
+        do_something()
+
+That's nice, 'cause it looks a lot like math -- simple and clear.
+
+and that means:
+
+.. code-block:: python
+
+    if (a < b) and (b < c):
+        do_something()
+
+
+So with chaining, you can't just add parentheses to make it clear.
+
+Also -- like with ``and`` and ``or``, chaining "shortcuts".  In the example above, if ``a`` is not less than ``b``, then ``c`` will never be evaluated. And ``b`` will only be evaluated once in any case.
+
+So what's going on here?
+
+.. code-block:: ipython
+
+    In [41]: 2 < 5 in range(3)
+    Out[41]: False
+
+    In [42]: (2 < 5) in range(3)
+    Out[42]: True
+
+    In [43]: 2 < (5 in range(3))
+    Out[43]: False
+
+
+Turns out that ``in``, ``not``, ``not in`` are considered comparison operators too.
 
 
 Mutating vs. re-assigning
@@ -50,7 +111,7 @@ If you are adding one element to a list -- ``append()`` is the way to go.
 
 Using addition works fine, but it's creating a whole new list (actually: *two* new lists) just to throw it away again.
 
-And if you are adding another list of objects, you want to use extend().
+And if you are adding another list of objects, you want to use ``extend()``.
 
 With this code:
 
@@ -78,7 +139,7 @@ does not create an new list -- it adds to the original list "in place" -- it is 
 
 And it is an efficient operation.
 
-The trik is that the "augmented assignment" operators, like ``+=`` **do** create new object when used with an immutable:
+The trick is that the "augmented assignment" operators, like ``+=`` **do** create new object when used with an immutable:
 
 .. code-block:: ipython
 
@@ -153,7 +214,7 @@ Classes are the core of Object Oriented programming. Rather than talk about them
 html_render
 -----------
 
-So on the the html_render assignment:
+So on to the the html_render assignment:
 
 :ref:`exercise_html_renderer`
 
