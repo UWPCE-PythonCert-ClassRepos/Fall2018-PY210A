@@ -15,6 +15,9 @@ if __name__ == "__main__":
     with open(filename, 'r'):
         lines = file.read()
         words = lines.split()
+    for i in words:
+        if i in ('-', ',', '.'):
+            i = ''
 # print(words)
 
 

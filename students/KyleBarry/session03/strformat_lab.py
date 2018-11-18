@@ -1,4 +1,4 @@
-T(ask 1
+#Task 1
 tup = (2, 123.4567, 10000, 12345.67)
 
 print('file_{:>03}: {}, {:.2e}, {:.2e}'.format(tup[0], str(round(tup[1], 2)), tup[2], tup[3]))

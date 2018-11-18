@@ -46,14 +46,19 @@ print("The list now contains: ",mylist)
 #I suspect because it changes the index value
 print("OK, let's move on to series 3!")
 print()
-for i in mylist:
+copy_listXXXXXXXX = mylist
+print(id(mylist))
+print("here is the copied list")
+print(copy_listXXXXXXXX)
+print(id(copy_listXXXXXXXX))
+for i in copy_listXXXXXXXX:
     choice = input("Do you like {}?: (y/n)".format(i))
     if choice == "y":
         continue
     elif choice == "n":
          mylist.remove(i)
          print("Removing {} from the list!".format(i))
-         #bug if 'n' is selected it skips the next item in the list
+         #bug if 'n' is selected it skips the next item in the list, even if I use a copy of the list..
     else:
         while choice != "y" or "n":
             choice = input("Hm, I don't understand '{}' please enter 'y' or 'n' ".format(choice))
