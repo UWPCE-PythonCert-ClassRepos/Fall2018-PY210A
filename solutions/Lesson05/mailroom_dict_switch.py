@@ -151,7 +151,8 @@ def generate_letter(donor_name):
 
 def remove_inputquotes(a_string):
     """Remove auxillary quotes to cleanse a_string"""
-    a_string.replace('"', '')
+    a_string = a_string.replace("'", '')
+    a_string = a_string.replace('"', '')
     return a_string
 
 

@@ -15,7 +15,9 @@ Lightning Talks (last)
 ======================
 
 Austen  Rawle
+
 Drew A  Smith
+
 Jugal Kishore
 
 Issues that came up during the week.
@@ -108,4 +110,6 @@ Initial fraction test code:  ``examples/Session08/test_fraction.py``
 Python static vs. class methods
 -------------------------------
 
-Coming from Java/C++, this was always confusing to me. Now I think I understand this better, and I may share my understanding and realization with class. Let's go over the static/class methods materials: https://uwpce-pythoncert.github.io/PythonCertDevel/modules/StaticAndClassMethods.html
+Coming from Java/C++, this was always confusing to me. Now I think I understand this better, and I may share my understanding and realization with class. Let's go over the static/class methods materials:
+
+https://uwpce-pythoncert.github.io/PythonCertDevel/modules/StaticAndClassMethods.html
