@@ -22,6 +22,13 @@ Maxwell Morelly
 
 Thanh H Nhan
 
+mailroom 4!!!!
+==============
+
+**WTF?**
+
+What if Ihaven't gotten version 2 done yet???
+
 
 Issues that came up during the week.
 ====================================
@@ -52,21 +59,6 @@ Let's look at a particularly nifty solution:
 
 ``solutions/Lesson05/mailroom_dict_as_switch``
 
-
-globals??
----------
-
-a number of folks have been putting code in the global (module) namespace:
-
-.. code-block:: python
-
-   the_dict = {}
-
-   def fun():
-       ...
-       the_dict = something()
-
-What's wrong with this?
 
 quit()
 ------
@@ -114,17 +106,16 @@ For more on what "decode" means:
 `Unicode in Python <https://uwpce-pythoncert.github.io/PythonCertDevel/modules/Unicode.html?highlight=unicode>`_
 
 
-trigrams -- beginning of a sentence?
-------------------------------------
-
-Kyle's solution -- how could we refactor that?
-
-
 Any Questions about the homework -- or anything?
 ------------------------------------------------
 
-Break and Lightning talks:
+review trigrams?
 
+review mailroom?
+
+
+Break and Lightning talks
+=========================
 
 
 Testing?
