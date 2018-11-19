@@ -7,7 +7,7 @@
 Notes for Session 08
 ####################
 
-5/3/2018
+1/27/2018
 
 A collection of notes to go over in class, to keep things organized.
 
