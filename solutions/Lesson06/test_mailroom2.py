@@ -8,6 +8,8 @@ import os
 import mailroom2 as mailroom
 
 # so that it's there for the tests
+# you may want to re-run this in a test that requires a
+# "clean" database
 mailroom.donor_db = mailroom.get_donor_db()
 
 
@@ -61,16 +63,21 @@ def test_add_donor():
 
 def test_generate_donor_report():
 
+    # make sure the the database is "clean"
+    mailroom.donor_db = mailroom.get_donor_db()
     report = mailroom.generate_donor_report()
 
     print(report)  # printing so you can see it if it fails
     # this is pretty tough to test
     # these are not great, because they will fail if unimportant parts of the
     # report are changed.
-    # but at least you know that codes working now.
+    # but at least you know that code is working now.
     assert report.startswith("Donor Name                | Total Given | Num Gifts | Average Gift")
 
     assert "Jeff Bezos                  $    877.33           1   $     877.33" in report
+
+    lines = report.split("\n")
+    assert len(lines) == 6
 
 
 def test_save_letters_to_disk():
@@ -85,7 +92,7 @@ def test_save_letters_to_disk():
 
     assert os.path.isfile('Jeff_Bezos.txt')
     assert os.path.isfile('William_Gates_III.txt')
-    # check that it'snot empty:
+    # check that it's not empty:
     with open('William_Gates_III.txt') as f:
         size = len(f.read())
     assert size > 0
