@@ -25,20 +25,22 @@ def send_thankyou():
     """print email to the terminal,\n
     prompt for list show a list of the donor names and re-prompt"""
 
-    d_name = input("Enter donor name Or \nType \'list' if you don't know donor name?: ")
-    if d_name in "list":
-        for donor in donors_info:
-            print(f"- {donor}")
-        d_name = input("Enter a donor name?: ")
-       
+    d_name = input(
+        "Enter donor name Or \nType \'list' if you don't know donor name?: ")
+    
+    # list comprehension here
+    [print(f"-{donor}") for donor in donors_info if d_name in "list"]
+
+    d_name = input("Enter a donor name?: ")
+
     if d_name not in donors_info:
         donors_info[d_name] = []
-    
+
     contribution = float(input(f"Enter {d_name} contribution :? "))
     donors_info[d_name].append(contribution)
     print()
     print(
-"""
+        """
 Dear {},
    \nThank you for your generous donation ${:,.2f}.
 """.format(d_name, contribution))
@@ -50,9 +52,10 @@ def create_report():
     print()
     print("{:<20}| {:<10} | {:<10} | {:<12}".format("Donor Name", "Total Given", " Num Gifts", "Average Gift"))
     print("-" * 60)
-    for name,contributions in donors_info.items():
-        print("{:<21} ${:<15.2f} {:<10} ${:<12.2f}".format(
-            name, sum(contributions), len(contributions), sum(contributions) / len(contributions)))
+
+    # list comprehension here
+    [print("{:<21} ${:<15.2f} {:<10} ${:<12.2f}".format(
+        name, sum(contributions), len(contributions), sum(contributions) / len(contributions))) for name, contributions in donors_info.items()]
 
 
 def exit_program():
@@ -70,8 +73,12 @@ menu_switcher = {
 
 def main():
     while True:
-        response = input(prompt)
-        menu_switcher[response]()
+        try:
+            response = input(prompt)
+            menu_switcher[response]()
+        except (KeyError, KeyboardInterrupt) as key_err:
+            print("\nPls select only from the choice, you entered {} ".format(str(key_err)))
+            pass
         
 if __name__ == '__main__':
     main()
