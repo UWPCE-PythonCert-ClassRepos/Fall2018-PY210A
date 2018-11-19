@@ -7,7 +7,7 @@
 Notes for Session 07
 ####################
 
-4/30/2018
+11/20/2018
 
 A collection of notes to go over in class, to keep things organized.
 
@@ -21,11 +21,41 @@ Zachary A Connaughton (Zach)
 Issues that came up during the week.
 ====================================
 
+Naming and Style
+----------------
 
-chaining or, etc.
+Read this again:
+
+https://uwpce-pythoncert.github.io/PythonCertDevel/modules/NamingThings.html
+
+And watch this video:
+
+https://www.youtube.com/watch?v=hZ7hgYKKnF0
+
+Some of you are still not following PEP 8 style. If you can't (or don't want to) set up a linter in your editor or IDE, you can run ``pycodestyle`` on your code.
+
+https://pycodestyle.readthedocs.io
+
+``python3 -m pip install pycodestyle``
+
+Let's give it a quick try.
+
+Auto-fixing style
 -----------------
 
-this looks pretty nifty:
+If you don't want to fix all that by hand, there are tools to do it for you.
+
+one really nice one is yapf:
+
+https://github.com/google/yapf
+
+Maybe give ``yapf`` a try.
+
+
+Chaining ``or``, etc.
+---------------------
+
+This looks pretty nifty:
 
 .. code-block:: python
 
