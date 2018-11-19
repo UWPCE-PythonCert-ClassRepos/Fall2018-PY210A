@@ -71,11 +71,11 @@ Let's play with that...
 Operator Precedence
 ...................
 
-This table tells you which opertors have "Precedence" over each other -- that is, which are evaluated first:
+This table tells you which operators have "Precedence" over each other -- that is, which are evaluated first:
 
 https://docs.python.org/3/reference/expressions.html#operator-precedence
 
-When in doubt -- add parenthesis to make it clear. Cis there a way to add parentheses that works for the above?
+When in doubt -- add parenthesis to make it clear. Is there any way to add parentheses that works for the above?
 
 Comparison Chaining
 ...................
@@ -221,6 +221,15 @@ And no one wanted to add **two** new sets of operators.
 https://www.python.org/dev/peps/pep-0203/
 
 
+unit tests should be isolated
+-----------------------------
+
+Ideally, each unit test should be able to run all on its own, and it should NOT matter what order tests run in.
+
+That can be a bit of a trick with mailroom -- as you might have a test of adding a new donor to the database, and another test that asserts that the report has the right number of donors in it.
+
+Let's look a how to deal with that.
+
 A Little Code Refactoring
 -------------------------
 
@@ -231,6 +240,7 @@ After making a few comments on a block of mailroom code, I decided it might be i
 That code works now -- so the first thing we're going to do is make tests for it. Then we can refactor away and know it still works.
 
 Any other questions/issue before we get into classes?
+
 
 Break -- Then Lightning Talks
 =============================
