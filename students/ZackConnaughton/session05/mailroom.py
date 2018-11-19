@@ -2,13 +2,6 @@
 mailroom assignment
 """
 
-# donors_list = [('Jimmy John', [100, 200, 300]),
-#                ('Amy Shumer', [2000, 4000, 1000]),
-#                ('Parker Pony', [2000, 10000]),
-#                ('Cher', [900, 9000, 2000]),
-#                ('Legolass Mario', [4000, 50])
-#                ]
-
 
 donors_list = {'Jimmy John': [100, 200, 300],
                'Amy Shumer': [2000, 4000, 1000],
@@ -17,28 +10,51 @@ donors_list = {'Jimmy John': [100, 200, 300],
                'Legolass Mario': [4000, 50]
                }
 
-def get_donors(donors_list):
+def get_donors():
     """
-    Takes a list of donor information and returns a list of just the donor names
+    Takes a dictionary of donor information and returns a list of just the donor names
     """
     return list(donors_list.keys())
 
 
-def add_money(person, money):
+def print_donors():
+    l = get_donors()
+    output = 'List of current donors:\n'
+    output += '\n'.join(l)
+    output += '\n'
+    return output
+
+
+def enter_donation(response, money):
+    if not response in donors_list:
+        donors_list[response] = []
+    donors_list[response].append(money)
+    return None
+
+
+def save_thank_you_letter(donor, letter_text):
+    f = open('./thank_you_letters/' + donor + '.txt', 'w')
+    f.write(letter_text)
+    f.close()
+
+
+def thank_you_letter(donor):
     """
-    takes in a person entry in the donor_list and adds an amount of money
-    they donated to their donations
+    returns a formatted letter for the donor passed in.
     """
-    for p in donors_list:
-        if p[0] == person:
-            p[1].append(money)
+    output = "Dear {}\n\n".format(donor)
+    output += "{:<10}Thank you for your kind donation of ${:.2f}.\n\n".format(" ", donors_list[donor][-1])
+    output += "{:10}It will be put to very good use.\n\n".format(" ")
+    output += "{fill:<15}Sincerely,\n{fill:<18}-Everyone here at Company Spot".format(fill=" ")
+    #print(donors_list[donor][-1:])
+    save_thank_you_letter(donor, output)
+    return output
 
 
 def thank_you():
     """
-    prompts for a donor, and a donationself.
-    Uses that donor or creates a new one if not in the list and adds the donation
-    to that donor.
+    prompts for a donor, and a donation, enters that donation for the donor.
+    saves and prints a thank you letter
     """
     response = ""
     while response != 'Q':
@@ -46,45 +62,32 @@ def thank_you():
         print("(Type list to see a full list of donors)")
         response = input(' => ').title()
         if response == "List":
-            print('\nList of current donors:')
-            print(*get_donors(donors_list), sep = '\n')
-            print('')
+            print(print_donors())
         else:
             print("Enter the donation amount for " + response + ":")
-            money = input(' => ')
-            if response not in donors_list:
-                donors_list[response] = []
-                print(donors_list)
-            donors_list[response].append(money)
-            print("\nThank you, {person} for your donation of {donation}." +
-            "We couldn't do this without you!\n".format(person=response,
-            donation='${:,.2f}'.format(float(money))))
-            response = "Q"
+            try:
+                money = input(' => ')
+                enter_donation(response, int(money))
+                ty_letter = thank_you_letter(response)
+                print(ty_letter)
+            except ValueError:
+                print("\nInvalid entry for donation\nDONATION NOT ENTERED\n")
+            finally:
+                response = "Q"
 
 
-def stats(donations):
+def stats(donor_info):
     """
     takes in donor information and returns the name of donor and the total,
     number and average of donations
     """
-    name = donations[0]
+    name = donor_info
     total = 0
-    for d in donations[1]:
-        total += float(d)
-    num_of_donations = len(donations[1])
+    for d in donors_list[donor_info]:
+        total += (d)
+    num_of_donations = len(donors_list[donor_info])
     avg_of_donations = '{:.2f}'.format(total / num_of_donations)
     return [name, total, num_of_donations, avg_of_donations]
-
-
-def longest(values, min_column=12):
-    """
-    takes a list of values and returns the length of the longest value
-    """
-    cur_longest = min_column
-    for i in values:
-        if len(i) > cur_longest:
-            cur_longest = len(i)
-    return(cur_longest)
 
 
 def second(element):
@@ -93,6 +96,13 @@ def second(element):
     """
     return element[1]
 
+
+def widths(values, min_width=12):
+    output = []
+    for x in range(len(values[0])):
+        maximum_width = max(([len(str(item[x])) for item in values]))
+        output.append(max(maximum_width, min_width))
+    return output
 
 def data_header(widths):
     """
@@ -117,29 +127,34 @@ def data_print(info, widths):
 
 def report():
     """
-    takes in the full donor list and returns a report to the terminal with the
-    donors name, total given, number of donations and average donations
+    Prints a report to the terminal with the
+    donors name, total given, number of donations and average donations.
+    Returns a list of donor info.
     """
     output = []
     for i in donors_list:
         output.append(stats(i))
     output.sort(reverse=True, key=second)
     column_widths = []
-    for x in range(len(output[0])):
-        print([str(item[x]) for item in output])
-        column_widths.append(longest(([str(item[x]) for item in output])))
+    column_widths = widths(output)
     print(data_header(column_widths))
     for j in output:
         print(data_print(j, column_widths))
     print("")
+    return output
 
 
-def send_letters():
-    pass
+def all_letters():
+    try:
+        for donor in donors_list:
+            thank_you_letter(donor)
+        print("Saved donor letters")
+    except FileNotFoundError:
+        print("\nFile Not Found\nLETTERS NOT SAVED\n")
 
 
 def unknown():
-    print("That is an invalid entry")
+    print("That is an invalid entry\n")
     return None
 
 
@@ -152,7 +167,7 @@ def main():
     print("")
     menu_dict = {'t': thank_you,
                  'r': report,
-                 'l': send_letters,
+                 'l': all_letters,
                  'q': quit_menu
                  }
     response = ' '
@@ -160,15 +175,12 @@ def main():
         print('Select from the following')
         print('Send single thank you: "t"\n'
               'Create a Report: "r"\n'
-              'Send letters to all donors: "l"'
+              'Send letters to all donors: "l"\n'
               'Quit: "q"')
         response = input(' => ')[:1].lower()
         if menu_dict.get(response, unknown)() == "quit":
             break
-        # if response == 't':
-        #     thank_you()
-        # elif response == 'r':
-        #     report(donors_list)
+
 
 if __name__ == '__main__':
     main()
