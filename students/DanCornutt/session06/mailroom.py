@@ -5,6 +5,7 @@ mailroom assignment part 2 & 3
 """
 from operator import itemgetter
 from collections import OrderedDict
+import re
 
 
 DONORS = {
@@ -119,14 +120,18 @@ def report():
         "n_size": len("Donor Name"),
         "t_size" : len("Total Given"),
         "ng_size": len("Num Gifts"),
-        "ag_size": len("Average Gift")
-    })
+        "ag_size": len("Average Gift"),
+        "nm": "Donor Name",
+        "tot": "Total Given",
+        "ng": "Num Gifts",
+        "ag": "Average Gift"
+        })
 
     for d in DONORS.items():
         if len(d[0]) > len_col["n_size"]:
             len_col["n_size"] = len(d[0])
         if len(str(sum(d[1]))) > len_col["t_size"]:
-            len_col["Tt_size"] = len(str(sum(d[1])))
+            len_col["t_size"] = len(str(sum(d[1])))
         if len((d[1])) > len_col["ng_size"]:
             len_col["ng_size"] = len((d[1]))
         if len(str(sum(d[1])/len(d[1]))) > len_col["ag_size"]:
@@ -135,23 +140,14 @@ def report():
     rpt_sheet.sort(key=return_total, reverse=True)
 
     sheet = (
-        "{nm:{mnm}} | {tot:<{mtot}} | {ng:<{mng}} | {ag:<{mag}}\n{header}".format(
-            nm="Donor Name", mnm=len_col["n_size"],
-            tot="Total Given", mtot=len_col["t_size"],
-            ng="Num Gifts", mng=len_col['ng_size'],
-            ag="Average Gift", mag=len_col["ag_size"],
-            header=("-" * sum(len_col.values()))
-        )
+        "{nm:{n_size}} | {tot:{t_size}} | {ng:{ng_size}} |{ag:<{ag_size}}\n".format(
+            **len_col) + ("-" * sum(list(len_col.values())[:4]))
     )
+
     for d in rpt_sheet:
         sheet = sheet + (
-            "\n{n:{n_size}} |${t:>{t_size},.2f} | {ng:>{ng_size}} |$ {avg_g:<{ag_size},.2f}"
-            .format(
-                n=d[0], n_size=len_col['n_size'],
-                t=d[1], t_size=len_col['t_size'],
-                ng=d[2], ng_size=len_col['ng_size'],
-                avg_g=d[3], ag_size=len_col['ag_size']
-                )
+            "\n{:{n_size}} |${:>{t_size},.2f} | {:>{ng_size}} |$ {:<{ag_size},.2f}"
+            .format(*d, **len_col)
         )
     return sheet
 
