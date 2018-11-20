@@ -1,17 +1,14 @@
 #!/usr/bin/env Python3
 
 """
-Date: November 6th, 2018
+Date: November 13th, 2018
 Created by: Carol Farris
-Purpose: Mailroom 2
-Goal: Use Anaconda linter to write PEP8 Python code
-    Comment functions correctly
-    Use dict to switch between users selections (completed),
-    write thank you letter to the file,
-    try to use the dict and .format() to produce the template
-    rather than using one big string.
-Note: not all Pep8 fixes were completed. Minor fixes remain
-      Will work on those in Mailroom_3.       
+Purpose: Mailroom 3
+Goal: Add as many exception handlers as possible (added 3 for User input)
+      Added one comprehension: makereport()
+      update code to continue to keep clean PEP8 code (ongoing)
+Note: I chose to only do one comprehension as I am seeing I will need to refactor my code for testability anyway!
+      I will shoot to add more comprehensions in Mailroom 4
 """
 
 import sys
@@ -63,12 +60,31 @@ def assemble_thank_you(getPerson='No_name_given',
         Team Umizoomi'''.format(getPerson, getDonation))
 
 
+def getDonation():
+    """
+    Asks user to specify donation amount and will error out if 
+    User specifies other than an int amount.
+    This could be modified in next version so entry can include 2 decimal places.
+    :Param: none
+    returns: donation retrieved from user
+    """
+    getDonation = ''
+    while not type(getDonation) is int:
+        try:
+            getDonation = int(input("Please enter donation amount:"
+                                    "==>"))
+        except ValueError:
+                print('Sorry, that isn\'t a valid integer. Please retry')
+    return getDonation
+
+
 def thankyou():
     """
     :param:
     :returns:
     """
     getPerson = ''
+    donation = ''
     while getPerson not in donor_db:
         getPerson = input('Please type the donors first and last name or '
                           'type list to get donor list ==>')
@@ -79,14 +95,15 @@ def thankyou():
         elif getPerson == 'x':
             exitout()
         else:
-            #   In next version, input needs to be checked to ensure entry is numeric and sensible.
-            getDonation = int(input("Please enter donation amount:"
-                                "==>"))
-            if getPerson in donor_db:
-                donor_db[getPerson].append(getDonation)
-            else:
-                donor_db[getPerson] = [getDonation]
-            printThankYou(getPerson, getDonation)
+            try:
+                donation = getDonation()
+                donor_db[getPerson].append(donation)
+            except KeyError:
+                print("This new person will be added to the dictionary.")
+                donation = getDonation()
+                donor_db[getPerson] = [donation]
+            finally:
+                printThankYou(getPerson, donation)
 
 
 def alldonors():
@@ -95,9 +112,11 @@ def alldonors():
     first retrieve donor list, print to last donation and collective donations.
     will have to pass the person and the donation amount to "print thank you"
     """
+    print("###############################################################")
+    print("Printing to file thank you letters to all donors in database...")
+    print("###############################################################")
     for key, value in donor_db.items():
         sumDonations = round(float(sum(value)), 2)  # total Given
-        #printThankYou(key, sumDonations) for printing to screen
         donorLetter = assemble_thank_you(key, sumDonations)
         send_file_to_disk(key, donorLetter)
 
@@ -117,12 +136,9 @@ def makereport():
     :param:
     :return:
     """
-    donorReport = []
-    for key, value in donor_db.items():
-        sumDonations = round(float(sum(value)), 2)  # total Given
-        numDonations = len(value)
-        avgDonations = round(float(sum(value) / len(value)), 2)
-        donorReport.append([sumDonations, key, numDonations, avgDonations])
+    donorReport = [[round(float(sum(value)), 2), key, len(value),
+                    round(float(sum(value) / len(value)), 2)]
+                    for key, value in donor_db.items()]
     sortedReport = sorted(donorReport)
     ascendingReport = sortedReport[::-1]
     printReport(ascendingReport)
@@ -137,11 +153,14 @@ def printReport(ascendingReport):
     :return: It prints, neet to put into a return statement####
     """
     for donor in ascendingReport:
-        print('{:<20}'.format(donor[1]), '{:<15}'.format(donor[0]),
-              '{:>5}'.format(donor[2]), '{:>25}'.format(donor[3]))
+        print('{:<20}'.format(donor[1]), '{:<15,}'.format(donor[0]),
+              '{:>5}'.format(donor[2]), '{:>25,}'.format(donor[3]))
 
 
 def exitout():
+    """
+    produces a clean exit from the program
+    """
     print("Exiting program...\n")
     sys.exit()
 
@@ -149,15 +168,18 @@ def exitout():
 def main():
     print("Welcome to the Mailroom!")
     answer = ""
-    while answer != 'x':
-        print("\n\nPlease select from the following:")
-        print("x - Exit\nt - Thank you letter\n" +
-              "a - send thank you letters to all donors\n" +
-              "r - Create a Report\n")
-        answer = input(' ==> ')
-        answer = answer.strip()   #Strip any whitespace
-        answer = answer[0:1].lower()   # this allows you to always make sure you get the first letter only. 
-        user_choices.get(answer, retry)()
+    while answer != 'x' or 'r' or 't' or 'a':
+        try:
+            print("\n\nPlease select from the following:")
+            print("x - Exit\nt - Thank you letter\n" +
+                  "a - send thank you letters to all donors\n" +
+                  "r - Create a Report\n")
+            answer = input(' ==> ')
+            answer = answer.strip()
+            answer = answer[0:1].lower()
+            user_choices.get(answer)()
+        except TypeError:
+            retry()
 
 
 def retry():
@@ -166,7 +188,9 @@ def retry():
     :param: none
     :return: none
     """
+    print("\n\n\n##########_ERROR_##############")
     print("Please use the actual choices!")
+    print("###############################\n\n\n")
     return None
 
 
