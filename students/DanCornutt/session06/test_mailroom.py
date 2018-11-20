@@ -2,6 +2,8 @@
 
 from mailroom import *
 import pytest
+import os
+
 
 def test_check_donor_1():
     """Finds donor in list"""
@@ -41,31 +43,50 @@ def test_gen_letter_1():
     		The Team"""
 
 def test_write_donor(): #Tests if file has been created in directory
+    write_donor("Billy Bills")
+    assert os.path.exists("BillyBills_thank_you.txt") == True
+    #remove files
+    os.remove("BillyBills_thank_you.txt")
+
+def test_thank_you_1():
+    #TODO Function should be refactored to be tested easier
     pass
 
-def test_thank_you_1(): #Function should be refactored to be tested easier
-    pass
-
-def test_donor_db(): #testing user input
+def test_donor_db(): #not sure how to test for user input in pytest...
     pass
 
 def test_edit_donor():
-    #Should be refactored to test for non-valid donor name i.e. " "
+    #TODO Should be refactored to test for non-valid donor name i.e. " "
     #Should return value to test
     pass
 
 def test_add_donation():
     #Should be refactored to return string vs print to screen.
-    #
     pass
 
 def test_add_money():
-    #not sure how to test for user input for pytest...
+    #not sure how to test for user input in pytest...
     pass
 
 def test_thank_you_all():
     #assert thank_you_all() == all letters were created in directory
-    pass
+    write_donor("Billy Bills")
+    assert os.path.exists("BillyBills_thank_you.txt") == True
+    write_donor("Fred Jones")
+    assert os.path.exists("FredJones_thank_you.txt") == True
+    write_donor("Amy Shumer")
+    assert os.path.exists("AmyShumer_thank_you.txt") == True
+    write_donor("Bob Sherlock")
+    assert os.path.exists("BobSherlock_thank_you.txt") == True
+    write_donor("Tom Johnson")
+    assert os.path.exists("TomJohnson_thank_you.txt") == True
+    #remove files
+    os.remove("BillyBills_thank_you.txt")
+    os.remove("FredJones_thank_you.txt")
+    os.remove("AmyShumer_thank_you.txt")
+    os.remove("BobSherlock_thank_you.txt")
+    os.remove("TomJohnson_thank_you.txt")
+
 
 def test_report():
     assert report() == ("Donor Name   | Total Given | Num Gifts |Average Gift      \n" +
@@ -77,7 +98,7 @@ def test_report():
 "Bob Sherlock |$      60.00 |         3 |$ 20.00             ")
 
 def test_make_report():
-    #calls report() and prints to screen, unit test not needed.
+    #simple call report() and prints to screen, unit test not needed.
     pass
 
 def test_return_total():
@@ -86,14 +107,17 @@ def test_return_total():
     assert return_total(lst) == "two"
 
 def test_donor_list():
-    #prints donor list to screen. Unit test not needed.
+    #Simple print donor list to screen. Unit test not needed.
     pass
 
 def test_unknown():
+    #simple print to screen. Unit test not needed.
     pass
 
 def test_quit_menu():
-    pass
+    """Tests quit menu command operational"""
+    assert quit_menu() == "exit menu"
 
 def test_menu_selection():
+    #Unit testing with user input, unknown how to test
     pass
