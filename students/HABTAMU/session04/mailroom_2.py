@@ -91,6 +91,7 @@ menu_switcher = {
     "4": exit_program
 }
 
+
 def main():
     while True:
         response = input(prompt)
