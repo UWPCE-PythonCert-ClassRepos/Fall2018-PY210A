@@ -1,17 +1,17 @@
 #!/usr/bin/env python
 
-from mailroom import *
-import pytest
 import os
+import pytest
+from mailroom import *
 
 
 def test_check_donor_1():
     """Finds donor in list"""
-    assert check_donor("Billy Bills") == True
+    assert check_donor("Billy Bills") is True
 
 def test_check_donor_2():
     """Does not find donor in list"""
-    assert check_donor("Billy Billz") == False
+    assert check_donor("Billy Billz") is False
 
 def test_gen_letter_1():
     """Generates valid letter for donor in list"""
@@ -44,42 +44,46 @@ def test_gen_letter_1():
 
 def test_write_donor(): #Tests if file has been created in directory
     write_donor("Billy Bills")
-    assert os.path.exists("BillyBills_thank_you.txt") == True
+    assert os.path.exists("BillyBills_thank_you.txt") is True
     #remove files
     os.remove("BillyBills_thank_you.txt")
 
 def test_thank_you_1():
-    #TODO Function should be refactored to be tested easier
+    #all_users=True is validated by test_write_donor
+    #not sure how to test else case for user input in pytest or
+    #printing to screen. Function could be refactored and return something if
+    #2nd else is called
     pass
 
-def test_donor_db(): #not sure how to test for user input in pytest...
+
+def test_donor_db(): #not sure how to test for user input in pytest.
     pass
 
 def test_edit_donor():
     #TODO Should be refactored to test for non-valid donor name i.e. " "
-    #Should return value to test
+    #Could return value to test
     pass
 
 def test_add_donation():
-    #Should be refactored to return string vs print to screen.
+    #TODO Should be refactored to return string vs print to screen.
     pass
 
 def test_add_money():
-    #not sure how to test for user input in pytest...
+    #not sure how to test for user input in pytest.
     pass
 
 def test_thank_you_all():
     #assert thank_you_all() == all letters were created in directory
     write_donor("Billy Bills")
-    assert os.path.exists("BillyBills_thank_you.txt") == True
+    assert os.path.exists("BillyBills_thank_you.txt") is True
     write_donor("Fred Jones")
-    assert os.path.exists("FredJones_thank_you.txt") == True
+    assert os.path.exists("FredJones_thank_you.txt") is True
     write_donor("Amy Shumer")
-    assert os.path.exists("AmyShumer_thank_you.txt") == True
+    assert os.path.exists("AmyShumer_thank_you.txt") is True
     write_donor("Bob Sherlock")
-    assert os.path.exists("BobSherlock_thank_you.txt") == True
+    assert os.path.exists("BobSherlock_thank_you.txt") is True
     write_donor("Tom Johnson")
-    assert os.path.exists("TomJohnson_thank_you.txt") == True
+    assert os.path.exists("TomJohnson_thank_you.txt") is True
     #remove files
     os.remove("BillyBills_thank_you.txt")
     os.remove("FredJones_thank_you.txt")
@@ -98,7 +102,7 @@ def test_report():
 "Bob Sherlock |$      60.00 |         3 |$ 20.00             ")
 
 def test_make_report():
-    #simple call report() and prints to screen, unit test not needed.
+    #Simple call report() and prints to screen, unit test not needed.
     pass
 
 def test_return_total():
@@ -111,7 +115,7 @@ def test_donor_list():
     pass
 
 def test_unknown():
-    #simple print to screen. Unit test not needed.
+    #Simple print to screen. Unit test not needed.
     pass
 
 def test_quit_menu():
