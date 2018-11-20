@@ -59,6 +59,9 @@ def create_report():
 
 
 def save_letter_todisk():
+    """generates a thank you template letter for each donor, 
+       and writes each letter to disk as a text file. 
+    """
     for donor,contributions in donors_info.items():
         with open(f"{donor.replace(' ', '_')}.txt","w") as output:
             output.write(
