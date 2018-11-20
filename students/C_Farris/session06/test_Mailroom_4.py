@@ -1,11 +1,11 @@
 #!/usr/bin/env Python3
 
 import pytest
+import os
+
 from textwrap import dedent
 
-import Mailroom_4
-
-from Mailroom_4 import exitout, makereport, add_Donor_Donation, assemble_thank_you, getDonation
+from Mailroom_4 import exitout, makereport, add_Donor_Donation, assemble_thank_you, getDonation, prepare_to_write_to_disk, send_file_to_disk
 
 
 def test_exitout():
@@ -40,3 +40,13 @@ def test_assemble_thank_you():
 
 def test_getDonation():
     assert getDonation(2) == 2
+
+
+def test_prepare_to_write_to_disk():
+    prepare_to_write_to_disk()
+    assert os.path.exists('./thank_you_letters/') == True
+    
+
+def test_send_file_to_disk():
+    send_file_to_disk("John_Doe", "Dear Jon Doe, Thank you.")
+    assert os.path.exists('./thank_you_letters/John_Doe.txt') == True
