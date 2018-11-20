@@ -38,19 +38,28 @@ def mailroom():
 				print('{:<20}{:<10}{:<5}{:<20}'.format(i, sum(donors[i]), len(donors[i]), sum(donors[i]) / len(donors)))
 			print("-" * len(donors) , '\n')
 
+		def goodbye():
+			print("Goodbye")
+			exit()
+
 # this function will serve as the menu and prompt the user for choices
+# dict switch here???
 		def menu():
+			functions_list = {"1":thank_you, "2":create_report, "3":goodbye}
+
 			print('[1] Send a Thank You \n[2] Create a Report \n[3] Quit')
 			user_choice = input('Enter the number for the required option: ')
-			if user_choice == "1":
-				thank_you(donors)
-			elif user_choice == "2":
-				create_report(donors)
-			elif user_choice == "3":
-				print("Goodbye!")
-				exit()
-			else:
-				print("Invalid choice")
+			# if user_choice == "1":
+			# 	thank_you(donors)
+			# elif user_choice == "2":
+			# 	create_report(donors)
+			# elif user_choice == "3":
+			# 	print("Goodbye!")
+			# 	exit()
+			# else:
+			# 	print("Invalid choice")
+			functions_list[user_choice](donors)
+
 
 
 		menu()

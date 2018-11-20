@@ -7,7 +7,7 @@ for i in os.listdir():
 
 # Write a program which copies a file from a source, to a destination (without using shutil, or the OS copy command).
 
-infile = open('students.txt' , 'rb')
+infile = open('students.txt' , 'r')
 os.system('touch copied_file.txt')
 outfile = infile.readlines()
 with open('copied_file.txt' , 'w') as f:

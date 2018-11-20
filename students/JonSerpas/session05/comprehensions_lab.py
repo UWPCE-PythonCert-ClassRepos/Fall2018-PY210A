@@ -26,7 +26,7 @@ comprehension[0]
 
 comprehension = { c for c in 'aabbbcccc'}
 
-comprehension
+print(comprehension)
 
 dict_of_weapons = {'first': 'fear',
                        'second': 'surprise',
