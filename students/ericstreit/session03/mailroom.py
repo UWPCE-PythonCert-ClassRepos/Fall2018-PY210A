@@ -83,13 +83,24 @@ def donor_update(name):
 
 def report():
     """This is the reporting function"""
+    #
+    sorted_list = sorted(donors, key=sort_key, reverse = True)
     print("\n", "\n", "{:<25}{:5}{:5}{}".format("Donor Name", "| Total Given", "| Num Gifts", "| Average Gift"))
     print("{:-<80}".format(""))
+<<<<<<< HEAD
+    for i in range(len(sorted_list)):
+        print("{:<26} ${:<11.2f} {:<11} ${:.2f}".format(sorted_list[i][0], sum(sorted_list[i][1]), len(sorted_list[i][1]), sum(sorted_list[i][1]) / len(sorted_list[i][1])))
+=======
     for i in range(len(donors)):
         print("{:<26} ${:<11.2f} {:<11} ${:.2f}".format(donors[i][0], sum(donors[i][1]), len(donors[i][1]), sum(donors[i][1]) / len(donors[i][1])))
+>>>>>>> 2847109129e4b6fde58ceb6042412c146c5adc3e
     # for i in range(len(donors)):
     #     print("{} ${}".format(donors[i][0], sum(donors[i][1])))
 
+def sort_key(donor):
+    """function key used for donation totals"""
+    tot = sum(donor[1])
+    return tot
 
 #for testing
 if __name__=="__main__":
