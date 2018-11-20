@@ -97,8 +97,10 @@ def getDonation(getDonation=''):
 
 def thankyou():
     """
+    This function calls 4 other functions that will obtain donor, donation, 
+    then print to screen.
     :param:
-    :returns:
+    :returns: None. It prints to screen
     """
     getPerson = getDonor()
     donation = getDonation()
@@ -109,7 +111,7 @@ def thankyou():
 def add_Donor_Donation(getPerson, donation, updated_db = False):
     """
     Checks if donor is in donor database, adds donor and donation into donor_db
-    :param (getPerson):
+    :param (getPerson): 
     :return: updated donor_db for unit testing if updated_db = true
     """
     try:
