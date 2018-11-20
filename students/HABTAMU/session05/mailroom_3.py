@@ -58,6 +58,21 @@ def create_report():
         name, sum(contributions), len(contributions), sum(contributions) / len(contributions))) for name, contributions in donors_info.items()]
 
 
+def save_letter_todisk():
+    for donor,contributions in donors_info.items():
+        with open(f"{donor.replace(' ', '_')}.txt","w") as output:
+            output.write(
+                """
+Dear {},
+
+    Thank you for your generous donation ${:,.2f}.
+
+Best regards,
+Your Youth and Seniors Foundation
+                """.format(donor, sum(contributions))
+            )
+        print(f"Created thank you file for {donor}.")
+
 def exit_program():
     """quit current task and return to the original prompt"""
     print("Bye!")
@@ -67,7 +82,7 @@ def exit_program():
 menu_switcher = {
     "1": send_thankyou,
     "2": create_report,
-    #"3": save_letter_todisk,
+    "3": save_letter_todisk,
     "4": exit_program
 }
 
