@@ -60,7 +60,6 @@ def exit_program():
 def main():
     while True:
         response = input(prompt)
-
         if response == "T":
             send_thankyou()
 
@@ -72,7 +71,6 @@ def main():
 
         else:
             print("No a valid option")
-
 
 if __name__ == '__main__':
     main()
