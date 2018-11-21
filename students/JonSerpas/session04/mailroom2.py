@@ -44,9 +44,9 @@ def mailroom():
 			print("-" * len(donors) , '\n')
 
 			# this exits the program
-		def goodbye(value=None):
-			print("Goodbye")
-			exit()
+		def goodbye(*args, **kwargs): # this will allow it to take any or no arguments at all without errors. 
+			print("Goodbye", exit())
+			
 
 # this function will serve as the menu and prompt the user for choices
 
