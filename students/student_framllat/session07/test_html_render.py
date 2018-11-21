@@ -187,6 +187,36 @@ def test_sub_element():
 
 # Add your tests here!
 
+#### Adding Head Class test
+
+def test_head():
+    e = Head("this is some text for Head class")
+    e.append("and this is some more Head text")
+
+    file_contents = render_result(e).strip()
+
+    assert("this is some text for Head class") in file_contents
+    assert("and this is some more Head text")  in file_contents  
+
+ #   assert("this is some text") in file_contents
+ #   assert("and this is some more text") in file_contents
+
+    assert file_contents.startswith("<head>")
+    assert file_contents.endswith("</head>")
+
+#### Adding the Title sub-Class test
+
+def test_title():
+    e = Title("This is a Title")
+
+    file_contents = render_result(e).strip()
+
+    assert("This is a Title") in file_contents
+    print(file_contents)
+    assert file_contents.startswith("<title>")
+    assert file_contents.endswith("</title>")    
+    assert "\n" not in file_contents   
+
 # #####################
 # # indentation testing
 # #  Uncomment for Step 9 -- adding indentation

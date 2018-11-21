@@ -16,11 +16,13 @@ class Element:
     	else:
             self.contents = [contents]
 
+
     def append(self, new_content):
         self.contents.append(new_content)
 
+
     def render(self, out_file):
-        out_file.write("<{}>\n".format(self.tag))
+        # Loop thru list of contents
         for content in self.contents:
             out_file.write("<{}>\n".format(self.tag))
             #out_file.write(line)
@@ -42,6 +44,28 @@ class Body(Element):
 
 class P(Element):
     tag = "p"
+
+
+class Head(Element):
+    tag = "head"
+
+
+class OneLineTag(Element):
+
+
+    def render(self, out_file):
+        # Loop thru list of contents
+        for content in self.contents:
+            out_file.write("<{}>".format(self.tag))
+            try:
+                content.render(out_file)
+            except AttributeError:
+                out_file.write(content)
+            out_file.write("</{}>\n".format(self.tag))
+
+
+class Title(OneLineTag):
+    tag = "title"
 
 
 
