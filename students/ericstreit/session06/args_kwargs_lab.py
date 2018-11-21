@@ -25,6 +25,9 @@ def colors2(*args):
 def colors3(**kwargs):
     return(kwargs)
 
+def colors4(*arg, **kwargs):
+    return(arg, kwargs)
+
 #for testing
 if __name__=="__main__":
     print(colors('red', 'green', 'blue', 'yellow'))
@@ -56,8 +59,30 @@ def test_7():
 
 def test_8():
     my_dict = {'link':'yellow', 'fore':'purple'}
-    assert colors3(my_dict) == ('yellow', 'purple')
+    assert colors3(**my_dict) == {'link':'yellow', 'fore':'purple'}
 
-#def test_7():
-    #my_tup = {'green', 'brown'}
-    #assert colors2(my_tup) == ('green', 'brown')
+def test_9():
+    my_tup = ('green', 'brown')
+    assert colors2(*my_tup) == ('green', 'brown')
+
+def test_10():
+    my_dict = {'link':'yellow', 'fore':'purple'}
+    my_tup = ('green', 'brown')
+    assert colors4(*my_tup, **my_dict) == (('green', 'brown'), {'link':'yellow', 'fore':'purple'})
+
+def test_11():
+    my_tup = ('green', 'brown')
+    assert colors2(*my_tup, 2, 3) == ('green', 'brown', 2, 3)
+
+def test_12():
+    my_tup = ('green', 'brown')
+    assert colors2(2, 3, *my_tup) == (2, 3, 'green', 'brown')
+
+def test_13():
+    my_dict = {'link':'yellow', 'fore':'purple'}
+    assert colors3(**my_dict, this='that' ) == {'link':'yellow', 'fore':'purple', 'this':'that'}
+
+def test_14():
+    my_dict = {'link':'yellow', 'fore':'purple'}
+    my_tup = ('green', 'brown')
+    assert colors4(*my_tup, 2, 3, **my_dict) == (('green', 'brown', 2, 3), {'link':'yellow', 'fore':'purple'})
