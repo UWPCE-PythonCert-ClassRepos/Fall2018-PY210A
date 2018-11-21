@@ -17,11 +17,13 @@ from bs4 import BeautifulSoup
 
 
 #Global variables, website to look at as well as how many hotness games to look through
-MAIN_PAGE = 'https://boardgamegeek.com/'
+MAIN_PAGE = 'https:/boardgamegeek.com/'
 COUNT_OF_GAMES = 5
 
 #Create a webdriver instance
-driver = webdriver.Firefox()
+path = r'C:\Users\zconn\AppData\Local\Programs\Python\Python37-32\Lib\site-packages\selenium\webdriver\firefox\geckodriver.exe'
+
+driver = webdriver.Firefox(executable_path = path)
 driver.get(MAIN_PAGE)
 
 #find element locates a specific HTML object
@@ -33,8 +35,8 @@ hot_games = driver.find_elements_by_xpath("//*[@class='moduletable hotitems']//*
 
 hot_games_URLs = []
 
-# for game in hot_games: #Stale!
-#     driver.get(game.get_attribute('href'))
+#for game in hot_games: #Stale!
+#   driver.get(game.get_attribute('href'))
 
 for game in hot_games:
     COUNT_OF_GAMES -= 1
@@ -43,7 +45,7 @@ for game in hot_games:
         break
 
 print('Log in now')
-time.sleep(15) #time to log in
+time.sleep(20) #time to log in
 
 for game_URL in hot_games_URLs:
     driver.get(game_URL)
