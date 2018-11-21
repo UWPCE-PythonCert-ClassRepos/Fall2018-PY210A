@@ -7,6 +7,8 @@
 Notes for Session 09
 ####################
 
+12/4/2018
+
 A collection of notes to go over in class, to keep things organized.
 
 
