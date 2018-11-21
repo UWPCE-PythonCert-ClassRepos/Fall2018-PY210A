@@ -61,7 +61,6 @@ def make_thank_you_list(total_donors):
 
 
 def send_file(msg, filename):
-    print("Here")
     with open(filename, "w") as outfile:
         outfile.write(msg)
 
