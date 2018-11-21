@@ -97,6 +97,7 @@ def test_cols2_pos():
     assert args == ('green', 'lavender')
     assert kwargs == {}
 
+
 def test_cols2_pos2():
     args, kwargs = colors2('green', fred='lavender')
 
