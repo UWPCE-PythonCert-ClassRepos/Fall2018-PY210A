@@ -29,35 +29,32 @@ def mailroom():
 				else:
 					pass	
 			
-			# todo: the above function should update the list of donors
+			# this sends out a list to all donors
+		def everyone(donors):
+			for mailto in donors:
+				with open(f'{mailto}.txt' , 'w') as file:
+					file.write("Dear {}, \n Thank you for your generous donation of ${}.".format(mailto, str(donors[mailto][-1:]).strip('[]')))
+					file.close()
 
-
+			# this creates a report for a donors and what they have spent
 		def create_report(donors):
 			print("-" * len(donors))
 			for i in donors:
 				print('{:<20}{:<10}{:<5}{:<20}'.format(i, sum(donors[i]), len(donors[i]), sum(donors[i]) / len(donors)))
 			print("-" * len(donors) , '\n')
 
-		def goodbye():
+			# this exits the program
+		def goodbye(value=None):
 			print("Goodbye")
 			exit()
 
 # this function will serve as the menu and prompt the user for choices
-# dict switch here???
-		def menu():
-			functions_list = {"1":thank_you, "2":create_report, "3":goodbye}
 
-			print('[1] Send a Thank You \n[2] Create a Report \n[3] Quit')
+		def menu():
+			functions_list = {"1":thank_you, "2":create_report, "3":everyone, "4":goodbye}
+
+			print('[1] Send a Thank You \n[2] Create a Report \n[3] Send Letters to everyone \n[4] Quit')
 			user_choice = input('Enter the number for the required option: ')
-			# if user_choice == "1":
-			# 	thank_you(donors)
-			# elif user_choice == "2":
-			# 	create_report(donors)
-			# elif user_choice == "3":
-			# 	print("Goodbye!")
-			# 	exit()
-			# else:
-			# 	print("Invalid choice")
 			functions_list[user_choice](donors)
 
 
