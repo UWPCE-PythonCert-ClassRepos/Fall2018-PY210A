@@ -1,4 +1,5 @@
 # Lesson 04 Exercise: Trigrams
+
 import sys
 import random
 
@@ -11,7 +12,7 @@ def make_trigrams(words):
         pair = tuple(words[i:i+2])
         follower = words[i+2]
 
-        # If in dictionary, append value, otherwise add it
+        # If pair in dictionary, append value, otherwise add it
         if pair in tris:
             tris[pair].append(follower)
         else:
@@ -19,10 +20,12 @@ def make_trigrams(words):
     return tris
 
 
-# Get random word from dictionary
+# Get random capitalized pair from dictionary
 def get_random_pair(d):
-    word = random.choice(list(d.keys()))
-    return word
+    while True:
+        pair = random.choice(list(d.keys()))
+        if pair[0][0].isupper():
+            return pair
 
 
 # Use dictionary to build new text
@@ -31,18 +34,17 @@ def use_trigrams(d):
 
     text_words = list(start)
 
-    while len(text_words) < 250:
+    while len(text_words) < 500:
         pair = tuple(text_words[-2:])
 
         if pair in d:
             text_words.append(random.choice(d[pair]))
         else:
-            alternate_word = get_random_pair(d)
+            text_words[-1] += "."
+            alternate_pair = get_random_pair(d)
+            text_words.extend(list(alternate_pair))
 
-            text_words.append(list(alternate_word))
-
-    text_words[0] = text_words[0].capitalize()
-    final_text = " ".join(text_words) + "!"
+    final_text = "TRIGRAMS SHORT STORY\n\n" + " ".join(text_words) + "! \n\nTHE END"
     return final_text
 
 
@@ -50,23 +52,31 @@ def use_trigrams(d):
 def read_file(file):
     with open(file, "r") as f:
         text = []
-
         lines = f.readlines()
 
-        # Remove headers
+        # Remove headers at beginning of file
         for i in range(len(lines)):
             if lines[i].startswith("*** START OF THIS PROJECT GUTENBERG EBOOK"):
-                lines = lines[i+1:]
+                del lines[:i+1]
                 break
 
-        # Clean up remaining text
-        for l in lines:
+        # Remove footers at end of file (loop backwards)
+        for i in range(len(lines)-1, 0, -1):
+            if lines[i].startswith("*** END OF THIS PROJECT GUTENBERG EBOOK"):
+                del lines[i:]
+                break
 
-            # Remove whitespace at start and end of line
-            strip_line = l.strip()
+        # Clean up remaining lines
+        for line in lines:
+            # Skip empty lines
+            if line == "\n":
+                continue
+            else:
+                # Remove whitespace at start and end of line
+                strip_line = line.strip()
 
-            # Split line based on spaces and add words to text list
-            text.extend(strip_line.split())
+                # Split line based on spaces and add words to text list
+                text.extend(strip_line.split())
 
     return text
 
@@ -85,8 +95,6 @@ if __name__ == "__main__":
 
     # Use those words to build a trigrams dictionary
     in_words = make_trigrams(in_data)
-
-    use_trigrams(in_words)
 
     # Use dictionary to make new text
     new_text = use_trigrams(in_words)
