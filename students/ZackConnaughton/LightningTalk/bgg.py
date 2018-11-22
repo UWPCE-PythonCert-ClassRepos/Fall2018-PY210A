@@ -5,6 +5,7 @@ from datetime import date
 #main selenium import
 from selenium import webdriver
 
+
 #other items needed - Please ignore these for now and I'll talk about them as they come up
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
@@ -35,14 +36,14 @@ hot_games = driver.find_elements_by_xpath("//*[@class='moduletable hotitems']//*
 
 hot_games_URLs = []
 
-#for game in hot_games: #Stale!
-#   driver.get(game.get_attribute('href'))
-
 for game in hot_games:
     COUNT_OF_GAMES -= 1
     hot_games_URLs.append(game.get_attribute('href'))
     if COUNT_OF_GAMES <= 0:
         break
+
+#for game in hot_games: #Stale!
+#   driver.get(game.get_attribute('href'))
 
 print('Log in now')
 time.sleep(20) #time to log in
