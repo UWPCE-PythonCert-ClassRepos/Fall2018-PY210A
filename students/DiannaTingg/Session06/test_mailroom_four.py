@@ -17,7 +17,8 @@ def reset_donor_database():
 def test_existing_donors():
     mr.donors = reset_donor_database()
     existing = mr.existing_donors()
-    assert existing == ["Jimmy Fallon", "Taylor Swift", "Dan White", "Trevor Noah", "Elon Musk", "Selena Gomez"]
+    existing.sort()
+    assert existing == ["Dan White", "Elon Musk", "Jimmy Fallon", "Selena Gomez", "Taylor Swift", "Trevor Noah"]
 
 
 # Validate donor name
