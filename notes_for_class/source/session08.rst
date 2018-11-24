@@ -91,9 +91,9 @@ Lightning Talks
 Circle class....
 
 
-Python static vs. class methods
--------------------------------
+.. Python static vs. class methods
+.. -------------------------------
 
-Coming from Java/C++, this was always confusing to me. Now I think I understand this better, and I may share my understanding and realization with class. Let's go over the static/class methods materials:
+.. Coming from Java/C++, this was always confusing to me. Now I think I understand this better, and I may share my understanding and realization with class. Let's go over the static/class methods materials:
 
 https://uwpce-pythoncert.github.io/PythonCertDevel/modules/StaticAndClassMethods.html
