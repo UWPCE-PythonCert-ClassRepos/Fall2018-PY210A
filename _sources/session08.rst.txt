@@ -90,22 +90,6 @@ Lightning Talks
 
 Circle class....
 
-Announcements
--------------
-
-Grading, PR feedback
---------------------
-
-How's it going? I've been trying to provide feedback on PRs and enter grades, but I'm finding it hard to keep track of grades from PRs, because sometimes new commits start piling up on an old PR. Your feedback welcome (if any). I personally think everyone's working very hard, so this shouldn't be a big concern. If you'd like our feedback on some specific parts, please do let us know by email separately or clearly indicate that in your PR submission comment.
-
-Python classes: Special methods & protocols
--------------------------------------------
-
-A lot of this topic is closely related to the operator overloading feature that's available in other languages like C++ and C#. A favorite example for the topic is to implement fraction (rational number) arithmetics, like making ``1/2+1/3=5/6`` possible, instead of ``1/2+1/3=0.8333333333``. Python already offers the Fraction class in the fractions module, but let's pretend it's not available and implement ourselves.
-
-Initial Fraction class definition: ``examples/Session08/fraction.py``
-
-Initial fraction test code:  ``examples/Session08/test_fraction.py``
 
 Python static vs. class methods
 -------------------------------
