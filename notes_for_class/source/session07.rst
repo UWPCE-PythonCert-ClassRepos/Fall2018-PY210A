@@ -287,7 +287,7 @@ That code works now -- so the first thing we're going to do is make tests for it
 
 
 Any other questions/issues before we get into classes?
------------------------------------------------------
+------------------------------------------------------
 
 Note that we'll be employing testing the rest of the class, so if you don't quite "get it",  you'll have more chances :-)
 
