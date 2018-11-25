@@ -237,10 +237,11 @@ def test_one_line_tag_attributes():
 def test_self_closing_tag():
     e = SelfClosingTag()
 
-    file_contents = render_result(e).strip()
+    file_contents = render_result(e)
 
     print(file_contents)
-    assert file_contents == "<html />"
+    assert file_contents == "<html />\n"
+
 
 def test_self_closing_tag_content():
     with pytest.raises(TypeError):
@@ -253,23 +254,75 @@ def test_self_closing_tag_append():
     with pytest.raises(TypeError):
         e.append("Append this")
 
-def test_self_closing_tag_attrs():
-    e = SelfClosingTag(style="text-align: center", id="intro")
+def test_hr_tag_attrs():
+    e = Hr(width="400")
 
-    file_contents = render_result(e).strip()
+    file_contents = render_result(e)
 
     print(file_contents)
-    assert 'style="text-align: center"' in file_contents
-    assert 'id="intro"' in file_contents
-    assert file_contents.startswith("<html")
-    assert file_contents.endswith(" />")
+    assert file_contents == '<hr width="400" />\n'
+
+def test_br():
+    br = Br()
+    file_contents = render_result(br)
+    assert file_contents == "<br />\n"
+
+
+def test_content_in_br():
+    with pytest.raises(TypeError):
+        br = Br("some content")
+
+
+def test_append_content_in_br():
+    with pytest.raises(TypeError):
+        br = Br()
+        br.append("some content")
+
+
+# Step 6
+def test_anchor():
+    a = A("http://google.com", "link to google")
+    file_contents = render_result(a)
+    print(file_contents)
+    assert file_contents.startswith('<a ')
+    assert 'href="http://google.com">link to google' in file_contents
+    assert file_contents.endswith("/a>\n")
+
+
+# Step 7
+def test_ul():
+    ulist = Ul("first", id="TheList", style="line-height:200%")
+    ulist.append("second")
+    file_contents = render_result(ulist)
+    print(file_contents)
+    assert file_contents.startswith('<ul id="TheList" style="line-height:200%">')
+    assert "second" in file_contents
+    assert file_contents.endswith("</ul>\n")
+
+
+def test_li():
+    olist = Li("first", id="TheList", style="line-height:200%")
+    olist.append("second")
+    file_contents = render_result(olist)
+    print(file_contents)
+    assert file_contents.startswith('<li id="TheList" style="line-height:200%">')
+    assert "second" in file_contents
+    assert file_contents.endswith("</li>\n")
+
+
+def test_header():
+    header = H(2, "Python Class")
+    file_contents = render_result(header)
+    print(file_contents)
+    assert file_contents == '<h2>Python Class</h2>\n'
+
+# Step 8
 
 
 
 
 
 
-# Add your tests here!
 
 #####################
 # indentation testing
