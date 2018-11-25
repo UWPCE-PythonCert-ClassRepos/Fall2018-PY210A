@@ -9,7 +9,7 @@ A class-based system for rendering html.
 class Element:
 
     tag = "html"
-    indent = 2
+    indent = 4
     def __init__(self, content=None, **kwargs):
         if content:
             self.content = [content]
@@ -47,7 +47,7 @@ class Html(Element):
     html_doctype = "<!DOCTYPE html>"
 
     def render(self, outfile, cur_ind=0):
-        outfile.write(self.html_doctype)
+        outfile.write(self.html_doctype + "\n")
         super().render(outfile, cur_ind)
 
 
