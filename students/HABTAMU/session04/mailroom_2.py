@@ -19,7 +19,6 @@ prompt = "\n".join(("\n Choose an action:",
                     " 4 - Quit\n"
                     " >>> "))
 
-OUT_PATH = "thank_you_letters"
 
 def send_thankyou():
     """print email to the terminal,\n
@@ -79,18 +78,12 @@ def exit_program():
     sys.exit()
 
 
-def prepare_to_run():
-    if not os.path.isdir(OUT_PATH):
-        os.mkdir(OUT_PATH)
-
-
 menu_switcher = {
     "1": send_thankyou,
     "2": create_report,
     "3": save_letter_todisk,
     "4": exit_program
 }
-
 def main():
     while True:
         response = input(prompt)

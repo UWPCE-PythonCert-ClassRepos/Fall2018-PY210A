@@ -27,11 +27,11 @@ def send_thankyou():
 
     d_name = input(
         "Enter donor name Or \nType \'list' if you don't know donor name?: ")
+    if d_name in "list":
+        # list comprehension here
+        [print(f"-{donor}") for donor in donors_info]
     
-    # list comprehension here
-    [print(f"-{donor}") for donor in donors_info if d_name in "list"]
-
-    d_name = input("Enter a donor name?: ")
+        d_name = input("Enter a donor name?: ")
 
     if d_name not in donors_info:
         donors_info[d_name] = []
