@@ -409,6 +409,7 @@ def test_element_indent1():
     assert lines[2] == "</html>"
     assert file_contents.endswith("</html>")
 
+
 def test_indent_one_line_tag():
     t = Title("Test Title")
 
@@ -416,5 +417,3 @@ def test_indent_one_line_tag():
     print(file_contents)
 
     assert file_contents == "      <title>Test Title</title>\n"
-
-
