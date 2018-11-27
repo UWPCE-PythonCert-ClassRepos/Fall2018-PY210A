@@ -15,25 +15,35 @@ class Element:
         else: self.contents = []
         self.tag_attributes = kwags
 
+
+    def _open_tag(self):
+        open_tag = ["<{}".format(self.tag)]
+        for key, value in self.tag_attributes.items():
+            open_tag.append(' {}="{}"'.format(key, value))
+        return "".join(open_tag)
+
+
+    def _close_tag(self):
+        return "</{}>".format(self.tag)
+
+
     def append(self, new_content):
         self.contents.append(new_content)
 
 
     def render(self, out_file):
-        open_tag = ["<{}".format(self.tag)]
-        # print(self.tag_attributes.keys(), self.tag_attributes.values())
-        for key, value in self.tag_attributes.items():
-            open_tag.append(' {}="{}"'.format(key, value))
-        open_tag.append(">\n")
-        out_file.write("".join(open_tag))
+        #
+        out_file.write(self._open_tag())
+        out_file.write("\n")
         for content in self.contents:
             try:
                 content.render(out_file)
             except AttributeError:
                 out_file.write(content)
-            out_file.write("\n")
-        out_file.write("</{}>".format(self.tag))
+                out_file.write("\n")
 
+        out_file.write(self._close_tag())
+        out_file.write("\n")
 
 
 class Html(Element):
@@ -62,8 +72,23 @@ class Title(OneLineTag):
 
 
 class SelfClosingTag(Element):
-    pass
+    def __init__(self, content=None, **kwargs):
+        if content is not None:
+            raise TypeError("SelfClosingTag can not contain any content")
+        super().__init__(content=content, **kwargs)
+
+    def render(self, outfile):
+        tag = self._open_tag()[:-2] + " />\n"
+        outfile.write(tag)
+
+
+    def append(self, *args):
+        raise TypeError("You can not add content to a SelfClosingTag")
 
 
 class Hr(SelfClosingTag):
     tag = "hr"
+
+
+class Br(SelfClosingTag):
+    tag = "br"
