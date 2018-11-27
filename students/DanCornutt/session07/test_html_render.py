@@ -274,6 +274,14 @@ def test_anchor():
     file_contents = render_result(a)
     print(file_contents)
     assert file_contents.startswith('<a ')
+
+
+def test_header():
+    """a horizontal rule with an attribute"""
+    h2 = H(2, "This is a header!")
+    file_contents = render_result(h2)
+    print(file_contents)
+    assert file_contents == '<h2>This is a header!</h2>'
 # #####################
 # # indentation testing
 # #  Uncomment for Step 9 -- adding indentation
