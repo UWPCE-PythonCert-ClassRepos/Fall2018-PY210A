@@ -18,6 +18,7 @@ class Element:
     def append(self, new_content):
         self.contents.append(new_content)
 
+
     def render(self, out_file):
         open_tag = ["<{}".format(self.tag)]
         # print(self.tag_attributes.keys(), self.tag_attributes.values())
@@ -58,3 +59,11 @@ class OneLineTag(Element):
 
 class Title(OneLineTag):
     tag = "title"
+
+
+class SelfClosingTag(Element):
+    pass
+
+
+class Hr(SelfClosingTag):
+    tag = "hr"
