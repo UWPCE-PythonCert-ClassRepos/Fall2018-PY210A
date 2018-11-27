@@ -20,6 +20,7 @@ class Element:
         open_tag = ["<{}".format(self.tag)]
         for key, value in self.tag_attributes.items():
             open_tag.append(' {}="{}"'.format(key, value))
+        open_tag.append(">")
         return "".join(open_tag)
 
 
@@ -78,7 +79,7 @@ class SelfClosingTag(Element):
         super().__init__(content=content, **kwargs)
 
     def render(self, outfile):
-        tag = self._open_tag()[:-2] + " />\n"
+        tag = self._open_tag()[:-1] + " />\n"
         outfile.write(tag)
 
 
