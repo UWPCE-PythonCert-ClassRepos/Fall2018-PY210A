@@ -33,7 +33,6 @@ class Element:
 
 
     def render(self, out_file):
-        #
         out_file.write(self._open_tag())
         out_file.write("\n")
         for content in self.contents:
@@ -49,6 +48,11 @@ class Element:
 
 class Html(Element):
     tag = "html"
+    doc = "<!DOCTYPE html>\n"
+
+    def render(self,out_file):
+        out_file.write(self.doc)
+        super().render(out_file)
 
 class Body(Element):
     tag = "body"
@@ -62,10 +66,8 @@ class Head(Element):
 class OneLineTag(Element):
     def render(self, out_file):
         out_file.write(self._open_tag())
-        # out_file.write("<{}>".format(self.tag))
         out_file.write(self.contents[0])
         out_file.write(self._close_tag())
-        # out_file.write("</{}>\n".format(self.tag))
 
 
     def append(self, content):
@@ -105,7 +107,16 @@ class A(OneLineTag):
         kwargs['href'] = link
         super().__init__(content, **kwargs)
 
+
 class H(OneLineTag):
     def __init__(self, level, content=None, **kwargs):
         self.tag = "h" + str(level)
         super().__init__(content, **kwargs)
+
+
+class Ul(Element):
+    tag = "ul"
+
+
+class Li(Element):
+    tag = "li"
