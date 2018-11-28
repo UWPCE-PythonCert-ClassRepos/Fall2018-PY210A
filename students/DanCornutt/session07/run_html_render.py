@@ -197,8 +197,8 @@ page = hr.Html()
 
 
 head = hr.Head()
-# head.append( hr.Meta(charset="UTF-8") )
-# head.append(hr.Title("PythonClass = Revision 1087:"))
+head.append( hr.Meta(charset="UTF-8") )
+head.append(hr.Title("PythonClass = Revision 1087:"))
 
 page.append(head)
 

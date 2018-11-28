@@ -120,3 +120,7 @@ class Ul(Element):
 
 class Li(Element):
     tag = "li"
+
+
+class Meta(SelfClosingTag):
+    tag = "meta"
