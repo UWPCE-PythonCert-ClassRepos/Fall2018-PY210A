@@ -1,5 +1,12 @@
 #!/usr/bin/env Python3
 
+##############
+# Date: November 28, 2018
+# Author: Carol Farris
+# Goal: Gain familiarity with testing classes
+##############
+
+
 from math import pi
 
 import pytest
