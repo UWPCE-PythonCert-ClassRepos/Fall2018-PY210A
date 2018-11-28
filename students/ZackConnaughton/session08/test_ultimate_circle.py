@@ -89,3 +89,12 @@ def test_sphere_area():
     s = Sphere(4)
     print(s.area)
     assert "{:.2f}".format(s.area) == '201.06'
+
+def test_sphere_from_diameter():
+    s = Sphere.from_diameter(8)
+    assert s.radius == 4
+
+def test_sphere_adding():
+    s1 = Sphere(2)
+    s2 = Sphere(3)
+    assert s1 + s2 == Sphere(5)
