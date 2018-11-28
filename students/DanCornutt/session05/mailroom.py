@@ -29,12 +29,12 @@ DATABASE_PROMPT = (
     "3 - Quit this menu.\n"
 )
 
+
 def check_donor(name):
     """Returns True if user is in DB. Writes user if write=True
     :param1: name of donor
     """
     return name in DONORS.keys()
-
 
 def write_donor(name):
     """Writes thank you email to file"""
@@ -160,6 +160,7 @@ def make_report():
     """Prints report"""
     info = report()
     print(info)
+    print(sheet)
 
 def return_total(elem):
     """sorting function for list"""
