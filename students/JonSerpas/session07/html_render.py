@@ -8,16 +8,33 @@ A class-based system for rendering html.
 # This is the framework for the base class
 class Element(object):
 
+    tag = "html"
+
     def __init__(self, content=None):
-        print('in __init__')
-        print(content)
-        print(self)
-        self.content = [content] # created a list with content
+        if content is None:
+            self.contents = []
+        else:
+            self.contents = [content]  # created a list with content
+        print("contents is :", self.contents)
 
     def append(self, new_content):
-        self.content.append(new_content)
+        self.contents.append(new_content)
 
     def render(self, out_file):
-    	for line in self.content:
-        	out_file.write(line)
-        	out_file.write("\n")
+        out_file.write("<{}>\n".format(self.tag))
+        for content in self.contents:
+            out_file.write(content)
+            out_file.write("\n")
+        out_file.write("</{}>\n".format(self.tag))
+
+
+class Html(Element):
+    tag = 'html'
+
+
+class Body(Element):
+    tag = 'body'
+
+
+class P(Element):
+    tag = 'p'
