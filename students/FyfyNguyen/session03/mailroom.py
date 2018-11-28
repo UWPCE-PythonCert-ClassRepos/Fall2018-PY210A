@@ -26,9 +26,14 @@ def find_donor(name_entered):
 
 
 def send_email(name_entered, donation):
-    print("Dear {}, \n\nYour generous ${:,.2f} donation just made our day!"
-          "\n\nThank you!\n-The Charity"
-          "".format(name_entered.title(), donation))
+    print(
+        """Dear {},
+
+Your generous ${:,.2f} donation just made our day!
+
+Thank you!
+-The Charity""".format(name_entered.title(), donation)
+    )
 
 
 def thank_you():
@@ -59,11 +64,14 @@ def sort_key(donors):
 
 
 def create_report():
-    print("{:30s} | {:11s} | {:9s} | {:12s}".format("Donor Name", "Total Given", "Num Gifts", "Average Gift"))
+    print("{:30s} | {:11s} | {:9s} | {:12s}".format(
+          "Donor Name", "Total Given", "Num Gifts", "Average Gift"))
     print("-" * 72)
     donors.sort(key=sort_key, reverse=True)
     for donor in donors:
-        print("{:30s}  $ {:11,.2f}  {:9d}  $ {:12,.2f}".format(donor[0], sum(donor[1]), len(donor[1]), sum(donor[1]) / len(donor[1])))
+        print("{:30s}  $ {:11,.2f}  {:9d}  $ {:12,.2f}".format(
+              donor[0], sum(donor[1]), len(donor[1]),
+              sum(donor[1]) / len(donor[1])))
 
 
 def exit_program():
