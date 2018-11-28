@@ -30,6 +30,7 @@ def test_make_report():
     assert "Kevin Durant" in report
     assert "Michael Jordan" in report
 
+
 def test_make_report_with_new_donor():
     mail.add_donor("Jae", 500)
     report = mail.make_report()
