@@ -8,6 +8,7 @@ A class-based system for rendering html.
 # This is the framework for the base class
 class Element:
 
+    indent = "   "
     tag = "html"
 
     def __init__(self, content=None, **kwargs):
@@ -35,15 +36,18 @@ class Element:
     def _close_tag(self):
         return f"</{self.tag}>"
 
-    def render(self, out_file):
+    def render(self, out_file, cur_ind=""):
+        out_file.write(cur_ind)
         out_file.write(self._open_tag())
         out_file.write("\n")
         for content in self.content:
             try:
                 content.render(out_file)
             except AttributeError:
+                out_file.write(cur_ind + self.indent)
                 out_file.write(content)
                 out_file.write("\n")
+        out_file.write(cur_ind)
         out_file.write(self._close_tag())
         out_file.write("\n")
 
@@ -68,7 +72,8 @@ class OneLineTag(Element):
     #     if self.content:
     #         super().append(content)
 
-    def render(self, out_file):
+    def render(self, out_file, cur_ind=""):
+        out_file.write(cur_ind)
         out_file.write(self._open_tag())
         out_file.write(self.content[0])
         out_file.write(self._close_tag())
@@ -81,7 +86,8 @@ class SelfClosingTag(Element):
             raise TypeError("SelfClosingTag can not contain any content")
         super().__init__(content=content, **kwargs)
 
-    def render(self, out_file):
+    def render(self, out_file, cur_ind=""):
+        out_file.write(cur_ind)
         out_file.write("<{}>".format(self.tag))
         out_file.write(self.content[0])
         out_file.write("</{}>".format(self.tag))
@@ -97,7 +103,7 @@ class Title(OneLineTag):
 class Br(SelfClosingTag):
     tag = "br"
 
-    def render(self, out_file):
+    def render(self, out_file, cur_ind=""):
         open_tag = ["<{}".format(self.tag)]
 
         if self.attributes:
@@ -113,7 +119,7 @@ class Br(SelfClosingTag):
 class Hr(SelfClosingTag):
     tag = "hr"
 
-    def render(self, out_file):
+    def render(self, out_file, cur_ind=""):
         open_tag = ["<{}".format(self.tag)]
 
         if self.attributes:
