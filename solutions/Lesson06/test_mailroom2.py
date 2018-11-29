@@ -5,6 +5,8 @@ unit tests for the mailroom program
 """
 import os
 
+import pytest
+
 import mailroom2 as mailroom
 
 # so that it's there for the tests
@@ -96,6 +98,32 @@ def test_save_letters_to_disk():
     with open('William_Gates_III.txt') as f:
         size = len(f.read())
     assert size > 0
+
+
+def test_validate_donation_good():
+    result = mailroom.validate_donation("500")
+
+    assert result == 500.0
+
+
+def test_validate_donation_notnum():
+    with pytest.raises(ValueError):
+        mailroom.validate_donation("some junk")
+
+
+def test_validate_donation_negative():
+    with pytest.raises(ValueError):
+        mailroom.validate_donation("-100")
+
+
+def test_validate_donation_nan():
+    with pytest.raises(ValueError):
+        mailroom.validate_donation("NaN")
+
+
+def test_validate_donation_tiny():
+    with pytest.raises(ValueError):
+        mailroom.validate_donation("0.00000001")
 
 
 if __name__ == "__main__":
