@@ -74,6 +74,10 @@ def test_render_element():
     assert file_contents.startswith("<html>")
     assert file_contents.endswith("</html>")
 
+    # make sure there is only one html opening tag and one html closing tag
+    assert file_contents.count("<html>") == 1
+    assert file_contents.count("</html>") == 1
+
 
 def test_render_element2():
     """
@@ -99,6 +103,10 @@ def test_render_element2():
     # making sure the opening and closing tags are right.
     assert file_contents.startswith("<html>")
     assert file_contents.endswith("</html>")
+
+    # make sure there is only one html opening tag and one html closing tag
+    assert file_contents.count("<html>") == 1
+    assert file_contents.count("</html>") == 1
 
 
 # Step 2
