@@ -21,11 +21,15 @@ class Element(object):
         self.contents.append(new_content)
 
     def render(self, out_file):
-        out_file.write("<{}>\n".format(self.tag))
+        # loop through the list of contents:
         for content in self.contents:
-            out_file.write(content)
+            out_file.write("<{}>\n".format(self.tag))
+            try:
+                content.render(out_file)
+            except AttributeError:
+                out_file.write(content)
             out_file.write("\n")
-        out_file.write("</{}>\n".format(self.tag))
+            out_file.write("</{}>\n".format(self.tag))
 
 
 class Html(Element):
@@ -38,3 +42,19 @@ class Body(Element):
 
 class P(Element):
     tag = 'p'
+
+
+class Head(Element):
+    tag = 'head'
+
+
+class OneLineTag(Element):
+    pass
+
+
+class Title(OneLineTag):
+    tag = "title"
+
+
+
+
