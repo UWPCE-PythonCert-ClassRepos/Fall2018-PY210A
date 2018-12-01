@@ -25,11 +25,12 @@ class SparseArray:
         self.seq.append(value)
         return self.seq
 
+    # Was not able to figure out how to make del [] work
     def delete(self, pos):
         """Delete item at given index"""
         del self.seq[pos]
         return self.seq
- 
+
     def insert(self, pos, value):
         """Insert value at particular index.
         If index is out of range, insert to
@@ -43,4 +44,4 @@ class SparseArray:
 
 
 sa = SparseArray([1, 2, 3, 4, 5, 6])
-sa.insert(-800, "more")
+
