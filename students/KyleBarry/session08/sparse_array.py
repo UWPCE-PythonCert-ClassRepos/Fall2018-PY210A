@@ -42,6 +42,3 @@ class SparseArray:
         else:
             self.seq[pos] = value
 
-
-sa = SparseArray([1, 2, 3, 4, 5, 6])
-
