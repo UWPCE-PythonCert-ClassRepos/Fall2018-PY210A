@@ -83,6 +83,13 @@ class Sphere(Circle):
     """Class for Spheres, subclass of Circle. Attributes and methods for
     dealing with spheres."""
     name = "Sphere"
+
     @property
     def area(self):
+        """Computes surface area of sphere."""
+        return 4 * pi * self.radius ** 2
+
+    @property
+    def volume(self):
+        """Computes volume of sphere."""
         return 4 /3 * pi * self.radius ** 3

@@ -87,6 +87,11 @@ def test_circle_eq():
     assert (c2 == c2a) == True
 
 def test_sphere():
-        """Tests construction of Sphere object with radius 2."""
+    """Tests construction of Sphere object with radius 2."""
     s2 = Sphere(2)
     assert str(s2) == 'Sphere with radius 2.000000'
+
+def test_sphere_sa():
+    """Tests computation for surface area of Sphere object."""
+    s2 = Sphere(4)
+    assert s2.area == (4 * pi * 4 ** 2)
