@@ -64,18 +64,19 @@ def create_report():
 
 
 
-def email(donor_name, donation):
+
+def email(donor_name, donation_amount):
     """creates individual thank-you email for a new donation"""
     message = ("\n\nDear {},"
     "\n\nThanks for your money! Your donation of ${:.2f} will be summarily used to buy me beer.\n\n"
-    "Kind regards,\nKate Koehn").format(donor_name, donation)
+    "Kind regards,\nKate Koehn").format(donor_name, donation_amount)
     file_name = "{}.txt".format(donor_name)
     with open(file_name, "w") as f:
         f.write(message)
 
 
 
-def generate_letter(donor_name, donation):
+def generate_letter(donor_name, donation_amount):
     """generates a thank you letter for the donation made"""
     return dedent('''Dear {!s:s},
     
@@ -83,7 +84,7 @@ def generate_letter(donor_name, donation):
     
     Cheers,
         Kate Koehn
-    '''.format(donor_name, donation))
+    '''.format(donor_name, donation_amount))
 
 
 
@@ -98,11 +99,11 @@ def record_new_donation(donor_name):
     """prompts user for a new donation amount and store it in the donor dict"""
     while True:
         donation = input("Please enter the donation amount or type 'menu' to return to the main menu: ").strip()
+        donation = float(donation)
         if donation == "menu":
             return
         try:
-            donation_amount = float(donation)
-            if math.isnan(donation_amount) or math.isinf(donation_amount) or round(donation_amount, 2) == 0.00:
+            if math.isnan(donation) or math.isinf(donation) or round(donation, 2) == 0.00:
                 raise ValueError
         except ValueError:
             print("You have tried to donate an invalid amount. Please try again.\n")
@@ -117,8 +118,8 @@ def record_new_donation(donor_name):
         donors[name] = donor_name
         return donor_name
 
-    donor_name[1].append(donation_amount)
-    print(email(donor_name), donation_amount)
+    donors[donor_name].append(donation)
+    print(email(donor_name, donation))
 
 
 

@@ -7,7 +7,7 @@
 Notes for Session 07
 ####################
 
-4/30/2018
+11/20/2018
 
 A collection of notes to go over in class, to keep things organized.
 
@@ -18,14 +18,62 @@ Adolphe Aime  Ndilingiye
 Udo (Michael) Uduhiri
 Zachary A Connaughton (Zach)
 
+Scheduling:
+===========
+
+Turkey Day weekend
+------------------
+
+I'm around all weekend, so can do office hours -- do you want them?
+
+The usual times?
+
+Next Week:
+----------
+
+I'll be out of town, leaving you in Charles Capable hands.
+
+But I'll be trying to keep up with email and gitHub....
+
+
 Issues that came up during the week.
 ====================================
 
+Naming and Style
+----------------
 
-chaining or, etc.
+Read this again:
+
+https://uwpce-pythoncert.github.io/PythonCertDevel/modules/NamingThings.html
+
+And watch this video:
+
+https://www.youtube.com/watch?v=hZ7hgYKKnF0
+
+Some of you are still not following PEP 8 style. If you can't (or don't want to) set up a linter in your editor or IDE, you can run ``pycodestyle`` on your code.
+
+https://pycodestyle.readthedocs.io
+
+``python3 -m pip install pycodestyle``
+
+Let's give it a quick try.
+
+Auto-fixing style
 -----------------
 
-this looks pretty nifty:
+If you don't want to fix all that by hand, there are tools to do it for you.
+
+one really nice one is yapf:
+
+https://github.com/google/yapf
+
+Maybe give ``yapf`` a try.
+
+
+Chaining ``or``, etc.
+---------------------
+
+This looks pretty nifty:
 
 .. code-block:: python
 
@@ -41,11 +89,11 @@ Let's play with that...
 Operator Precedence
 ...................
 
-This table tells you which opertors have "Precedence" over each other -- that is, which are evaluated first:
+This table tells you which operators have "Precedence" over each other -- that is, which are evaluated first:
 
 https://docs.python.org/3/reference/expressions.html#operator-precedence
 
-When in doubt -- add parenthesis to make it clear. Cis there a way to add parentheses that works for the above?
+When in doubt -- add parenthesis to make it clear. Is there any way to add parentheses that works for the above?
 
 Comparison Chaining
 ...................
@@ -190,9 +238,46 @@ And no one wanted to add **two** new sets of operators.
 
 https://www.python.org/dev/peps/pep-0203/
 
+Working with dicts
+------------------
+
+Want to know if something is in a dict? You could do:
+
+.. code-block:: python
+
+    if name not in donors.keys():
+
+But that requires python to loop through the entire keys object (I think).
+
+You can simply do:
+
+.. code-block:: python
+
+    if name not in donors:
+
+Cleaner -- but is it faster? It'll be a lot faster if the ``dict_keys`` object doesn't directly support ``in``.  Let's take a look:
+
+passing args to functions in a dict
+-----------------------------------
+
+On MS Teams, Vincent M Aquila and serpasj had a converstaion about passing arguments to functions in a dict.
+
+I'm not sure what the goal really was -- so let's talk about it now.
+
+
+unit tests should be isolated
+-----------------------------
+
+Ideally, each unit test should be able to run all on its own, and it should NOT matter what order tests run in.
+
+That can be a bit of a trick with mailroom -- as you might have a test of adding a new donor to the database, and another test that asserts that the report has the right number of donors in it.
+
+Let's look a how to deal with that.
 
 A Little Code Refactoring
 -------------------------
+
+(If we have time...)
 
 After making a few comments on a block of mailroom code, I decided it might be instructive to review and refactor it live with the class. The code can be found in the class repo in:
 
@@ -200,10 +285,19 @@ After making a few comments on a block of mailroom code, I decided it might be i
 
 That code works now -- so the first thing we're going to do is make tests for it. Then we can refactor away and know it still works.
 
-Any other questions/issue before we get into classes?
+
+Any other questions/issues before we get into classes?
+------------------------------------------------------
+
+Note that we'll be employing testing the rest of the class, so if you don't quite "get it",  you'll have more chances :-)
+
 
 Break -- Then Lightning Talks
 =============================
+
+Adolphe Aime  Ndilingiye
+Udo (Michael) Uduhiri
+Zachary A Connaughton (Zach)
 
 
 Classes!

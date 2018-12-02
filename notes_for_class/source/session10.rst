@@ -7,6 +7,7 @@
 Notes for Session 10
 ####################
 
+12/11/2018
 
 A collection of notes to go over in class, to keep things organized.
 
