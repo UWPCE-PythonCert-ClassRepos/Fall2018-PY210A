@@ -6,6 +6,9 @@ class Circle:
     def __init__(self, radius):
         self.radius = radius
 
+    def __eq__(self, other):
+        return self.radius == other.radius
+
     def __str__(self):
         return f"Circle with radius of {self.radius}"
 
@@ -16,8 +19,11 @@ class Circle:
         total = self.radius + new.radius
         return Circle(total)
 
-    @property
+    def __lt__(self, other):
+        return self.radius < other.radius
+
     # Figure out how to make this diameter settable.
+    @property
     def diameter(self):
         return self.radius*2
 
@@ -26,12 +32,3 @@ class Circle:
         return round(self.radius**2*math.pi, 2)
 
 
-c = Circle(200)
-c2 = Circle(500)
-print(c.diameter)
-print(c.area)
-print(repr(c))
-print(str(c))
-c3 = c + c2
-print(c3)
-print(c3.area)
