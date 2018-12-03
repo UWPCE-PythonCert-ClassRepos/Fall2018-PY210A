@@ -9,9 +9,12 @@
 
 from math import pi
 
+
 import pytest
 
+
 from circle import Circle, Sphere
+
 
 def test_init_circle():
     Circle(4)
@@ -19,8 +22,9 @@ def test_init_circle():
 
 def test_radius_circle():
     c = Circle(4)
-    
+
     assert c.radius == 4
+
 
 def test_set_radius():
     c = Circle(8)
@@ -31,7 +35,7 @@ def test_set_radius():
 
 def test_diameter_circle():
     c = Circle(4)
-    
+
     assert c.diameter == 8
 
 
@@ -40,15 +44,18 @@ def test_area():
 
     assert c.area == 4 * pi
 
+
 def test_str_():
     c = Circle(4)
 
     assert str(c) == "Circle with a radius 4.000000"
 
+
 def test_repr_():
     c = Circle(4)
 
     assert repr(c) == 'Circle(4)'
+
 
 def test_add_():
     c = Circle(4)
@@ -56,15 +63,18 @@ def test_add_():
 
     assert (c + d) == 'Circle(10)'
 
+
 def test_mult_():
     c = Circle(4)
 
     assert c * 3 == 'Circle(12)'
 
+
 def test_rmult_():
     c = Circle(4)
 
-    assert 3 * c == 'Circle(12)' 
+    assert 3 * c == 'Circle(12)'
+
 
 def test__eq__():
     a = Circle(40)
