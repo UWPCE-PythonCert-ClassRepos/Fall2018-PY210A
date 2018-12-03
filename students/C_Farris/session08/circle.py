@@ -14,16 +14,16 @@ class Circle():
 
     def __init__(self, radius=1):
         self.radius = radius
-   
-    @property 
+
+    @property
     def diameter(self):
         return self.radius * 2
-    
-    @diameter.setter 
+
+    @diameter.setter
     def diameter(self, value):
         self.radius = value / 2
 
-    @property 
+    @property
     def area(self):
         return self.radius * self.radius * pi
 
@@ -38,7 +38,6 @@ class Circle():
 
     def __mul__(self, other):
         if self.radius:
-            print("here!")
             return f'{self.__class__.__name__}({(self.radius * other)})'
 
     def __rmul__(self, other):
@@ -54,7 +53,7 @@ class Circle():
 class Sphere(Circle):
     def __init__(self, radius=1):
         Circle.__init__(self, radius)
-    
+
     @property
     def volume(self):
         return 1.25 * pi * pow(self.radius, 3)
@@ -68,4 +67,3 @@ class Sphere(Circle):
     @property
     def area(self):
         return 4 * pi * self.radius * self.radius
-        
