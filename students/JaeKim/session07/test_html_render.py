@@ -331,17 +331,7 @@ def test_multiple_indent():
 
 
 def test_element_indent1():
-    """
-    Tests whether the Element indents at least simple content
 
-    we are expecting to to look like this:
-
-    <html>
-        this is some text
-    <\html>
-
-    More complex indentation should be tested later.
-    """
     e = Element("this is some text")
 
     # This uses the render_results utility above

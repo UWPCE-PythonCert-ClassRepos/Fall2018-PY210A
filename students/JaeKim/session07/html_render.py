@@ -42,7 +42,7 @@ class Element:
         out_file.write("\n")
         for content in self.content:
             try:
-                content.render(out_file)
+                content.render(out_file, cur_ind + self.indent)
             except AttributeError:
                 out_file.write(cur_ind + self.indent)
                 out_file.write(content)
@@ -130,6 +130,15 @@ class Hr(SelfClosingTag):
         open_tag.append(" />\n")
 
         out_file.write("".join(open_tag))
+
+
+class Html(Element):
+    tag = 'html'
+
+    def render(self, out_file, cur_ind=""):
+        out_file.write(cur_ind)
+        out_file.write("<!DOCTYPE html>\n")
+        super().render(out_file, cur_ind)
 
 
 class A(OneLineTag):
