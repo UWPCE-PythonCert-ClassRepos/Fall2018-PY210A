@@ -119,6 +119,7 @@ def test_render_element2():
 # # ########
 
 # # tests for the new tags
+
 def test_html():
      e = Html("this is some text")
      e.append("and this is some more text")
@@ -127,7 +128,6 @@ def test_html():
 
      assert("this is some text") in file_contents
      assert("and this is some more text") in file_contents
-     print(file_contents)
      assert file_contents.endswith("</html>")
 
 
@@ -171,12 +171,12 @@ def test_sub_element():
 #     # note: The previous tests should make sure that the tags are getting
 #     #       properly rendered, so we don't need to test that here.
      assert "some plain text" in file_contents
-#     assert "A simple paragraph of text" in file_contents
-#     assert "Some more plain text." in file_contents
-#     assert "some plain text" in file_contents
+     assert "A simple paragraph of text" in file_contents
+     assert "Some more plain text." in file_contents
+     assert "some plain text" in file_contents
 #     # but make sure the embedded element's tags get rendered!
-#     assert "<p>" in file_contents
-#     assert "</p>" in file_contents
+     assert "<p>" in file_contents
+     assert "</p>" in file_contents
 
 
 
@@ -184,6 +184,30 @@ def test_sub_element():
 ########
 # Step 3
 ########
+
+def test_head():
+    e = Head()
+    e.append(Title("PythonClass = Revision 1087:"))
+    file_contents = render_result(e).strip()
+    print(file_contents)
+    assert file_contents.startswith("<head>")
+    assert file_contents.endswith("</head>")
+
+
+def test_OneLineTag():
+    e = Title("My Title to My Webpage")
+    file_contents = render_result(e).strip()
+
+    assert file_contents.startswith("<title>")
+    assert file_contents.endswith("</title>")
+    assert "<title>My Title to My Webpage</title>" in file_contents
+    assert "\n" not in file_contents
+
+def test_attributes():
+    e = P("A lengthy paragraph centered", style= "text-align: center", id="intro")
+    
+
+
 
 # Add your tests here!
 
