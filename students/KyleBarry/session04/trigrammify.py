@@ -3,9 +3,10 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def get_text(url): 
-    """ 
-    Get text data from url of gutenberg project so as to not have it within code
+def get_text(url):
+    """
+    Get text data from url of gutenberg project so as to not have it within
+    code
     """
     page = requests.get(url)
     soup = BeautifulSoup(page.content, "lxml")
@@ -26,7 +27,7 @@ def make_trigrams(words):
             tris[(w1, w2)] = [w3]
         else:
             tris[(w1, w2)].append(w3)
-    #Pass tris dictionary and words list to random text generator
+    # Pass tris dictionary and words list to random text generator
     random_text(tris, words)
 
 
@@ -44,17 +45,22 @@ def random_text(tris, words):
             break
         else:
             continue
-
+    # Add random choice to the new text from list of tuple pair in dictionary
+    # If exact match doesn't exist in dictionary, take second word and add
+    # random choice from list of value with second tuple value
     for i in range(len(words)-2):
         last_two = tuple(new_text[-2:])
         try:
             new_text.append(random.choice(tris[last_two]))
         except KeyError:
-            new_text.append(random.choice(new_text))
+            for i in tris:
+                if last_two[1] == i[1]:
+                    new_text.append(random.choice(tris[i]))
+                else:
+                    new_text.append(random.choice(new_text))
 
     print(" ".join(new_text))
 
+
 if __name__ == "__main__":
-    """Passing in Moby Dick for now, but any URL from gutenberg project
-    works"""
-    get_text("http://www.gutenberg.org/files/2701/2701-h/2701-h.htm")
+    get_text("https://www.gutenberg.org/files/1497/1497-h/1497-h.htm")
