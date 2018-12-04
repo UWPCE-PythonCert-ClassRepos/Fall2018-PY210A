@@ -95,3 +95,8 @@ def test_sphere_sa():
     """Tests computation for surface area of Sphere object."""
     s2 = Sphere(4)
     assert s2.area == (4 * pi * 4 ** 2)
+
+def test_sphere_sa():
+    """Tests computation for volume of Sphere object."""
+    s2 = Sphere(8)
+    assert s2.volume == (4 / 3 * pi * 8 ** 3)

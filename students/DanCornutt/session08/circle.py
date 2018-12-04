@@ -43,8 +43,16 @@ class Circle:
 
 
     def __add__(self, other):
-        new = Circle(self.radius + other.radius)
+        try:
+            new = Circle(self.radius + other.radius)
+        except AttributeError:
+            new = Circle(self.radius + other)
         return str(new)
+
+
+    def __radd__(self, other):
+        new = Circle(self.radius + other)
+        return new
 
 
     def __mul__(self, other):
@@ -52,6 +60,11 @@ class Circle:
             new = Circle(self.radius * other.radius)
         except AttributeError:
             new = Circle(self.radius * other)
+        return new
+
+
+    def __rmul__(self, other):
+        new = Circle(self.radius * other)
         return new
 
 
