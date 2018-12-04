@@ -17,9 +17,9 @@ Lightning Talks
 
 Cheng Liu
 
-Kathryn Claire  Koehn (Kate)
+Kate Koehn
 
-Parastoo  Javadi
+Parastoo Javadi
 
 Issues that came up during the week.
 ====================================
@@ -119,10 +119,6 @@ Any other html_render questions?
 
 Lightning Talks
 ===============
-
-Jay Johnson
-
-Tammy Do
 
 
 New Topics
