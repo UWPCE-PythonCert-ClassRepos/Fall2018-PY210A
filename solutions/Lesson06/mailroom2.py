@@ -66,6 +66,36 @@ def add_donor(name):
     donor_db[name.lower()] = donor
     return donor
 
+def validate_donation(donation):
+    """
+    validates a dontation input for float,
+    non-negative, etc.non-negative
+
+    :param donation: the input donation
+    :type donation: string
+
+    :returns: float of donation amount
+
+    raises a ValueError if invalid
+    """
+
+    donation = float(donation)
+
+    # extra check here -- unlikely that someone will type "NaN", but
+    # it IS possible, and it is a valid floating point number:
+    # http://en.wikipedia.org/wiki/NaN
+    if math.isnan(donation) or math.isinf(donation):
+        raise ValueError
+
+    if donation < 0:
+        raise ValueError("donation can't be negative")
+
+    if donation < 0.01:
+        raise ValueError("donation can't be less than one cent")
+
+    return donation
+
+
 
 def main_menu_selection():
     """
@@ -128,13 +158,7 @@ def send_thank_you():
             return
         # Make sure amount is a valid amount before leaving the input loop
         try:
-            amount = float(amount_str)
-            # extra check here -- unlikely that someone will type "NaN", but
-            # it IS possible, and it is a valid floating point number:
-            # http://en.wikipedia.org/wiki/NaN
-            if math.isnan(amount) or math.isinf(amount) or round(amount, 2) == 0.00:
-                raise ValueError
-        # in this case, the ValueError could be raised by the float() call, or by the NaN-check
+            amount = validate_donation(amount_str)
         except ValueError:
             print("error: donation amount is invalid\n")
         else:

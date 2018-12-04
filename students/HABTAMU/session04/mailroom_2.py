@@ -19,7 +19,6 @@ prompt = "\n".join(("\n Choose an action:",
                     " 4 - Quit\n"
                     " >>> "))
 
-
 def send_thankyou():
     """print email to the terminal,\n
     prompt for list show a list of the donor names and re-prompt"""
