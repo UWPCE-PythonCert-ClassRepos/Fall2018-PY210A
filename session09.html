@@ -88,6 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="session05.html">Notes for Session 05</a></li>
 <li class="toctree-l1"><a class="reference internal" href="session06.html">Notes for Session 06</a></li>
 <li class="toctree-l1"><a class="reference internal" href="session07.html">Notes for Session 07</a></li>
+<li class="toctree-l1"><a class="reference internal" href="session08.html">Notes for Session 08</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="lightning_talks.html">Lightning Talks: Fall 2018 Class</a></li>
@@ -161,12 +162,46 @@
 <p>A collection of notes to go over in class, to keep things organized.</p>
 <div class="section" id="lightning-talks">
 <h2>Lightning Talks<a class="headerlink" href="#lightning-talks" title="Permalink to this headline">¶</a></h2>
-<p>Cheng Liu
-Kathryn Claire  Koehn (Kate)
-Parastoo  Javadi</p>
+<p>Cheng Liu</p>
+<p>Kate Koehn</p>
+<p>Parastoo Javadi</p>
 </div>
 <div class="section" id="issues-that-came-up-during-the-week">
 <h2>Issues that came up during the week.<a class="headerlink" href="#issues-that-came-up-during-the-week" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sum">
+<h3><code class="docutils literal notranslate"><span class="pre">sum()</span></code><a class="headerlink" href="#sum" title="Permalink to this headline">¶</a></h3>
+<p>You can use <code class="docutils literal notranslate"><span class="pre">sum()</span></code> for things other than numbers. Anything that you can add, you can use <code class="docutils literal notranslate"><span class="pre">sum()</span></code> for, but you needto give it a “start” value:</p>
+<p>From trigrams:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [14]: </span><span class="n">text</span>
+<span class="gh">Out[14]:</span>
+<span class="go">[&#39;him mention her under any other name. In his eyes she eclipses&#39;,</span>
+<span class="go"> &#39;and predominates the whole of her sex. It was not that he felt&#39;,</span>
+<span class="go"> &#39;any emotion akin to love for Irene Adler. All emotions, and that&#39;]</span>
+
+<span class="gp">In [15]: </span><span class="nb">sum</span><span class="p">((</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">text</span><span class="p">),</span> <span class="p">[])</span>
+<span class="gh">Out[15]:</span>
+<span class="go">[&#39;him&#39;,</span>
+<span class="go"> &#39;mention&#39;,</span>
+<span class="go"> &#39;her&#39;,</span>
+<span class="go"> &#39;under&#39;,</span>
+<span class="go"> &#39;any&#39;,</span>
+<span class="go"> &#39;other&#39;,</span>
+<span class="go"> &#39;name.&#39;,</span>
+<span class="go"> ...</span>
+</pre></div>
+</div>
+<p>Except not strings:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [17]: </span><span class="nb">sum</span><span class="p">([</span><span class="s2">&quot;this&quot;</span><span class="p">,</span> <span class="s2">&quot;that&quot;</span><span class="p">,</span> <span class="s2">&quot;something&quot;</span><span class="p">],</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">17</span><span class="o">-</span><span class="n">c882ae453790</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">sum</span><span class="p">([</span><span class="s2">&quot;this&quot;</span><span class="p">,</span> <span class="s2">&quot;that&quot;</span><span class="p">,</span> <span class="s2">&quot;something&quot;</span><span class="p">],</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+<span class="ne">TypeError</span>: sum() can&#39;t sum strings [use &#39;&#39;.join(seq) instead]
+</pre></div>
+</div>
+<p>That’s because you <code class="docutils literal notranslate"><span class="pre">.join()</span></code> is a lot more efficient.</p>
+</div>
 <div class="section" id="private-attributes-and-dunders">
 <h3>“private” attributes and dunders<a class="headerlink" href="#private-attributes-and-dunders" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">_something</span></code> vs <code class="docutils literal notranslate"><span class="pre">__something</span></code> vs <code class="docutils literal notranslate"><span class="pre">__something__</span></code></p>
@@ -209,8 +244,6 @@ Parastoo  Javadi</p>
 </div>
 <div class="section" id="id1">
 <h2>Lightning Talks<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>Jay Johnson</p>
-<p>Tammy Do</p>
 </div>
 <div class="section" id="new-topics">
 <h2>New Topics<a class="headerlink" href="#new-topics" title="Permalink to this headline">¶</a></h2>

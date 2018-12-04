@@ -16,12 +16,53 @@ Lightning Talks
 ===============
 
 Cheng Liu
-Kathryn Claire  Koehn (Kate)
-Parastoo  Javadi
+
+Kate Koehn
+
+Parastoo Javadi
 
 Issues that came up during the week.
 ====================================
 
+``sum()``
+---------
+
+You can use ``sum()`` for things other than numbers. Anything that you can add, you can use ``sum()`` for, but you needto give it a "start" value:
+
+From trigrams:
+
+.. code-block:: ipython
+
+    In [14]: text
+    Out[14]:
+    ['him mention her under any other name. In his eyes she eclipses',
+     'and predominates the whole of her sex. It was not that he felt',
+     'any emotion akin to love for Irene Adler. All emotions, and that']
+
+    In [15]: sum((line.split() for line in text), [])
+    Out[15]:
+    ['him',
+     'mention',
+     'her',
+     'under',
+     'any',
+     'other',
+     'name.',
+     ...
+
+Except not strings:
+
+.. code-block:: ipython
+
+    In [17]: sum(["this", "that", "something"], "")
+    ---------------------------------------------------------------------------
+    TypeError                                 Traceback (most recent call last)
+    <ipython-input-17-c882ae453790> in <module>
+    ----> 1 sum(["this", "that", "something"], "")
+
+    TypeError: sum() can't sum strings [use ''.join(seq) instead]
+
+That's because you ``.join()`` is a lot more efficient.
 
 
 "private" attributes and dunders
@@ -78,10 +119,6 @@ Any other html_render questions?
 
 Lightning Talks
 ===============
-
-Jay Johnson
-
-Tammy Do
 
 
 New Topics
