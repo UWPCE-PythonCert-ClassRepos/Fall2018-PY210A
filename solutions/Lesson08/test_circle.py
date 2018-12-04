@@ -61,7 +61,7 @@ def test_set_diameter_float():
 def test_area():
     c = Circle(2)
 
-    assert c.area == pi*4
+    assert c.area == pi * 4
 
 
 def test_set_area():
@@ -208,8 +208,7 @@ def test_sphere_diameter():
 def test_sphere_area():
     s = Sphere(4)
 
-    with pytest.raises(NotImplementedError):
-        s.area()
+    assert s.area == 4 * pi * 16
 
 
 def test_sphere_repr():
