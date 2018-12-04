@@ -14,14 +14,12 @@ def get_donors_db():
 
 def thank_you(donors):
     # this function generates a list of donors and their amounts
-    def list(donors):
-        for i in donors:
-            print(i)
     # there we determine if the users choice is in the db
     mailto = input(
         "To whom would you like to send a thank you letter? \nType 'List' for a list of donors: ")
     if mailto == "List":
-        list(donors)
+        for i in donors:
+            print(i)
     elif mailto in donors:
         print("Dear {}, \n Thank you for your generous donation of ${}.".format(
             mailto, str(donors[mailto][-1:]).strip('[]')))
@@ -59,13 +57,8 @@ def create_report(donors):
         print(i)
     return report
 
-    # print("-" * len(donors))
-    # [print('{:<20}{:<10}{:<5}{:<20}'.format(i, sum(donors[i]), len(donors[i]), sum(donors[i]) / len(donors))) for i in donors]
-    # print("-" * len(donors) , '\n')
 
-    # this exits the program
-
-
+# this exits the program
 # this will allow it to take any or no arguments at all without errors.
 def goodbye(*args, **kwargs):
     print("Goodbye", exit())

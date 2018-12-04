@@ -11,13 +11,16 @@ def get_donors_db():
     return donors
 
 
-def test1():
+def test_get_donors_db():
+    # test that the database function returns a full database
     donors = get_donors_db()
+    assert len(donors) != 0
     assert len(create_report(donors)) == len(donors)
 
 
-def test2():
+def test_everyone():
     donors = get_donors_db()
+    # tests that a file was created for each donor emailed
     everyone(donors)
     for i in donors:
         assert os.path.exists(i + ".txt")
