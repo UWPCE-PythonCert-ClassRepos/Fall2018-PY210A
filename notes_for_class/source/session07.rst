@@ -18,6 +18,24 @@ Adolphe Aime  Ndilingiye
 Udo (Michael) Uduhiri
 Zachary A Connaughton (Zach)
 
+Scheduling:
+===========
+
+Turkey Day weekend
+------------------
+
+I'm around all weekend, so can do office hours -- do you want them?
+
+The usual times?
+
+Next Week:
+----------
+
+I'll be out of town, leaving you in Charles Capable hands.
+
+But I'll be trying to keep up with email and gitHub....
+
+
 Issues that came up during the week.
 ====================================
 
@@ -220,6 +238,32 @@ And no one wanted to add **two** new sets of operators.
 
 https://www.python.org/dev/peps/pep-0203/
 
+Working with dicts
+------------------
+
+Want to know if something is in a dict? You could do:
+
+.. code-block:: python
+
+    if name not in donors.keys():
+
+But that requires python to loop through the entire keys object (I think).
+
+You can simply do:
+
+.. code-block:: python
+
+    if name not in donors:
+
+Cleaner -- but is it faster? It'll be a lot faster if the ``dict_keys`` object doesn't directly support ``in``.  Let's take a look:
+
+passing args to functions in a dict
+-----------------------------------
+
+On MS Teams, Vincent M Aquila and serpasj had a converstaion about passing arguments to functions in a dict.
+
+I'm not sure what the goal really was -- so let's talk about it now.
+
 
 unit tests should be isolated
 -----------------------------
@@ -233,17 +277,27 @@ Let's look a how to deal with that.
 A Little Code Refactoring
 -------------------------
 
+(If we have time...)
+
 After making a few comments on a block of mailroom code, I decided it might be instructive to review and refactor it live with the class. The code can be found in the class repo in:
 
 ``/examples/Session07/refactor.py``
 
 That code works now -- so the first thing we're going to do is make tests for it. Then we can refactor away and know it still works.
 
-Any other questions/issue before we get into classes?
+
+Any other questions/issues before we get into classes?
+------------------------------------------------------
+
+Note that we'll be employing testing the rest of the class, so if you don't quite "get it",  you'll have more chances :-)
 
 
 Break -- Then Lightning Talks
 =============================
+
+Adolphe Aime  Ndilingiye
+Udo (Michael) Uduhiri
+Zachary A Connaughton (Zach)
 
 
 Classes!
