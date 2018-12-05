@@ -186,15 +186,23 @@ def test_sub_element():
 ########
 
 def test_head():
+    """
+    Tests head class can be initialized and will contain content
+    and proper closing tags
+    """
     e = Head()
     e.append(Title("PythonClass = Revision 1087:"))
     file_contents = render_result(e).strip()
-    print(file_contents)
+
     assert file_contents.startswith("<head>")
     assert file_contents.endswith("</head>")
 
 
 def test_OneLineTag():
+    """
+    Tests OneLineTag class can be initialized and will contain content
+    and proper closing tags
+    """
     e = Title("My Title to My Webpage")
     file_contents = render_result(e).strip()
 
@@ -204,8 +212,28 @@ def test_OneLineTag():
     assert "\n" not in file_contents
 
 def test_attributes():
+    """
+    Tests that additional attributes will be added to opening
+    tag correctly with proper spacing
+    """
     e = P("A lengthy paragraph centered", style= "text-align: center", id="intro")
-    
+    file_contents = render_result(e).strip()
+
+    assert file_contents.startswith("<p ")
+    assert file_contents[:file_contents.index(">")].count(" ") == 3
+    assert file_contents.endswith("</p>")
+    assert 'style="text-align: center"' in file_contents
+    assert 'id="intro"' in file_contents
+    assert file_contents[:-1].index(">") > file_contents.index('id="intro"')
+
+def test_hr():
+    """"
+    Tests initialization of hr with no attributes
+    """
+    hr = Hr()
+    file_contents = render_result(hr)
+    print(file_contents)
+   # assert file_contents == '<hr />'
 
 
 
