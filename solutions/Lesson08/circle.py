@@ -12,7 +12,7 @@ import functools
 
 # this is a trick to make all the greater than, less than, etc work.
 # see: https://docs.python.org/3.7/library/functools.html#functools.total_ordering
-@functools.total_ordering
+# @functools.total_ordering
 class Circle(object):
     """
     simple class to represent a circle
