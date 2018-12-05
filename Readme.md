@@ -1,5 +1,4 @@
 # Class Repository
-i came to love Python because it is adopted by many, and you can do a lot with it
 
 Class notes are published here:
 
