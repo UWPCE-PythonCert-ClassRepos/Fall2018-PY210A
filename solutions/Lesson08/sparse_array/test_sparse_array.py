@@ -73,14 +73,14 @@ def test_get_slice():
 def test_set_slice_over():
     my_array, my_sparse = set_up()
     my_sparse[13:17] = [5, 3, 4]
-    my_sparse == SparseArray([2, 0, 2, 3, 4, 3, 0, 0, 0, 4, 5, 6, 0, 5, 3, 4])
+    assert my_sparse == SparseArray([2, 0, 2, 3, 4, 3, 0, 0, 0, 4, 5, 6, 0, 5, 3, 4])
 
 
 def test_set_slice_insert():
     # inserting a larger slice
     my_array, my_sparse = set_up()
     my_sparse[2:4] = [2, 3, 4]
-    my_sparse == SparseArray([2, 0, 2, 3, 4, 3, 0, 0, 0, 4, 5, 6, 0, 2, 9])
+    assert my_sparse == SparseArray([2, 0, 2, 3, 4, 3, 0, 0, 0, 4, 5, 6, 0, 2, 9])
 
 
 def test_get_length():

@@ -18,7 +18,7 @@ Notes for each Session
     session06
     session07
     session08
-..    session09
+    session09
 ..    session10
 
 .. toctree::
