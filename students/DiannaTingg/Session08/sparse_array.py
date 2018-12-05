@@ -24,13 +24,7 @@ class SparseArray:
 
     # Reconstruct full array
     def get_nums(self):
-        cur_values = []
-        for i in range(self.size):
-            if i in self.values:
-                cur_values.append(self.values[i])
-            else:
-                cur_values.append(0)
-        return cur_values
+        return [self.values[i] if i in self.values else 0 for i in range(self.size)]
 
     def __str__(self):
         return str(self.get_nums())
