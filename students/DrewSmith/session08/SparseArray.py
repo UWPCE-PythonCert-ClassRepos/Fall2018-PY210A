@@ -85,3 +85,6 @@ class SparseArray():
             return len(self._values) < self.__len__()
         
         return value in self._values.values()
+
+    def __eq__(self, other):
+        return len(self) == len(other) and self._values == other._values
