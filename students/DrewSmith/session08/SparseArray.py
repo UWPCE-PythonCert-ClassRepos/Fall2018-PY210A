@@ -20,25 +20,36 @@ class SparseArray():
         self._values[self.__len__()] = value
         self.length += 1
 
+    def _get_index(self, index):
+        if index < 0:
+            return self.__len__() - abs(index)
+        return index
+
     def __len__(self):
         return self.length
 
     def __getitem__(self, index):
         if isinstance(index, slice):
-            return list(self)[index]
+            start = self._get_index(index.start) if index.start is not None else 0
+            end = self._get_index(index.stop) if index.stop is not None else self.__len__()
+            step = index.step if index.step is not None else 1
+
+            # Could also grab the values directly from the dict and shoe-horn a new SparseArray
+            result = []
+            for i in range(start, end, step):
+                result.append(self._values.get(i, 0))
+            return SparseArray(result)
         else:
             if abs(index) > (self.__len__() + 1):
                 raise IndexError("Index greater than length")
-            if index < 0:
-                index = self.__len__() - abs(index)
+            index = self._get_index(index)
             
             return self._values.get(index, self.sparse_value)
 
     def __setitem__(self, index, value):
         if abs(index) > (self.__len__() + 1):
             raise IndexError("Index greater than length")
-        if index < 0:
-            index = self.__len__() - abs(index)
+        index = self._get_index(index)
 
         if value == self.sparse_value:
             if value in self._values:
@@ -49,8 +60,7 @@ class SparseArray():
     def __delitem__(self, index):
         if abs(index) > (self.__len__() + 1):
             raise IndexError("Index greater than length")
-        if index < 0:
-            index = self.__len__() - abs(index)
+        index = self._get_index(index)
 
         if index in self._values:
             del self._values[index]

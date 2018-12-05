@@ -46,9 +46,11 @@ def test_contains():
 def test_slice():
     s = SparseArray([1,2,0,0,0,0,3,0,0,4])
     result = s[1:4]
-    assert result == [2,0,0]
+    assert str(result) == "[2, 0, 0]"
     result = s[::2]
-    assert result == [1,0,0,3,0]
+    assert str(result) == "[1, 0, 0, 3, 0]"
+    result = s[-4:]
+    assert str(result) == "[3, 0, 0, 4]"
 
 def test_str():
     s = SparseArray([1,2,3,4])
