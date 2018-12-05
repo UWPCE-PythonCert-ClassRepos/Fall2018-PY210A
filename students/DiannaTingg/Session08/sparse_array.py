@@ -15,6 +15,10 @@ class SparseArray:
         self.size = len(values)
         self.values = {index: value for index, value in enumerate(values) if value != 0}
 
+    @classmethod
+    def from_length(cls, length):
+        return cls([0 for i in range(length)])
+
     def __len__(self):
         return self.size
 

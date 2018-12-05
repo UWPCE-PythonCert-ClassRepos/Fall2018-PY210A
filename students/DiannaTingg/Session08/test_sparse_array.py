@@ -13,6 +13,12 @@ def test_no_array():
         SparseArray()
 
 
+def test_alt_constructor():
+    sa = SparseArray.from_length(5)
+
+    assert sa == [0, 0, 0, 0, 0]
+
+
 def test_length():
     sa = SparseArray([0, 1, 0, 2, 0, 3])
 
