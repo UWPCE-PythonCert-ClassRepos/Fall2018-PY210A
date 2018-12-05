@@ -34,14 +34,14 @@ class Circle():
         return f'{self.__class__.__name__}({self.radius})'
 
     def __add__(self, other):
-        return f'{self.__class__.__name__}({self.radius + other.radius})'
+        return Circle(self.radius + other.radius)
 
     def __mul__(self, other):
         if self.radius:
-            return f'{self.__class__.__name__}({(self.radius * other)})'
+            return Circle(self.radius * other)
 
     def __rmul__(self, other):
-        return f'{self.__class__.__name__}({(self.radius * other)})'
+            return Circle(self.radius * other)
 
     def __gt__(self, other):
         return self.radius > other.radius
