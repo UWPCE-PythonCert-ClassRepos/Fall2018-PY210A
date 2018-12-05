@@ -53,7 +53,6 @@ def assemble_thank_you(getPerson='No_name_given',
     """
     return dedent(
         '''\tDear {},
-
         Thank you for your generous donation of ${} to our cause
         Because of donors like you, we are able to execute our mission
         to support at risk youth in achieving academic success.
@@ -61,7 +60,6 @@ def assemble_thank_you(getPerson='No_name_given',
         new programs to reach those most vulnerable.
         
         Sincerely,
-
         Team Umizoomi'''.format(getPerson, getDonation))
 
 
@@ -95,7 +93,6 @@ def alldonors():
     """
     Print thank you letters to all donors.
     first retrieve donor list, print to last donation and collective donations.
-
     will have to pass the person and the donation amount to "print thank you"
     """
     for key, value in donor_db.items():
@@ -108,7 +105,6 @@ def alldonors():
 def printThankYou(getPerson, getDonation):
     """
     prints thank you letter for person and donation specified
-
     :param: User provided person and donation amount
     :returns: none (will return letter to save to disk shortly)
     """
@@ -189,13 +185,3 @@ if __name__ == '__main__':
     prepare_to_write_to_disk()
 
     main()
-
-
-
-
-
-
-
-
-
-
