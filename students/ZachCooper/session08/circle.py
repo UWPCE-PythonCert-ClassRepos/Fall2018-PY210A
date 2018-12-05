@@ -1,6 +1,8 @@
 from math import pi
+import functools
 
 # Create class Circle
+@functools.total_ordering
 class Circle(object):
 
     def __init__(self, radius):
@@ -59,19 +61,27 @@ class Circle(object):
         return Circle(self.radius == other.radius)
 
     # # Sorting circles
-    def __sort__(self):
-        circ_list = [Circle(1), Circle(3), Circle(2), Circle(6), Circle(0),
-                     Circle(5), Circle(4), Circle(7), Circle(8),
-                    ]
-        return sorted(circ_list)
-        print(circ_list)
+    """This is the long way without using functool"""
+    # def __sort__(self):
+    #     circ_list = [Circle(1), Circle(3), Circle(2), Circle(6), Circle(0),
+    #                  Circle(5), Circle(4), Circle(7), Circle(8),
+    #                 ]
+    #     return sorted(circ_list)
+    #     print(circ_list)
 
-    def __sort__(self):
-        circ_list = [Circle(1), Circle(3), Circle(2), Circle(6), Circle(0),
-                     Circle(5), Circle(4), Circle(7), Circle(8),
-                    ]
-        return sorted(circ_list, reverse=True)
-        print(circ_list)
+    # def __sort__(self):
+    #     circ_list = [Circle(1), Circle(3), Circle(2), Circle(6), Circle(0),
+    #                  Circle(5), Circle(4), Circle(7), Circle(8),
+    #                 ]
+    #     return sorted(circ_list, reverse=True)
+    #     print(circ_list)
+
+# Using the shorter version using functools
+    def __eq__(self, other):
+        return self.radius == other.radius
+
+    def __lt__(self, other):
+        return self.radius < other.radius
 
 
 # Subclassing

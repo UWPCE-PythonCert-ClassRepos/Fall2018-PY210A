@@ -99,28 +99,37 @@ def test_eq():
 
 # # Circles sorted
 """How do I use the sorted method for this???"""
-def test_sorted_circles():
-    circ_list = [Circle(0), Circle(1), Circle(2), Circle(3), Circle(4),
-               Circle(5), Circle(6), Circle(7), Circle(8),
-                ]
-#     circ_list.sorted()
+# def test_sorted_circles():
+#     circ_list = [Circle(0), Circle(1), Circle(2), Circle(3), Circle(4),
+#                Circle(5), Circle(6), Circle(7), Circle(8),
+#                 ]
+# #     circ_list.sorted()
 
 
-    assert circ_list[0] == Circle(0)
-    assert circ_list[6] == Circle(6)
-    assert [circ_list[0] < circ_list[1] < circ_list[2] < circ_list[3] < circ_list[4]
-        < circ_list[5] < circ_list[6] < circ_list[7] < circ_list[8]
-           ]
+#     assert circ_list[0] == Circle(0)
+#     assert circ_list[6] == Circle(6)
+#     assert [circ_list[0] < circ_list[1] < circ_list[2] < circ_list[3] < circ_list[4]
+#         < circ_list[5] < circ_list[6] < circ_list[7] < circ_list[8]
+#            ]
 
-def test_reverse_sorted_circles():
-    circ_list = [Circle(0), Circle(1), Circle(2), Circle(3), Circle(4),
-                 Circle(5), Circle(6), Circle(7), Circle(8),
-                ]
+# def test_reverse_sorted_circles():
+#     circ_list = [Circle(0), Circle(1), Circle(2), Circle(3), Circle(4),
+#                  Circle(5), Circle(6), Circle(7), Circle(8),
+#                 ]
 
-    assert circ_list[0] == Circle(8)
-    assert circ_list[7] == Circle(0)
+#     assert circ_list[0] == Circle(8)
+#     assert circ_list[7] == Circle(0)
 
-# Step 8
+# Using the example test from class
+def test_sort():
+    a_list = [Circle(20), Circle(10), Circle(15), Circle(5)]
+
+    a_list.sort()
+
+    assert a_list[0] == Circle(5)
+    assert a_list[3] == Circle(20)
+    assert a_list[0] < a_list[1] < a_list[2] < a_list[3]
+
 
 # Step 9 Subclasing
 def test_sphere_volume():
