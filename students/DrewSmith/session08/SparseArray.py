@@ -37,7 +37,7 @@ class SparseArray():
             # Could also grab the values directly from the dict and shoe-horn a new SparseArray
             result = []
             for i in range(start, end, step):
-                result.append(self._values.get(i, 0))
+                result.append(self._values.get(i, self.sparse_value))
             return SparseArray(result)
         else:
             if abs(index) > (self.__len__() + 1):
@@ -78,7 +78,7 @@ class SparseArray():
         return f"SparseArray({self.__len__()})"
 
     def __iter__(self):
-        return (self._values.get(index, 0) for index in range(self.__len__()))
+        return (self._values.get(index, self.sparse_value) for index in range(self.__len__()))
 
     def __contains__(self, value):
         if value == self.sparse_value:
