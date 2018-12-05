@@ -60,20 +60,21 @@ def test_repr_():
 def test_add_():
     c = Circle(4)
     d = Circle(6)
+    print(c + d)
+    assert (c + d) == Circle(10)
 
-    assert (c + d) == 'Circle(10)'
 
 
 def test_mult_():
     c = Circle(4)
 
-    assert c * 3 == 'Circle(12)'
+    assert c * 3 == Circle(12)
 
 
 def test_rmult_():
     c = Circle(4)
 
-    assert 3 * c == 'Circle(12)'
+    assert 3 * c == Circle(12)
 
 
 def test__eq__():
