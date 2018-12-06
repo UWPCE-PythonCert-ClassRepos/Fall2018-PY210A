@@ -39,10 +39,23 @@ def test_diameter_circle():
     assert c.diameter == 8
 
 
+def test_from_diameter():
+    c = Circle.from_diameter(8)
+    print(c)
+    assert c.radius == 4
+    assert c.diameter == 8
+
+
 def test_area():
     c = Circle(2)
 
     assert c.area == 4 * pi
+
+    with pytest.raises(AttributeError) as e:
+        c.area = 4
+
+    assert str(e.value) == 'can\'t set attribute'
+
 
 
 def test_str_():
@@ -102,7 +115,7 @@ def test_init_sphere():
 def test_volume_sphere():
     s = Sphere(3)
 
-    assert s.volume == 106.02875205865551
+    assert s.volume == 113.09733552923254
 
 
 def test_area_sphere():
@@ -123,3 +136,10 @@ def test_str_():
     s = Sphere(2)
 
     assert str(s) == "Sphere with a radius 2.000000"
+
+
+def test_sphere_from_diameter():
+    s = Sphere.from_diameter(8)
+
+    assert s.radius == 4
+    assert s.diameter == 8    
