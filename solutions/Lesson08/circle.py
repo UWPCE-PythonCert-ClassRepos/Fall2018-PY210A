@@ -12,7 +12,7 @@ import functools
 
 # this is a trick to make all the greater than, less than, etc work.
 # see: https://docs.python.org/3.7/library/functools.html#functools.total_ordering
-# @functools.total_ordering
+@functools.total_ordering
 class Circle(object):
     """
     simple class to represent a circle
@@ -46,6 +46,10 @@ class Circle(object):
     def __str__(self):
         # return "Circle with radius: {:g}".format(self.radius)
         return f"Circle with radius: {self.radius:g}"
+
+    @staticmethod
+    def sort_key(a_circle):
+        return a_circle.radius
 
     def __add__(self, other):
         return Circle(self.radius + other.radius)
