@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-mailroom assignment part 2 & 3
+mailroom assignment parts 2 thru 4
 """
 from operator import itemgetter
 from collections import OrderedDict
@@ -14,7 +14,7 @@ DONORS = {
     }
 
 WELCOME_PROMPT = (
-    "Welcome to the main menu, please select from the following:\n"
+    "\nWelcome to the main menu, please select from the following:\n"
     "1 - Send Thank You to a single donor.\n"
     "2 - Create a report from Donor history.\n"
     "3 - Send letters to all donors.\n"
@@ -23,7 +23,7 @@ WELCOME_PROMPT = (
     )
 
 DATABASE_PROMPT = (
-    "Welcome to the database menu, please select from the following:\n"
+    "\nWelcome to the database menu, please select from the following:\n"
     "1 - See list of donors.\n"
     "2 - Add new donor or edit existing.\n"
     "3 - Quit this menu.\n"
@@ -31,21 +31,28 @@ DATABASE_PROMPT = (
 
 
 def check_donor(name):
-    """Returns True if user is in DB. Writes user if write=True
+    """Returns True if user is in DB.
     :param1: name of donor
     """
     return name in DONORS.keys()
 
-def write_donor(name):
-    """Writes thank you email to file"""
-    text = """Dearest {donor}, \n
+
+def gen_letter(name):
+    """Writes thank you email for donor
+        returns text of letter"""
+
+    text = """Dearest {donor},\n
     We greatly thank you for your recent contribution of ${recent:.2f}.\n
     It will go straight to the person who needs it the most, our CEO.\n
     Please give more next time.\n
     \tLove,\n
-    \t\t\tThe Team""".format(donor=name, recent=DONORS[name][-1])
-    with open(name.replace(" ","") + "_thank_you.txt", 'w') as f_out:
-        f_out.write(text)
+    \t\tThe Team""".format(donor=name, recent=DONORS[name][-1])
+    return text
+
+def write_donor(name):
+    """Writes thank you letter to file"""
+    with open(name.replace(" ", "") + "_thank_you.txt", 'w') as f_out:
+        f_out.write(gen_letter(name))
 
 
 def thank_you(donor="", all_users=False):
@@ -59,7 +66,7 @@ def thank_you(donor="", all_users=False):
         if check_donor(donor):
             write_donor(donor)
         else:
-            print("Sorry I could not find the donor, exiting...")
+            print("Sorry I could not find the donor, exiting...\n")
 
 
 def donor_db():
@@ -73,7 +80,6 @@ def edit_donor():
         add_donation(answer)
     else:
         print("The name must be letters only, returning...")
-        thank_you()
 
 def add_donation(donor_name):
     """adds donation to donor records, adds donor if new donor
@@ -119,39 +125,38 @@ def report():
         "n_size": len("Donor Name"),
         "t_size" : len("Total Given"),
         "ng_size": len("Num Gifts"),
-        "ag_size": len("Average Gift")
-    })
+        "ag_size": len("Average Gift"),
+        "nm": "Donor Name",
+        "tot": "Total Given",
+        "ng": "Num Gifts",
+        "ag": "Average Gift"
+        })
 
     for d in DONORS.items():
+        #finds max column sizes
         if len(d[0]) > len_col["n_size"]:
             len_col["n_size"] = len(d[0])
         if len(str(sum(d[1]))) > len_col["t_size"]:
-            len_col["Tt_size"] = len(str(sum(d[1])))
+            len_col["t_size"] = len(str(sum(d[1])))
         if len((d[1])) > len_col["ng_size"]:
             len_col["ng_size"] = len((d[1]))
         if len(str(sum(d[1])/len(d[1]))) > len_col["ag_size"]:
             len_col["ag_size"] = len(str(sum(d[1])/len(d[1])))
+        #creates report data
         rpt_sheet.append((d[0], sum(d[1]), len(d[1]), sum(d[1])/len(d[1])))
     rpt_sheet.sort(key=return_total, reverse=True)
 
+    #compiles data into wanted format
+    #header
     sheet = (
-        "{nm:{mnm}} | {tot:<{mtot}} | {ng:<{mng}} | {ag:<{mag}}\n{header}".format(
-            nm="Donor Name", mnm=len_col["n_size"],
-            tot="Total Given", mtot=len_col["t_size"],
-            ng="Num Gifts", mng=len_col['ng_size'],
-            ag="Average Gift", mag=len_col["ag_size"],
-            header=("-" * sum(len_col.values()))
-        )
+        "{nm:{n_size}} | {tot:{t_size}} | {ng:{ng_size}} |{ag:<{ag_size}}\n".format(
+            **len_col) + ("-" * sum(list(len_col.values())[:4]))
     )
+    #data
     for d in rpt_sheet:
         sheet = sheet + (
-            "\n{n:{n_size}} |${t:>{t_size},.2f} | {ng:>{ng_size}} |$ {avg_g:<{ag_size},.2f}"
-            .format(
-                n=d[0], n_size=len_col['n_size'],
-                t=d[1], t_size=len_col['t_size'],
-                ng=d[2], ng_size=len_col['ng_size'],
-                avg_g=d[3], ag_size=len_col['ag_size']
-                )
+            "\n{:{n_size}} |${:>{t_size},.2f} | {:>{ng_size}} |$ {:<{ag_size},.2f}"
+            .format(*d, **len_col)
         )
     return sheet
 
@@ -160,7 +165,6 @@ def make_report():
     """Prints report"""
     info = report()
     print(info)
-    print(sheet)
 
 def return_total(elem):
     """sorting function for list"""
