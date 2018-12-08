@@ -5,15 +5,8 @@
 
 
 """
-A class-based system for rendering html.
+HW 7: Using classes in Python
 """
-
-
-# This is the framework for the base class
-#!/usr/bin/env python3
-
-"""A class-based system for rendering html."""
-
 
 # This is the framework for the base class
 class Element(object):
@@ -31,7 +24,7 @@ class Element(object):
         self.contents.append(new_content)
 
     def _open_tag(self):
-        if self.attributes:  # only if there are any attributes
+        if self.attributes:  
             open_tag = ["<{}".format(self.tag)]
             atts = [f'{key}="{value}"' for key, value in self.attributes.items()]
             tag = f"<{self.tag} {' '.join(atts)}>"
@@ -137,7 +130,7 @@ class A(OneLineTag):
 
 class H(OneLineTag):
     """
-    section head
+    One last tag
     """
     tag = "H"
 
@@ -148,21 +141,21 @@ class H(OneLineTag):
 
 class Ul(Element):
     """
-    unordered list
+    list not ordered
     """
     tag = "ul"
 
 
 class Li(Element):
     """
-    list element
+    Element list
     """
     tag = "li"
 
 
 class Meta(SelfClosingTag):
     """
-    metadata tag
+    tag meta data
     """
     tag = "meta"
 	

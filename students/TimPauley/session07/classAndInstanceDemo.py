@@ -5,8 +5,6 @@
 
 class C:
 	this = 5
-	def _init_(self, that):
+	def __init__(self, that):
 		self.that = that
 
-
-		
