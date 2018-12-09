@@ -32,12 +32,14 @@ class Element:
         render the content
         :param out_file: render to an external file
         :return: pipes content to a file
-        """
+
         out_file.write('<{}>\n'.format(self.tag))
         for line in self.content:
             out_file.write(line)
             out_file.write('\n')
         out_file.write('</{}>\n'.format(self.tag))
+        """
+
 
 
 class Html(Element):
@@ -147,3 +149,12 @@ class Meta(SelfClosingTag):
     subclass for meta from self closing tag
     """
     tag = 'meta'
+
+
+"""
+Creating classes
+"""
+
+e = Element()
+e = Element('hello')
+print(e)
