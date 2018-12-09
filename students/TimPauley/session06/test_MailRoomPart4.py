@@ -26,9 +26,10 @@ def test_list_donors():
 
 
 def test_find_donor():
-    donor = mailroom.find_donor("pAul AllEn ")
+    """ checks a donor that is there, but with odd case and spaces"""
+    donor = mailroom.find_donor("jefF beZos ")
 
-    assert donor[0] == "Paul Allen"
+    assert donor[0] == "Jeff Bezos"
 
 
 def test_find_donor_not():
@@ -41,9 +42,9 @@ def test_find_donor_not():
 def test_gen_letter():
     donor = ("Jack White", [400.00, 50.05, 22.0])
     letter = mailroom.gen_letter(donor)
-    assert letter.startswith("Dear Jack White")
-    assert letter.endswith("-The Team\n")
-    assert "donation of $5.00" in letter
+    assert letter.startswith("Hey Jack White")
+    assert letter.endswith("-The Dream Team\n")
+    assert "donation of $22.00" in letter
 
 
 def test_add_donor():
@@ -63,7 +64,7 @@ def test_generate_donor_report():
 
     assert report.startswith("Donor Name                | Total Given | Num Gifts | Average Gift")
 
-    assert "Paul Allen                  $    663.23           1   $     663.23" in report
+    assert "Jeff Bezos                  $    877.33           1   $     877.33" in report
 
 
 def test_save_letters_to_disk():
