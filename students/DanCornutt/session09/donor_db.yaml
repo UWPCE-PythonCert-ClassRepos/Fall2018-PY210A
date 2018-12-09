@@ -1,0 +1,30 @@
+- fred:
+    name: Fred Jones
+    donations:
+        - 100.01
+        - 200
+        - 300
+- amy:
+    name: Amy Shumer
+    donations:
+        - 2000
+        - 4000
+        - 1000
+- billy:
+    name: Billy Bills
+    donations:
+        - 1020
+        - 20440.55
+        - 300
+- bob:
+    name: Bob Sherlock
+    donations:
+        - 10
+        - 20
+        - 30
+- tom:
+    name: Tom Johnson
+    donations:
+        - 100
+        - 200
+        - 900

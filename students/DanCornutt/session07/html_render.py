@@ -8,7 +8,7 @@ A class-based system for rendering html.
 # This is the framework for the base class
 class Element:
     tag = "html"
-
+    indent = 4
     def __init__(self, content=None, **kwags):
         if content:
             self.contents = [content]
