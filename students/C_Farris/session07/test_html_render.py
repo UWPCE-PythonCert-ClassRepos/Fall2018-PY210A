@@ -11,6 +11,10 @@ import pytest
 from html_render import *
 
 
+##Note: my single tag test titled def test_append_content_in_br(): may not be ideal.
+##my html output seems correct, and I caught the error in the single tag subclass to print a warning
+##I would like feedback on how to improve...
+
 # utility function for testing render methods
 # needs to be used in multiple tests, so we write it once here.
 def render_result(element, ind=""):
@@ -76,7 +80,7 @@ def test_render_element():
     assert file_contents.index("this is") < file_contents.index("and this")
 
     # making sure the opening and closing tags are right.
-    assert file_contents.startswith("<html>")
+    assert file_contents.startswith("<!DOCTYPE html>")
     assert file_contents.endswith("</html>")
     print(file_contents)
     assert True
@@ -109,7 +113,7 @@ def test_render_element2():
      assert file_contents.index("this is") < file_contents.index("and this")
 
 #     # making sure the opening and closing tags are right.
-     assert file_contents.startswith("<html>")
+     assert file_contents.startswith("<!DOCTYPE html>")
      assert file_contents.endswith("</html>")
 
 
@@ -233,9 +237,63 @@ def test_hr():
     hr = Hr()
     file_contents = render_result(hr)
     print(file_contents)
-   # assert file_contents == '<hr />'
+    assert file_contents == '<hr/>\n'
 
 
+def test_hr_attr():
+    hr = Hr(width=400)
+    file_contents = render_result(hr)
+    print(file_contents)
+    assert file_contents == '<hr width="400"/>\n'
+
+
+def test_br():
+    br = Br()
+    file_contents = render_result(br)
+    assert file_contents == "<br/>\n"
+
+
+def test_content_in_br():
+    with pytest.raises(TypeError):
+        br = Br("some content")
+
+
+def test_append_content_in_br():
+    with pytest.raises(TypeError):
+        br = Br()
+        br.append("some content")
+
+def test_anchor():
+    a = A("http://google.com", "link to google")
+    file_contents = render_result(a)
+    print(file_contents)
+    assert file_contents == '<a href="http://google.com">link to google</a>\n'
+
+def test_List():
+    l = UL(style="font-weight:bold")
+    file_contents = render_result(l)
+    print(file_contents)
+    assert file_contents == '<ul style="font-weight:bold">\n</ul>\n' 
+
+
+def test_List2():
+    l = Li("some content", style="font-weight:bold")
+    file_contents = render_result(l)
+    print(file_contents)
+    assert file_contents == '<li style="font-weight:bold">\nsome content\n</li>\n'
+
+def test_H():
+    h = H('h1', "some content", style="font-weight:bold")
+    file_contents = render_result(h)
+    print(file_contents)
+    assert file_contents == '<h1 style="font-weight:bold">some content</h1>\n'  
+
+
+def test_Meta():
+    m = Meta(charset="UTF-16")
+    file_contents = render_result(m)
+    print(file_contents)
+    assert file_contents == '<meta charset="UTF-16"/>\n'
 
 # Add your tests here!
 
@@ -245,16 +303,16 @@ def test_hr():
 # #####################
 
 
-# def test_indent():
-#     """
-#     Tests that the indentation gets passed through to the renderer
-#     """
-#     html = Html("some content")
-#     file_contents = render_result(html, ind="   ").rstrip()  #remove the end newline
+def test_indent():
+    """
+    Tests that the indentation gets passed through to the renderer
+    """
+    html = Html("some content")
+    file_contents = render_result(html, ind="   ").rstrip()  #remove the end newline
 
-#     print(file_contents)
-#     lines = file_contents.split("\n")
-#     assert lines[0].startswith("   <")
+    print(file_contents)
+    lines = file_contents.split("\n")
+    assert lines[0].startswith("   <")
 #     print(repr(lines[-1]))
 #     assert lines[-1].startswith("   <")
 
