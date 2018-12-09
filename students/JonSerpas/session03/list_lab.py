@@ -39,7 +39,8 @@ fruit_list = series1_fruit_list
 print(fruit_list)
 for i in fruit_list:
 	user_likes = input("Do you like {}? yes / no ".format(i.lower()))
-	while user_likes != "yes" or "no":
+	allowed_options = ('yes' , 'no')
+	while user_likes not in allowed_options:
 		print("invalid response / try again")
 		user_likes = input("Do you like {}? yes / no ".format(i.lower()))
 	if user_likes == "no":
