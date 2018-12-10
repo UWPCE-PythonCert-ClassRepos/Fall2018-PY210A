@@ -22,7 +22,7 @@ class Element:
 
     def append(self, new_content):
         self.contents.append(new_content)
-        
+
     def render(self, out_file, cur_ind=""):   
        # self.indent = cur_ind
         out_file.write(cur_ind + self._open_tag())        
@@ -53,6 +53,11 @@ class Element:
 
 class Html(Element):
     tag = "html"
+    
+    def render(self, out_file, cur_ind=""):
+        out_file.write(cur_ind + "<!DOCTYPE html>\n")
+        super().render(out_file, cur_ind=cur_ind)
+
 
 class Body(Element):
     tag = "body"

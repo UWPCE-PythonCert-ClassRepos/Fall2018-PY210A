@@ -409,7 +409,7 @@ def test_indent_contents():
     assert lines[1].startswith(Element.indent)
 
 
-# def test_multiple_indent():   
+def test_multiple_indent():   
 #     """
 #     make sure multiple levels get indented fully
 #     """
@@ -421,21 +421,13 @@ def test_indent_contents():
 
     print(file_contents)
     lines = file_contents.split("\n")
-    assert lines[1].startswith(Element.indent + "<")
-    assert lines[2].startswith(Element.indent*2 + "<")
-    assert lines[3].startswith(Element.indent*3 + "some")
-
-    
-
-
-    #assert lines[4].startswith(Element.indent*3 + "<")
     
     
-#     for i in range(3):  # this needed to be adapted to the <DOCTYPE> tag
-#         assert lines[i + 1].startswith(i * Element.indent + "<")
+    for i in range(3):  # this needed to be adapted to the <DOCTYPE> tag
+        assert lines[i + 1].startswith(i * Element.indent + "<")
 
 
-#     assert lines[4].startswith(3 * Element.indent + "some")   
+    assert lines[4].startswith(3 * Element.indent + "some")   
 
 # def test_element_indent1():
 #     """
