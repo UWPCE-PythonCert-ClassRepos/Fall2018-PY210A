@@ -19,46 +19,61 @@ prompt = "\n".join(("\n Choose an action:",
                     " 4 - Quit\n"
                     " >>> "))
 
-def send_thankyou():
-    """print email to the terminal,\n
-    prompt for list show a list of the donor names and re-prompt"""
 
-    d_name = input("Enter donor name Or \nType \'list' if you don't know donor name?: ")
+def generates_letter(donor, contribution):
+    # Generate a thank you letter template for each donors
+        print(
+            """
+
+Dear {},
+    
+    Thank you for your generous donation ${:,.2f}.
+
+Best regards,
+Your Youth and Seniors Foundation
+
+        """.format(donor, contribution))
+
+
+def send_thankyou(*donor):
+    # """Send the actual thank you letter.
+    # Arg:
+    #    optional argument, tooks user input.
+    # Return:
+    #    generat a thank you letter
+    #    """
+    d_name = input(
+        "Enter donor name Or \nType \'list' if you don't know donor name?: ")
     if d_name in "list":
-        for donor in donors_info:
-            print(f"- {donor}")
+        # list comprehension here
+        [print(f"-{donor}") for donor in donors_info]
         d_name = input("Enter a donor name?: ")
-       
+
+
     if d_name not in donors_info:
         donors_info[d_name] = []
-    
+
     contribution = float(input(f"Enter {d_name} contribution :? "))
     donors_info[d_name].append(contribution)
-    print()
-    print(
-"""
-Dear {},
-   \nThank you for your generous donation ${:,.2f}.
-""".format(d_name, contribution))
-    print("Best regards,\nYour Youth and Seniors Foundation \n")
+    generates_letter(d_name, contribution)
 
 
 def create_report():
+    # create a report for donors contribution as a table formate.
     """prints list of donors, sorted by total historical donation amount."""
-    print()
     print("{:<20}| {:<10} | {:<10} | {:<12}".format("Donor Name", "Total Given", " Num Gifts", "Average Gift"))
     print("-" * 60)
-    for name,contributions in donors_info.items():
-        print("{:<21} ${:<15.2f} {:<10} ${:<12.2f}".format(
-            name, sum(contributions), len(contributions), sum(contributions) / len(contributions)))
+    # list comprehension here
+    [print("{:<21} ${:<15.2f} {:<10} ${:<12.2f}".format(
+        name, sum(contributions), len(contributions), sum(contributions) / len(contributions))) for name, contributions in donors_info.items()]
 
 
 def save_letter_todisk():
-    """generates a thank you template letter for each donor, 
+    """ Save generates thank you letter, 
        and writes each letter to disk as a text file. 
     """
-    for donor, contributions in donors_info.items():
-        with open(f"{donor.replace(' ', '_')}.txt", "w") as output:
+    for donor,contributions in donors_info.items():
+        with open(f"{donor.replace(' ', '_')}.txt","w") as output:
             output.write(
                 """
 Dear {},
@@ -73,7 +88,7 @@ Your Youth and Seniors Foundation
 
 def exit_program():
     """quit current task and return to the original prompt"""
-    print("Bye!")
+    print("See you around!")
     sys.exit()
 
 
@@ -83,10 +98,15 @@ menu_switcher = {
     "3": save_letter_todisk,
     "4": exit_program
 }
+
 def main():
     while True:
-        response = input(prompt)
-        menu_switcher[response]()
+        try:
+            response = input(prompt)
+            menu_switcher[response]()
+        except (KeyError, KeyboardInterrupt) as key_err:
+            print("\nPls select only from the choice, you entered {} ".format(str(key_err)))
+            pass
         
 if __name__ == '__main__':
     main()
