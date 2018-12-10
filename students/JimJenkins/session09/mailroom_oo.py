@@ -10,6 +10,27 @@ Description: Object oriented version of mail room.
 import sys
 
 
+"""
+sample data (remove when ready)
+"""
+
+
+donor_datastore = {'Samuel Alito': [1000, 1000, 1000],
+                   'Ruth Bader-Ginsberg': [700, 100, 2000],
+                   'Stephen Breyer': [200, 300, 10000],
+                   'Neil Gorsuch': [100, 3000],
+                   'Elena Kagen': [1800, 2300, 7000],
+                   'Brett Kavanaugh': [400, 4500],
+                   'John Roberts': [100, 200, 300],
+                   'Sonia Sotomayor': [500, 190, 212, 55],
+                   'Clarence Thomas': [200, 400, 600]}
+
+
+"""
+class section
+"""
+
+
 class Donor:
     '''
     class for the management of a single donor (d)
@@ -39,6 +60,7 @@ class Donor:
         :return: updated db
         '''
         self.donations.append(donation_amount)
+
 
     @property
     def last_donation(self):
@@ -82,14 +104,18 @@ class donor_collection():
     '''
     def __init__(self, donors = None):
         if donors is None:
-            self.donor_data = {}
+            self.donor_datastore = {}
         else:
-            self.donor_data = {d.norm_name: d for d in donors}
+            self.donor_datastore = {d.norm_name: d for d in donors}
 
 
     @property
     def donors(self):
-        pass
+        '''
+        retrieve the list of donors
+        :return: list of donors
+        '''
+        return self.donor_datastore.values()
 
 
     def add_donor(self, name):
@@ -98,7 +124,7 @@ class donor_collection():
         :returns: donor name
         '''
         donor = Donor(name)
-        self.donor_data[donor.norm_name] = donor
+        self.donor_datastore[donor.norm_name] = donor
         return donor
 
 
@@ -112,7 +138,7 @@ class donor_collection():
         :param name:
         :return: donor
         '''
-        return self.donor_data.get(Donor.normalize_name(name))
+        return self.donor_datastore.get(Donor.normalize_name(name))
 
 
     def donor_thankyou_letter(self, donor):
@@ -161,37 +187,51 @@ class donor_collection():
         pass
 
 
-    '''
-    def test_donation_collection():
-        dc = DonorCollection()
-
-        dc.add_donor(Donor('Bob'))
-        dc.find_donor()
-
-        dc.list_donors()
-
-        dc.thank_donors()
-
-        dc.create_report()
-    '''
+"""
+menu section
+"""
 
 
+menu = {}
+menu['1'] = 'Send a thank you'
+menu['2'] = 'Create a Report'
+menu['3'] = 'Quit'
 
 
-def main_menu_selection():
-    action = input('Choose an action:\n '
-                   '1 - Send a Thank You\n '
-                   '2 - Create a Report\n '
-                   '3 - Send letters to everyone\n '
-                   '4 - Quit')
+#TODO refactor
+while True:
+    options = menu.keys()
+
+    for entry in options:
+        print(entry, menu[entry])
+    print(' ')
+    selection = input("Please select an option number: ")
+    print(' ')
+    if selection == '1' :
+        #send_thankyou()
+        break
+    elif selection == '2':
+        #create_report()
+        break
+    elif selection == '3':
+        quit()
+        break
+    else:
+        print('Unknown option selected')
+        print(' ')
 
 def quit():
     sys.exit(0)
 
 
-main_menu_selection()
+if __name__ == '__main__':
+    main()
 
-# Testing
+
+"""
+testing section
+"""
+
 
 def test_create_donor():
     donor = Donor('Tom Tinker')
@@ -205,9 +245,36 @@ def test_add_donation():
 
     assert donor.num_donations == 1
 
+
 def test_lookup_donor():
     donor = Donor('Tom Tinker')
     assert donor.lookup_donor(donor) == 1
 
 def test_donor_thank_you_letter():
     pass
+
+
+def test_donation_collection():
+    dc = Donor_collection()
+
+
+def test_add_donor():
+    dc = Donor_collection()
+    dc.add_donor(Donor('Bob'))
+
+
+def test_find_donor():
+    dc.find_donor()
+
+
+def test_list_donors():
+    pass
+
+
+def test_thank_donors():
+    pass
+
+
+def test_create_report():
+    pass
+
