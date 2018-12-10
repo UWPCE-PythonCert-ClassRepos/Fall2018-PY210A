@@ -3,16 +3,16 @@
 """
 A class-based system for rendering html.
 
-Completed Step 5 and on to step 6. Haven't begun
+Last tags: tag order stored in a list, multiply those tags by the order in the list, then go by that. 
 """
 
 
 # This is the framework for the base class
 class Element(object):
     tag = 'html'
-    
-    def __init__(self, content=None, **kwargs):
-        self.indent = ""
+    tag_order = [] #add tags, and mult. by 4 according to list order. 
+    def __init__(self, content=None, cur_ind="", **kwargs):
+         
         self.attributes = kwargs
 
         if not content:
@@ -27,8 +27,9 @@ class Element(object):
         self.contents.append(new_content)
 
     def _open_tag(self, out_file):
+        tag_order.append(self.tag)
         if self.tag == 'html':
-            out_file.write('<!DOCTYPE html>\n')
+            out_file.write('<!DOCTYPE html>\n')    
         open_tag = ["<{}".format(self.tag)]
         for key, value in self.attributes.items():
             open_tag.append(' {}="{}"'.format(key, value))
