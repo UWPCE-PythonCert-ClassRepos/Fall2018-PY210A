@@ -23,6 +23,12 @@ def build_trigrams(words):
     return tris
 
 
+def skip_header(filename):
+    with open(filename) as f: lines = [line.rstrip('\n') for line in f]
+    for index, line in enumerate(lines):
+        if "*** START OF THIS PROJECT " in line:
+            return ''.join(lines[index+1:])
+
 if __name__ == "__main__":
     try:
         filename = sys.argv[1]
@@ -33,4 +39,5 @@ if __name__ == "__main__":
     with open(filename, 'r') as myfile:
         data = myfile.read().split()
 
-    print(build_trigrams(data))
+    #print(build_trigrams(data))
+    print(skip_header(filename))
