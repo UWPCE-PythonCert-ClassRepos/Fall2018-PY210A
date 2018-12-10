@@ -8,38 +8,50 @@
 #
 ############
 
-donor_db = {"William Gates III": [653772.32, 12.17],
-            "Jeff Bezos": [877.33],
-            "Paul Allen": [663.23, 43.87, 1.32],
-            "Mark Zuckerberg": [1663.23, 4300.87, 10432.0],
-            "John Galt": [25.00, 9038.01, 0.01]
-            }
+#May be unnecessary
+#donor_db = {"William Gates III": [653772.32, 12.17],
+#            "Jeff Bezos": [877.33],
+#            "Paul Allen": [663.23, 43.87, 1.32],
+#            "Mark Zuckerberg": [1663.23, 4300.87, 10432.0],
+#            "John Galt": [25.00, 9038.01, 0.01]
+#            }
 
-donor_collection = {"name": donor_object,
+#May be unnecessary
+#donor_collection = {"name": donor_object,
     
-}            
+#}
 
 """Everything you want to use wto manage the bacth of collections"""
 class DonorCollection():
+    """Manages the donor collection in donor_dict and manipulates the collection"""
 
-    def __init__(self, donor=None, donation=0, **kwargs):
-        self.donors=
+    def __init__(self, donor=None):
+        
+        if donor:
+            self.donor_dict={}
 
-    def list_donors():
+            for items in donor:
+                self.donor_dict[donor.name] = donor
+        else:        
+            self.donor_dict={}
+
+    def list_donors(self):
         pass
 
-    def thank_donors():
+    def thank_donors(self):
         pass
 
-    def report():
+    def report(self):
         pass
-
-    def addDonor():
-        """"adds donor to collection"""
-
-    def find_donor():
         """Checks collection to see if current donor is in list. If not, ask to add"""
-        pass
+
+    def addDonor(self, donor_name, donor):
+        """"adds donor to collection"""
+        self.donor_dict[donor.name] = donor
+
+    def return_donor(self, donor):
+        return self.donor_dict[self.donor_name]
+         
 
 
 """Everything one needs to know about a single donor"""
@@ -48,12 +60,12 @@ class DonorCollection():
 """Your individual donor file would be in donor"""
 class Donor ():
 
-    def __init__(self, name=None, donation=0):
+    def __init__(self, name, donation=0):
         self.name = name
         self.donation = donation
         self.donations = []
 
-    def _add_donation(self, donation):
+    def add_donation(self, donation):
         """adds a new donation to donors list"""
         self.donations.append(donation)
 
@@ -71,5 +83,12 @@ class Donor ():
         """Send a single donor to file"""
         pass
 
-    def _donor():
-        pass    
+    @property
+    def _donor(self):
+        print(Donor)
+        return Donor
+
+    @property
+    def _name(self):
+        return self.name
+  
