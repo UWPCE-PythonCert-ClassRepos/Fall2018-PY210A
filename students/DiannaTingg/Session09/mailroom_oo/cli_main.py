@@ -1,33 +1,29 @@
 # Lesson 09 Assignment: Mailroom - Object Oriented
 # Command Line Interface - main program flow and user interaction functions
-# Contains main switch dict - each function gets a method, input function calls to get user input, and print statements
 
-# Import modules
 from donor_models import Donor, DonorCollection
-import datetime
 import os
 
 # Make a DonorCollection object
 charity = DonorCollection()
 
 
-def check_menu_answer(answer, menu_dict):
+def check_menu_answer(answer):
     """
-    Validates menu selection. Gets first character of user input.
+    Validates menu selection. Gets first character of user input. Checks for empty string or invalid letter/number.
     :param answer: capitalized user input
     :param menu_dict: main menu dictionary
     :return: if valid, calls corresponding function from dictionary, else returns error message
     """
     try:
         answer = answer[0]
-        menu_dict.get(answer)()
+        menu_options.get(answer)()
 
-    # If user enters an empty string or types an invalid letter/number
     except (IndexError, TypeError):
         print("That is not a valid selection. Please try again.")
 
 
-def display_menu(menu_dict):
+def display_menu():
     """
     Displays menu options until user selects "Q" for quit
     :param menu_dict: main menu dictionary
@@ -43,8 +39,7 @@ def display_menu(menu_dict):
 
         answer = input("\nPlease enter a command: ").capitalize()
 
-        check_menu_answer(answer, menu_dict)
-
+        check_menu_answer(answer)
 
 def list_donors():
     """
@@ -93,21 +88,6 @@ def check_donation(donation):
     except ValueError:
         return False
 
-
-def thank_you_letter(name, donation):
-    """
-    Generates thank you letter.
-    :param name: Donor name
-    :param donation: Donation amount
-    :return: Formatted letter with current date.
-    """
-    date = datetime.datetime.now().strftime("%B %d, %Y")
-    letter = f"{date}\n\nDear {name}:\n\nThank you so much for the generous donation of ${donation:,.2f}.\n" \
-             f"We will use the money to help humans move to Mars.\n\n" \
-             f"Best regards,\nDianna Tingg\nMars Foundation"
-    return letter
-
-
 def thank_one():
     """
     Sends a thank you to a single donor.
@@ -134,11 +114,16 @@ def thank_one():
         elif test is None:
             return
 
-    donor = charity.find_donor(name, donation)
-    donor.add_donation(name, donation)
+    donor = charity.find_donor(name)
+    donor.add_donation(donation)
 
     print()
-    print(donor.thank_you_letter(name, donation))
+    print(donor.thank_you_letter())
+
+
+
+
+
 
 
 def check_directory(directory):
@@ -218,7 +203,7 @@ menu_options = {"T": thank_one, "R": print_report, "A": thank_all, "Q": exit_pro
 def main():
     print("Welcome to Dianna's Mailroom Program!")
 
-    display_menu(menu_options)
+    display_menu()
 
 
 if __name__ == "__main__":
