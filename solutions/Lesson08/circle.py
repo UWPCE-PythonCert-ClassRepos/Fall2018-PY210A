@@ -47,6 +47,10 @@ class Circle(object):
         # return "Circle with radius: {:g}".format(self.radius)
         return f"Circle with radius: {self.radius:g}"
 
+    @staticmethod
+    def sort_key(a_circle):
+        return a_circle.radius
+
     def __add__(self, other):
         return Circle(self.radius + other.radius)
 

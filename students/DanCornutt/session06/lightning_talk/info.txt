@@ -1,0 +1,70 @@
+Most cups of coffee per line of code (dense)
+re goes left to right
+
+examples:
+    re.search() returns match objet
+    re.findall() returns list
+
+    dir(re) for optional arguments
+
+r'text' raw text
+
+\. = any character except for newline
+\w = word character (A-Z, 0-9, _)
+\d = digit
+\s = whitespace character (space, tab, newline)
+\S = non-whitespace character (catch all)
+[] = isolated grouping of re
+() = grouping of pattern
+
+modifiers:
+    + is one or more
+    * is zero or more
+
+
+
+Notes:
+-re?
+-dir(re)
+-re.findall can return tuple if grouping is used
+-See documentation for regular expressions
+
+
+
+Examples:
+
+def find(pat, text):
+    match = re.search(pat, text)
+    if match:
+        print(match.group())
+    else:
+        print("not found")
+
+email = """Hi Dan, I was looking at the models and talking with some of the coworkers. For 12/28/2019 we need 5 more people to turn the crank. I also spoke with Tom the part numbers we need for the build are pn=Z20677530-b and pn=Z8675309-a we might need the Z928-a but I am not sure. call Bill Z206932001 if needed."""
+
+
+
+
+
+
+
+
+
+
+
+
+    find('pn=', 'the pn=20677530-b call Bill 206932001 if needed.')
+
+    find('pn=', 'the pn=20677530-b and pn=8675309-a call Bill @  206932001 if needed.')
+
+    find('206.+-\w', 'the pn=20677530-b and pn=8675309-a call Bill @  206932001 if needed.')
+
+    re.findall('Z\d+-\w', 'the part numbers we need for the build are Z20677530-b and Z8675309-a we might need the Z928-a but I am not sure. call Bill Z206932001 if needed.')
+
+    find('pn=', email)
+
+    find('206.+-\w', email)
+
+    find('Z\d+-\w',email)
+
+    re.findall('Z\d+-\w', email)

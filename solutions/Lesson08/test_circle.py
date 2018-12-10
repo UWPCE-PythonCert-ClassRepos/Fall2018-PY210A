@@ -170,7 +170,7 @@ def test_times_equal():
 def test_sort():
     a_list = [Circle(20), Circle(10), Circle(15), Circle(5)]
 
-    a_list.sort()
+    a_list.sort(key=Circle.sort_key)
 
     assert a_list[0] == Circle(5)
     assert a_list[3] == Circle(20)
