@@ -11,13 +11,16 @@ import os
 #define variables
 
 data_folder = r'C:\pythonuw\Fall2018-PY210A\students\ericstreit\files'
+#make another one like above for the instructor but points to the current folder
 
 #define menus
 # This creates the menu as a class
 
+#should the other menus be subclasses??? probably
+
 main_menu  = Menu("Main Menu")
-report_menu = Menu("Report Menu")
-thankyou_menu = Menu("Send a Thank You")
+report_menu = Report("Report Menu")
+thankyou_menu = ThankYou("Send a Thank You")
 
 # define menu options
 # These are the choices that will display to the user in a menu
@@ -45,11 +48,12 @@ thankyou_menu.menu_options = ["Send a Thank You to a (S)ingle donor",
 #define the menu dictionaries
 #each selection should point to a function
 
-main_menu.dict = {"r": report_menu.menu, "s": thankyou_menu.menu, "q": main_menu.quit}
-report_menu.dict = {"a": main_menu.menu, "s": main_menu.menu, "b": main_menu.menu, "q": report_menu.quit}
+main_menu.dict = {"r": report_menu.menu, "s": thankyou_menu.menu, "a": main_menu.new_donation, "q": main_menu.quit}
+report_menu.dict = {"a": report_menu.donor_report, "s": main_menu.menu, "b": main_menu.menu, "q": report_menu.quit}
 thankyou_menu.dict = {"a": main_menu.menu, "s": main_menu.menu, "b": main_menu.menu, "q": thankyou_menu.quit}
 
 #define additional functions
+
 
 # run the program!
 

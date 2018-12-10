@@ -39,6 +39,22 @@ def test_main_menu():
     mainmenu = Menu("Main Menu")
     assert mainmenu.menu_name == "Main Menu"
 
+def test_donor_name_format():
+    Test = Menu("Test Menu")
+    assert Test.donor_name_format("Bob Smith") == "bobsmith"
+
+def test_donor_list():
+    test_menu = Menu("Test Menu")
+    assert test_menu.donor_exists("hestershaw") == True
+
+def test_donor_add():
+    test_menu = Menu("Test Menu")
+    test_menu.donor_add('joebob', 'Joe Bob')
+    # print(joe.name)
+    assert donor_list == ['hestershaw', 'joebob']
+
+
+
 #for testing
 if __name__=="__main__":
     pass
