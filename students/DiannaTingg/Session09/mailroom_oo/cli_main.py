@@ -134,10 +134,11 @@ def thank_one():
         elif test is None:
             return
 
-    charity.add_donation(name, donation)
+    donor = charity.find_donor(name, donation)
+    donor.add_donation(name, donation)
 
     print()
-    print(thank_you_letter(name, donation))
+    print(donor.thank_you_letter(name, donation))
 
 
 def check_directory(directory):
