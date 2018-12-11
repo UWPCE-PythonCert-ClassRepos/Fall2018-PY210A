@@ -7,6 +7,8 @@
 Notes for Session 09
 ####################
 
+12/4/2018
+
 A collection of notes to go over in class, to keep things organized.
 
 
@@ -14,12 +16,53 @@ Lightning Talks
 ===============
 
 Cheng Liu
-Kathryn Claire  Koehn (Kate)
-Parastoo  Javadi
+
+Kate Koehn
+
+Parastoo Javadi
 
 Issues that came up during the week.
 ====================================
 
+``sum()``
+---------
+
+You can use ``sum()`` for things other than numbers. Anything that you can add, you can use ``sum()`` for, but you need to give it a "start" value:
+
+From trigrams:
+
+.. code-block:: ipython
+
+    In [14]: text
+    Out[14]:
+    ['him mention her under any other name. In his eyes she eclipses',
+     'and predominates the whole of her sex. It was not that he felt',
+     'any emotion akin to love for Irene Adler. All emotions, and that']
+
+    In [15]: sum((line.split() for line in text), [])
+    Out[15]:
+    ['him',
+     'mention',
+     'her',
+     'under',
+     'any',
+     'other',
+     'name.',
+     ...
+
+Except not strings:
+
+.. code-block:: ipython
+
+    In [17]: sum(["this", "that", "something"], "")
+    ---------------------------------------------------------------------------
+    TypeError                                 Traceback (most recent call last)
+    <ipython-input-17-c882ae453790> in <module>
+    ----> 1 sum(["this", "that", "something"], "")
+
+    TypeError: sum() can't sum strings [use ''.join(seq) instead]
+
+That's because you ``.join()`` is a lot more efficient.
 
 
 "private" attributes and dunders
@@ -68,18 +111,27 @@ And this lets you use ``*args`` and ``**kwargs`` to pass along the usual ones.
 
 This becomes particularly important with ``super()`` and subclassing...
 
-Which we will get more into today.
+Testing Challenges
+------------------
+
+.. image:: _static/test_joke.jpeg
 
 
 Any other html_render questions?
 --------------------------------
 
+Brian: still up for a code review / debug session?
+
+Magic Methods and Circle class
+------------------------------
+
+Any questions?
+
+Should we look at mine?
+
+
 Lightning Talks
 ===============
-
-Jay Johnson
-
-Tammy Do
 
 
 New Topics
@@ -90,7 +142,7 @@ sorting
 
 maybe it's a good idea to add a sort_key method to your classes?
 
-see ``IntroPython-2017/examples/Session09/sort_key.py``
+see ``examples/Session09/sort_key.py``
 
 let's try it on Circle....
 
@@ -103,7 +155,7 @@ The key point is that classmethods work for subclasses -- like for alternate con
 
 Let's look at that with my Circle solution:
 
-``IntroPython-2017/solutions/Session08/circle.py``
+``solutions/Session08/circle.py``
 
 (and answer any other questions about Circle, while we are at it)
 
@@ -111,11 +163,11 @@ Let's look at that with my Circle solution:
 multiple inheritance and super()
 --------------------------------
 
-``super()`` is a mixed bag --it's actually a pretty complex topic, but can be pretty easy to use -- at least in the easy cases.
+``super()`` is a mixed bag -- it's actually a pretty complex topic, but can be pretty easy to use -- at least in the simple cases.
 
 To get the hang of multiple inheritance, mix-ins, and ``super()``, we'll play around with object canvas:
 
-See: ``IntroPython-2017/examples/Session09/object_canvas.py``
+See: ``examples/Session09/object_canvas.py``
 
 
 Object Oriented Mailroom
@@ -123,7 +175,7 @@ Object Oriented Mailroom
 
 One more time!
 
-Yes, it's time to make mailroom Object oriented:
+Yes, it's time to make mailroom Object Oriented:
 
 :ref:`exercise_mailroom_oo`
 
