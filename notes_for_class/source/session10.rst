@@ -21,6 +21,23 @@ Zidan Luo
 Issues that came up during the week.
 ====================================
 
+``classmethod``
+---------------
+
+I didn't get a chance to go over this last week, so I will now.
+
+One Circle solution had this:
+
+.. code-block:: python
+
+    @classmethod #???run c
+    def from_diameter(cls, val):
+        cls.diameter = val
+        cls.radius = val / 2
+        return cls
+
+What is wrong with this code? What is actually happening here??
+
 When to make a method or property?
 -----------------------------------
 

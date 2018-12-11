@@ -36,6 +36,11 @@ def mailroom():
                     file.write("Dear {}, \n Thank you for your generous donation of ${}.".format(mailto, str(donors[mailto][-1:]).strip('[]')))
                     file.close()
 
+            # this exits the program
+        def goodbye(*args, **kwargs): # this will allow it to take any or no arguments at all without errors. 
+            print("Goodbye", exit())
+            
+
             # this creates a report for a donors and what they have spent
         def create_report(donors):
             print("-" * len(donors))
@@ -47,6 +52,7 @@ def mailroom():
         def goodbye(*args, **kwargs):
             print("Goodbye")
             exit()
+
 
 # this function will serve as the menu and prompt the user for choices
 
