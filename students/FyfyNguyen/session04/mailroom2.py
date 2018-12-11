@@ -3,14 +3,20 @@
 """
 Mailroom 2
 """
+import os
 import sys
+import tempfile
+import pathlib
+from textwrap import dedent
 
-donors = [("Robyn Rihanna", [100, 200, 300]),
-          ("Ariana Grande", [2250, 4000, 1000]),
-          ("Beyonce Carter-Knowles", [150000, 3500, 25000]),
-          ("Aubrey Drake Graham", [15000, 5500.25, 1200]),
-          ("Justin Bieber", [2500, 250, 750.50])
-          ]
+donors = {"Robyn Rihanna": [100, 200, 300],
+          "Ariana Grande": [2250, 4000, 1000],
+          "Beyonce Carter-Knowles": [150000, 3500, 25000],
+          "Aubrey Drake Graham": [15000, 5500.25, 1200],
+          "Justin Bieber": [2500, 250, 750.50]
+          }
+
+file_dir = pathlib.Path(tempfile.gettempdir())
 
 
 def print_donors():
@@ -19,21 +25,38 @@ def print_donors():
 
 
 def find_donor(name_entered):
-    for donor in donors:
-        if name_entered.strip().lower() == donor[0].lower():
-            return donor
-    return None
+    donor_key = name_entered.strip().lower()
+    return donors.get(donor_key)
 
 
-def send_email(name_entered, donation):
-    print(
-        """Dear {},
+def add_donor(name_entered, donation):
+    donor = (name_entered.title(), [])
+    donors[1].append(donation)
+    donors[name_entered] = donor
+    print("Successfully added new donor to database")
+    return donor
 
-Your generous ${:,.2f} donation just made our day!
 
-Thank you!
--The Charity""".format(name_entered.title(), donation)
-    )
+# def send_email(name_entered, donation):
+#     print(
+#         """Dear {},
+
+# Your generous ${:,.2f} donation just made our day!
+
+# Thank you!
+# -The Charity""".format(name_entered.title(), donation)
+#     )
+
+
+def get_donation(name_entered):
+    donation = float(input("Enter the name of a donor or 'list' to view "
+                           "donors >>> ").lower.strip())
+    donor = find_donor(name_entered)
+    if donor is None:
+        donor = add_donor(name_entered)
+    else:
+        donors[1].append(donation)
+        print("Successfully updated existing donor")
 
 
 def thank_you():
@@ -45,18 +68,22 @@ def thank_you():
         else:
             break
 
-    donation = float(input("Enter donation amount >>> "))
-    donor = find_donor(name_entered)
-    if donor is None:
-        donor = (name_entered.title(), [])
-        donor[1].append(donation)
-        donors.append(donor)
-        print("Successfully added new donor to database")
-    else:
-        donor[1].append(donation)
-        print("Successfully updated existing donor.")
 
-    send_email(name_entered, donation)
+    # donation = float(input("Enter donation amount >>> "))
+    # donor = find_donor(name_entered)
+    # if donor is None:
+    #     donor = (name_entered.title(), [])
+    #     donor[1].append(donation)
+    #     donors.append(donor)
+    #     print("Successfully added new donor to database")
+    # else:
+    #     donor[1].append(donation)
+    #     print("Successfully updated existing donor.")
+
+    # send_email(name_entered, donation)
+
+def thank_you_all():
+    pass
 
 
 def sort_key(donors):
@@ -79,26 +106,30 @@ def exit_program():
     sys.exit()
 
 
-def main():
-    print("Welcome to Mailroom!")
-    while True:
-        print("Select an option:")
-        print("1 - Create a Report \n"
-              "2 - Send Thank You to a single donor \n"
-              "3 - Send Thank You to all donors \n"
-              "4 - Quit")
-        action = input(" >>> ")
-        action = action.strip()
-        action = action[0].lower()
-        if action == 'r':
-            create_report()
-        elif action == 't':
-            thank_you()
-        elif action == 'q':
-            exit_program()
-        else:
-            print("Not a valid option. Please select 't', 'q', or 'r'")
+def main_menu():
+    selection = input(dedent("""
+        Welcome to Mailroom!
+        Select an option:
+        1 - Create a Report
+        2 - Send Thank You to a single donor
+        3 - Send Thank You to all donors
+        4 - Quit
+        >>> """))
+    return selection.strip()
 
+
+def main():
+    menu_selections = {"1": create_report,
+                       "2": thank_you,
+                       "3": thank_you_all,
+                       "4": exit_program}
+
+    while True:
+        user_selection = main_menu()
+        try:
+            menu_selections[user_selection]()
+        except KeyError:
+            print("Error: Invalid Selection. Please select from the main menu.")
 
 if __name__ == "__main__":
     main()
