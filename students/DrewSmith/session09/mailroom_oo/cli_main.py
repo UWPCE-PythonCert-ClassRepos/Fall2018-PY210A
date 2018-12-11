@@ -79,6 +79,7 @@ def safe_input_float(prompt, escape_character):
 
 
 def user_get_donor():
+    """ Gets the donor name from the user """
     while True:
         answer = safe_input("Enter a donor name, 'list' for donor list, or 'e' to exit => ")
         if answer.strip().lower() == "list":
@@ -94,6 +95,7 @@ def user_get_donor():
 
 
 def user_get_donation_amount(name):
+    """ Gets a valid donation amount from the user """
     while True:
         result = safe_input_float(f"How much did {name} donate? ", 'e')
         if result is None or result > 0:
@@ -115,14 +117,18 @@ def thank_you():
 
 
 def exit_app():
+    """ Exists the application """
+    print("Have a nice day!")
     return "quit"
 
 
 def unknown_command():
+    """ Uknown command function """
     return None
 
 
 def user_main():
+    """ Main CLI execution function """
     commands = {
         "1": {"command": thank_you, "text": "Send Thank You to single donor"},
         "2": {"command": print_report, "text": "Create a Report"},
