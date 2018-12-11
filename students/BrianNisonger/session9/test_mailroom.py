@@ -49,9 +49,8 @@ def test_number_donations():
 
 
 def test_thank_you():
-    donor = Donor("Fred Flinstone")
-    donations = [100, 200, 300]
-    thanks = donor.make_thank_you(donations)
+    donor = Donor("Fred Flinstone",[100,200,300])
+    thanks = donor.make_thank_you()
     assert thanks == 'Dear Fred Flinstone, Thank you for your donation of $600.00. These funds help save the migratory butterflies of New South East.Thank you'
 
 
@@ -125,7 +124,9 @@ def test_sort_donors():
     d_list.sort_donors()
     list_of_donors = d_list.list_donors()
     assert list_of_donors == [
-        "James Dean", "Fred Flinstone", "Jack the Ripper","Mickey Mouse"]
+        "James Dean", "Fred Flinstone", "Jack the Ripper", "Mickey Mouse"
+    ]
+
 
 def test_make_report():
     d1 = Donor("Fred Flinstone", [100, 200, 300, 400])
@@ -154,16 +155,27 @@ def test_make_thank_strings():
         'Dear Jack the Ripper, Thank you for your donation of $10.00. These funds help save the migratory butterflies of New South East.Thank you'
     ]
 
+
 def test_find_donor():
     d1 = Donor("Fred Flinstone", [100, 200, 300, 400])
     d2 = Donor("James Dean", [500, 600, 700, 800])
     d3 = Donor("Jack the Ripper", [1, 2, 3, 4])
-    d4 = Donor("Mickey Mouse", [100,200,300,5,15,7])
+    d4 = Donor("Mickey Mouse", [100, 200, 300, 5, 15, 7])
     d_list = Donors([d1, d2, d3, d4])
-    donor_class=d_list.find_donor("Mickey Mouse")
-    assert donor_class.donation==[100,200,300,5,15,7]
-    donor_class=d_list.find_donor("")
-    assert donor_class==[]
-    
- def test_make_filenames():
-    pass
+    donor_class = d_list.find_donor("Mickey Mouse")
+    assert donor_class.donation == [100, 200, 300, 5, 15, 7]
+    donor_class = d_list.find_donor("")
+    assert donor_class == []
+
+
+def test_make_filenames():
+    d1 = Donor("Fred Flinstone", [100, 200, 300, 400])
+    d2 = Donor("James Dean", [500, 600, 700, 800])
+    d3 = Donor("Jack the Ripper", [1, 2, 3, 4])
+    d4 = Donor("Mickey Mouse", [100, 200, 300, 5, 15, 7])
+    d_list = Donors([d1, d2, d3, d4])
+    filenames = d_list.make_filenames()
+    assert filenames == [
+        "Fred_Flinstone.txt", "James_Dean.txt", "Jack_the_Ripper.txt",
+        "Mickey_Mouse.txt"
+    ]
