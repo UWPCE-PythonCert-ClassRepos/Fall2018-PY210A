@@ -32,13 +32,15 @@ One Circle solution had this:
 
 .. code-block:: python
 
-    @classmethod #???run c
+    @classmethod
     def from_diameter(cls, val):
         cls.diameter = val
         cls.radius = val / 2
         return cls
 
 What is wrong with this code? What is actually happening here??
+
+Let's check it out.
 
 When to make a method or property?
 -----------------------------------
@@ -69,9 +71,26 @@ You *do* want to use properties to "hide" implementation details -- but the name
 Anything else from OO mailroom?
 -------------------------------
 
-Does anyone volunteer for a code review?or
+Does anyone volunteer for a code review?
 
 Or should we review mine?
+
+Lightning Talks
+===============
+
+Kanahn Sethunarayanan
+
+Tim Pauley
+
+Zidan Luo
+
+A little code review / refactor
+-------------------------------
+
+Reviewing a trigrams solution, I happened upon a function that needed a bit of clean-up refactoring. Let's take a look now. It's in the class repo here:
+
+``examples/Session10/refactor_example.py``
+
 
 The Next Class
 ==============
