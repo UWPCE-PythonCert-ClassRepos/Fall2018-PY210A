@@ -49,7 +49,7 @@ def test_number_donations():
 
 
 def test_thank_you():
-    donor = Donor("Fred Flinstone",[100,200,300])
+    donor = Donor("Fred Flinstone", [100, 200, 300])
     thanks = donor.make_thank_you()
     assert thanks == 'Dear Fred Flinstone, Thank you for your donation of $600.00. These funds help save the migratory butterflies of New South East.Thank you'
 
