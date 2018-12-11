@@ -39,7 +39,15 @@ class Donor():
             return 0
 
     def add_donation(self, donation):
-        self.donation_list.append(donation)
+        try:
+            if int(donation) > 0:
+                self.donation_list.append(int(donation))
+                print("\nDonation of ${:.2f} added to {}\n"
+                      .format(self.latest_donation, self.name))
+            else:
+                raise ValueError("Donation value <= 0")
+        except ValueError:
+            print("\nInvalid entry for donation\nDONATION NOT ENTERED\n")
 
     @property
     def latest_donation(self):
@@ -54,7 +62,7 @@ class Donor():
         """
         returns a formatted letter for the donor
         """
-        output = "Dear {}\n\n".format(self.name)
+        output = "Dear {},\n\n".format(self.name)
         if self.latest_donation:
             output += "{:<10}Thank you for your kind donation of ${:.2f}.\n\n".format(" ", self.latest_donation)
             output += "{:10}It will be put to very good use.\n\n".format(" ")
@@ -146,17 +154,11 @@ def new_donation_sub_menu():
                 else:
                     print("Donation NOT added\n")
                     return
-            try:
-                print("Enter donation amount for " + response + ":")
-                money = input(' => ')
-                cur_donor = DC.find_donor(response)
-                cur_donor.add_donation(int(money))
-                print("\nDonation of ${:.2f} added to {}\n"
-                      .format(cur_donor.latest_donation, cur_donor.name))
-            except ValueError:
-                print("\nInvalid entry for donation\nDONATION NOT ENTERED\n")
-            finally:
-                response = "Q"
+            print("Enter donation amount for " + response + ":")
+            money = input(' => ')
+            cur_donor = DC.find_donor(response)
+            cur_donor.add_donation(money)
+            break
 
 
 def report():
