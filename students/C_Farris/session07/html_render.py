@@ -10,9 +10,8 @@ Last tags: tag order stored in a list, multiply those tags by the order in the l
 # This is the framework for the base class
 class Element(object):
     tag = 'html'
-    tag_order = [] #add tags, and mult. by 4 according to list order. 
-    def __init__(self, content=None, cur_ind="", **kwargs):
-         
+
+    def __init__(self, content=None, **kwargs):
         self.attributes = kwargs
 
         if not content:
@@ -20,25 +19,20 @@ class Element(object):
         else:
             self.contents = [content]
 
-    def addIndent(self):
-        self.indent += "    " 
-
     def append(self, new_content):
         self.contents.append(new_content)
 
     def _open_tag(self, out_file):
-        tag_order.append(self.tag)
         if self.tag == 'html':
-            out_file.write('<!DOCTYPE html>\n')    
+            out_file.write('<!DOCTYPE html>\n')
         open_tag = ["<{}".format(self.tag)]
         for key, value in self.attributes.items():
             open_tag.append(' {}="{}"'.format(key, value))
         out_file.write("".join(open_tag))
-
     def _close_tag(self, out_file):
         out_file.write('</{}>\n'.format(self.tag))
 
-    def render(self, out_file, cur_ind=""):
+    def render(self, out_file):
         if self.attributes is None:
             out_file.write(self._open_tag())
         else:    
@@ -71,7 +65,7 @@ class Head(Element):
 
 class OneLineTag(Element):
 
-    def render(self, out_file, cur_ind=""):
+    def render(self, out_file):
         self._open_tag(out_file)
         out_file.write(">")
         for content in self.contents:
@@ -93,7 +87,7 @@ class SelfClosingTag(Element):
             raise TypeError("SelfClosingTag can not contain any content")
         super().__init__(content=content, **kwargs)
 
-    def render(self, out_file, cur_ind=""):
+    def render(self, out_file):
         tag = self._open_tag(out_file)
         out_file.write("/>\n")
 
