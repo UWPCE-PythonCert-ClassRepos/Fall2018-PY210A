@@ -55,6 +55,9 @@ def test_add_donor():
 
     assert  2 == 25
 
+def test_get_donor_Object():
+    pass    
+
 
 
 #def test_get_last_donation():
