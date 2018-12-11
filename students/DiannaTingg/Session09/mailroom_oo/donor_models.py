@@ -4,10 +4,10 @@
 import datetime
 
 logo = r"""
-   _   _   _   _     _   _   _   _   _   _   _   _   _   _  
-  / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ 
- ( M | a | r | s ) ( F | o | u | n | d | a | t | i | o | n )
-  \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+  _   _   _   _     _   _   _   _   _   _   _   _   _   _  
+ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ 
+( M | a | r | s ) ( F | o | u | n | d | a | t | i | o | n )
+ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
 """
 
 
@@ -39,7 +39,6 @@ class Donor:
             return 0
 
     def thank_you_letter(self):
-
         date = datetime.datetime.now().strftime("%B %d, %Y")
         letter = f"{logo}\n\n{date}\n\n"\
             f"Dear {self.name}:\n\n"\
