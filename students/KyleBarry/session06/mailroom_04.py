@@ -9,11 +9,10 @@ import csv
 #          "Sandra Connors": [1800, 2300, 7000],
 #          "Betsy Hammond": [500, 190, 212, 55]}
 
-#i donors = {}
-
 
 class DonorManager:
 
+    # Dict to hold donor names as keys and donor instances as values
     donors = {}
 
     def __init__(self):
@@ -41,12 +40,15 @@ class DonorManager:
         return f"report_{now}.csv"
 
     def display_donor(self, name):
-        return self.donors[name]
+        # Need to make this return a string that can be formatted in cli_main
+        return f"""Name: {self.donors[name].name}\nNo. Donations:{self.donors[name].num_donations}\nTotal Donations: {self.donors[name].total_donations}\nAverage Donation: {self.donors[name].average_donation}"""
 
 
 class Donor(DonorManager):
 
     def __init__(self, name):
+        # Set donor name, give it empty list for future donations
+        # Pass donor instance with name as key to DonorManager dict
         self.name = name
         self.donations = []
         DonorManager.donors[name] = self
@@ -60,7 +62,7 @@ class Donor(DonorManager):
 
     @property
     def average_donation(self):
-        if len(self.donations) != 0:
+        if len(self.donations):
             return round(sum(self.donations)/len(self.donations), 2)
         else:
             return 0
@@ -87,9 +89,8 @@ class Donor(DonorManager):
         return file_
 
     def change_name(self, new_name):
+        DonorManager.donors[new_name] = DonorManager.donors.pop(self.name)
         self.name = str(new_name)
-
-
 
 # def make_list():
 #    """Print out list of donors"""
