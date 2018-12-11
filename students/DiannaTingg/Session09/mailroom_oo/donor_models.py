@@ -3,11 +3,19 @@
 
 import datetime
 
+logo = r"""
+   _   _   _   _     _   _   _   _   _   _   _   _   _   _  
+  / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ 
+ ( M | a | r | s ) ( F | o | u | n | d | a | t | i | o | n )
+  \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+"""
+
 
 class Donor:
     """
     This class holds all the info about a single donor.
     """
+
     def __init__(self, name):
         self.name = name
         self.donations = []
@@ -25,11 +33,15 @@ class Donor:
 
     @property
     def avg_donation(self):
-        return self.total_donations / self.num_donations
+        try:
+            return self.total_donations / self.num_donations
+        except ZeroDivisionError:
+            return 0
 
     def thank_you_letter(self):
+
         date = datetime.datetime.now().strftime("%B %d, %Y")
-        letter = f"{date}\n\n"\
+        letter = f"{logo}\n\n{date}\n\n"\
             f"Dear {self.name}:\n\n"\
             f"Thank you so much for the generous donation of ${self.donations[-1]:,.2f}.\n"\
             f"We will use the money to help Earthlings move to Mars!\n\n"\
@@ -39,9 +51,10 @@ class Donor:
 
 class DonorCollection:
     """
-    This class holds all of the donor objects and methods to search for a donor, add a new donor, save/reload data,
-    run a report, etc.
+    This class holds all of the donor objects and methods to create a donor, find a donor, or list donors.
+    It can also run a report on all donors and it saves/reloads data.
     """
+
     def __init__(self):
         self.donors_dict = {}
 
@@ -66,8 +79,11 @@ class DonorCollection:
     def sort_key(donor_stats):
         return donor_stats[1]
 
-    # Sorts donors by total donations, in descending order
     def create_report(self):
+        """
+        Creates a list of donation statistics for all donors in the database.
+        :return: Returns a sorted donor list based on total donations in descending order.
+        """
         summary = [[donor.name, donor.total_donations, donor.num_donations, donor.avg_donation]
                    for donor in self.donors_dict.values()]
 

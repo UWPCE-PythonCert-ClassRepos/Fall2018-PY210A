@@ -16,11 +16,12 @@ def test_donor_init():
 
 def test_donor_init2():
     with pytest.raises(TypeError):
-        donor = Donor("George Jetson", 100)
+        Donor("George Jetson", 100)
 
 
 def test_add_donation():
     donor = Donor("George Jetson")
+
     donor.add_donation(200)
     assert donor.donations == [200]
 
@@ -30,7 +31,6 @@ def test_add_donation():
 
 def test_num_donations():
     donor = Donor("Jane Jetson")
-    assert donor.num_donations == 0
 
     donor.add_donation(100)
     assert donor.num_donations == 1
@@ -41,7 +41,6 @@ def test_num_donations():
 
 def test_total_donations():
     donor = Donor("Jane Jetson")
-    assert donor.total_donations == 0
 
     donor.add_donation(100)
     assert donor.total_donations == 100
@@ -52,8 +51,7 @@ def test_total_donations():
 
 def test_avg_donation():
     donor = Donor("Jane Jetson")
-    with pytest.raises(ZeroDivisionError):
-        donor.avg_donation == 0
+    assert donor.avg_donation == 0
 
     donor.add_donation(100)
     assert donor.avg_donation == 100
@@ -62,17 +60,26 @@ def test_avg_donation():
     assert donor.avg_donation == 150
 
 
-def test_thank_you_letter():
-    date = datetime.datetime.now().strftime("%B %d, %Y")
+logo = r"""
+   _   _   _   _     _   _   _   _   _   _   _   _   _   _  
+  / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ 
+ ( M | a | r | s ) ( F | o | u | n | d | a | t | i | o | n )
+  \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+"""
 
+
+def test_thank_you_letter():
+
+    date = datetime.datetime.now().strftime("%B %d, %Y")
     donor = Donor("Judy Jetson")
     donor.add_donation(150)
-
     letter = donor.thank_you_letter()
 
-    assert letter == "{}\n\nDear Judy Jetson:\n\nThank you so much for the generous donation of $150.00.\n" \
-                     "We will use the money to help Earthlings move to Mars!\n\nBest regards,\n" \
-                     "Dianna Tingg\nMars Foundation".format(date)
+    assert letter == f"{logo}\n\n{date}\n\n" \
+        f"Dear Judy Jetson:\n\n" \
+        f"Thank you so much for the generous donation of $150.00.\n" \
+        f"We will use the money to help Earthlings move to Mars!\n\n" \
+        f"Best regards,\nDianna Tingg\nMars Foundation"
 
 
 # Tests for DonorCollection Class
@@ -131,5 +138,4 @@ def test_create_report():
 
 
 # Tests for main program
-
 print("All tests passed!")
