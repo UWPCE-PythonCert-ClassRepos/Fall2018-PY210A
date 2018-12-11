@@ -27,7 +27,9 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lightning Talks: Fall 2018 Class" href="lightning_talks.html" />
+    <link rel="prev" title="Notes for Session 09" href="session09.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -80,7 +82,7 @@
               
             
             
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="session01.html">Notes for Session 01</a></li>
 <li class="toctree-l1"><a class="reference internal" href="session02.html">Notes for Session 02</a></li>
 <li class="toctree-l1"><a class="reference internal" href="session03.html">Notes for Session 03</a></li>
@@ -89,6 +91,25 @@
 <li class="toctree-l1"><a class="reference internal" href="session06.html">Notes for Session 06</a></li>
 <li class="toctree-l1"><a class="reference internal" href="session07.html">Notes for Session 07</a></li>
 <li class="toctree-l1"><a class="reference internal" href="session08.html">Notes for Session 08</a></li>
+<li class="toctree-l1"><a class="reference internal" href="session09.html">Notes for Session 09</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Notes for Session 10</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#lightning-talks">Lightning Talks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#issues-that-came-up-during-the-week">Issues that came up during the week.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#classmethod"><code class="docutils literal notranslate"><span class="pre">classmethod</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#when-to-make-a-method-or-property">When to make a method or property?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pointless-properties">Pointless properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#magic-methods">Magic Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#anything-else-from-oo-mailroom">Anything else from OO mailroom?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Lightning Talks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#a-little-code-review-refactor">A little code review / refactor</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#the-next-class">The Next Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#end-of-quarter">End of Quarter:</a></li>
+</ul>
+</li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="lightning_talks.html">Lightning Talks: Fall 2018 Class</a></li>
@@ -162,12 +183,26 @@
 <p>A collection of notes to go over in class, to keep things organized.</p>
 <div class="section" id="lightning-talks">
 <h2>Lightning Talks<a class="headerlink" href="#lightning-talks" title="Permalink to this headline">¶</a></h2>
-<p>Kannappan Sethunarayanan (kanahn)
-Timothy J Pauley
-Zidan Luo</p>
+<p>Kanahn Sethunarayanan</p>
+<p>Tim Pauley</p>
+<p>Zidan Luo</p>
 </div>
 <div class="section" id="issues-that-came-up-during-the-week">
 <h2>Issues that came up during the week.<a class="headerlink" href="#issues-that-came-up-during-the-week" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classmethod">
+<h3><code class="docutils literal notranslate"><span class="pre">classmethod</span></code><a class="headerlink" href="#classmethod" title="Permalink to this headline">¶</a></h3>
+<p>I didn’t get a chance to go over this last week, so I will now.</p>
+<p>One Circle solution had this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">from_diameter</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+    <span class="bp">cls</span><span class="o">.</span><span class="n">diameter</span> <span class="o">=</span> <span class="n">val</span>
+    <span class="bp">cls</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">val</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="bp">cls</span>
+</pre></div>
+</div>
+<p>What is wrong with this code? What is actually happening here??</p>
+<p>Let’s check it out.</p>
+</div>
 <div class="section" id="when-to-make-a-method-or-property">
 <h3>When to make a method or property?<a class="headerlink" href="#when-to-make-a-method-or-property" title="Permalink to this headline">¶</a></h3>
 <p>It is a good idea to make a property to access information in your class that requires “inside information”, For example, in a Donor class:</p>
@@ -186,104 +221,46 @@ Zidan Luo</p>
 <p>There is no point to this – <code class="docutils literal notranslate"><span class="pre">a_donor.name</span></code> is expected to be a string – so if you want to know how long it is, you can simply do:  <code class="docutils literal notranslate"><span class="pre">len(a_donor.name)</span></code></p>
 <p>You <em>do</em> want to use properties to “hide” implementation details – but the name attribute being a string is part of the API, not an implementation detail.</p>
 </div>
+<div class="section" id="pointless-properties">
+<h3>Pointless properties<a class="headerlink" href="#pointless-properties" title="Permalink to this headline">¶</a></h3>
+<p>What’s wrong this?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">circle</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">radius</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_radius</span> <span class="o">=</span> <span class="n">radius</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">radius</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_radius</span>
+    <span class="nd">@radius.setter</span>
+    <span class="k">def</span> <span class="nf">radius</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">radius</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_radius</span> <span class="o">=</span> <span class="n">radius</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="magic-methods">
+<h3>Magic Methods<a class="headerlink" href="#magic-methods" title="Permalink to this headline">¶</a></h3>
+<p>The “math” magic methods: <code class="docutils literal notranslate"><span class="pre">__add__</span></code>, etc, should return the object – not strings!</p>
+</div>
 <div class="section" id="anything-else-from-oo-mailroom">
 <h3>Anything else from OO mailroom?<a class="headerlink" href="#anything-else-from-oo-mailroom" title="Permalink to this headline">¶</a></h3>
+<p>Does anyone volunteer for a code review?</p>
+<p>Or should we review mine?</p>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>Lightning Talks<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Kanahn Sethunarayanan</p>
+<p>Tim Pauley</p>
+<p>Zidan Luo</p>
+<div class="section" id="a-little-code-review-refactor">
+<h3>A little code review / refactor<a class="headerlink" href="#a-little-code-review-refactor" title="Permalink to this headline">¶</a></h3>
+<p>Reviewing a trigrams solution, I happened upon a function that needed a bit of clean-up refactoring. Let’s take a look now. It’s in the class repo here:</p>
+<p><code class="docutils literal notranslate"><span class="pre">examples/Session10/refactor_example.py</span></code></p>
 </div>
 </div>
 <div class="section" id="the-next-class">
 <h2>The Next Class<a class="headerlink" href="#the-next-class" title="Permalink to this headline">¶</a></h2>
-<p>Next quarter, you’ll finish up the core of the Python language, then go into depth on some of the more advanced features of the language. Finally, we’ll do a bit with using Python with other tools, such as databases.</p>
-<p>Here’s an Outline:</p>
-<div class="section" id="functional-programming-2">
-<h3>Functional Programming 2<a class="headerlink" href="#functional-programming-2" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>Comprehensions</li>
-<li>Lambda</li>
-<li>Iterators and Iterables</li>
-<li>Generators</li>
-<li>Itertools</li>
-</ul>
-</div>
-<div class="section" id="functional-programming-3">
-<h3>Functional Programming 3<a class="headerlink" href="#functional-programming-3" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>Closures and Currying</li>
-<li>Itertools</li>
-<li>Functools</li>
-</ul>
-</div>
-<div class="section" id="advanced-python-language-constructs">
-<h3>Advanced Python Language Constructs<a class="headerlink" href="#advanced-python-language-constructs" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>Decorators</li>
-<li>Context Managers</li>
-<li>Recursion</li>
-</ul>
-</div>
-<div class="section" id="metaprogramming">
-<h3>Metaprogramming<a class="headerlink" href="#metaprogramming" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>Namespaces</li>
-<li>Introspection</li>
-<li>Metaclasses</li>
-<li>Class Decorators</li>
-</ul>
-</div>
-<div class="section" id="debugging-logging">
-<h3>Debugging &amp; Logging<a class="headerlink" href="#debugging-logging" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>Logging module</li>
-<li>Syslog</li>
-<li>pdb/ipdb</li>
-</ul>
-</div>
-<div class="section" id="advanced-testing">
-<h3>Advanced Testing<a class="headerlink" href="#advanced-testing" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>Linting</li>
-<li>Coverage</li>
-<li>The unittest Module</li>
-<li>Fixtures</li>
-<li>Mocking</li>
-</ul>
-</div>
-<div class="section" id="relational-databases">
-<h3>Relational Databases<a class="headerlink" href="#relational-databases" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>SQL</li>
-<li>ORMs: PeeWee</li>
-<li>Sqlite</li>
-<li>Postgresql</li>
-</ul>
-</div>
-<div class="section" id="nosql-databases">
-<h3>NoSQL Databases<a class="headerlink" href="#nosql-databases" title="Permalink to this headline">¶</a></h3>
-<p>Object/Document, Key/Value and Graph Databases</p>
-<ul class="simple">
-<li>Schema vs “Schemaless”</li>
-<li>Mongo</li>
-<li>Redis</li>
-<li>Neo4j</li>
-</ul>
-</div>
-<div class="section" id="profiling-performance">
-<h3>Profiling &amp; Performance<a class="headerlink" href="#profiling-performance" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>Timing</li>
-<li>Profiling</li>
-<li>PyPy</li>
-<li>Cython</li>
-</ul>
-</div>
-<div class="section" id="concurrency-async-programming">
-<h3>Concurrency &amp; Async Programming<a class="headerlink" href="#concurrency-async-programming" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>Concurrency</li>
-<li>Threading and Multiprocessing</li>
-<li>Message Queues</li>
-<li>Async</li>
-</ul>
-</div>
+<p>Next quarter, you’ll finish up the core of the Python language, then go into depth on some of the more advanced features of the language. Finally, you’ll do a bit with using Python with other tools, such as databases.</p>
 </div>
 <div class="section" id="end-of-quarter">
 <h2>End of Quarter:<a class="headerlink" href="#end-of-quarter" title="Permalink to this headline">¶</a></h2>
@@ -296,6 +273,15 @@ Zidan Luo</p>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="lightning_talks.html" class="btn btn-neutral float-right" title="Lightning Talks: Fall 2018 Class" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="session09.html" class="btn btn-neutral" title="Notes for Session 09" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
