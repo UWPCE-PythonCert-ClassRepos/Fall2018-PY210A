@@ -1,5 +1,7 @@
 """
 mailroom assignment
+Command Line Interface for managing donors donations, reporting and sending
+personalized thank you letters
 """
 
 import yaml
@@ -12,7 +14,10 @@ class Donor():
 
     def __init__(self, donor_info_dict):
         self.name = donor_info_dict['name']
-        self.donation_list = donor_info_dict['donation_list']
+        try:
+            self.donation_list = donor_info_dict['donation_list']
+        except KeyError:
+            self.donation_list = []
 
     @property
     def donation_count(self):
@@ -24,22 +29,38 @@ class Donor():
 
     @property
     def donation_average(self):
-        return round(self.donation_total / self.donation_count, 2)
+        """
+        returns the average donation for the donor or 0 if the donor has not made
+        any donation yet.
+        """
+        if self.donation_total > 0:
+            return round(self.donation_total / self.donation_count, 2)
+        else:
+            return 0
 
     def add_donation(self, donation):
         self.donation_list.append(donation)
 
     @property
     def latest_donation(self):
-        return self.donation_list[-1]
+        """
+        returns the last donation the donor made, or None if there are no
+        donations made by this donor
+        """
+        if self.donation_list:
+            return self.donation_list[-1]
 
     def thank_you_letter(self):
         """
         returns a formatted letter for the donor
         """
         output = "Dear {}\n\n".format(self.name)
-        output += "{:<10}Thank you for your kind donation of ${:.2f}.\n\n".format(" ", self.latest_donation)
-        output += "{:10}It will be put to very good use.\n\n".format(" ")
+        if self.latest_donation:
+            output += "{:<10}Thank you for your kind donation of ${:.2f}.\n\n".format(" ", self.latest_donation)
+            output += "{:10}It will be put to very good use.\n\n".format(" ")
+        else:
+            output += "{:<10}Thank you for your interest in donating to our cause.\n\n".format(" ")
+            output += "{:10}We would welcome your support.\n\n".format(" ")
         output += "{fill:<15}Sincerely,\n{fill:<18}-Everyone here at Company Spot".format(fill=" ")
         return output
 
@@ -72,9 +93,6 @@ class Donor_Collection():
                                       d.donation_count, d.donation_average])
         print(donor_report_list)
         return donor_report_list
-
-    def all_thank_you_letters():
-        pass
 
     def list_donors(self):
         output = [d.name for d in self.donors]

@@ -24,6 +24,7 @@ def test_add_donation():
 
 def test_latest_donation():
     d = Donor.from_name("Fred Flintstone")
+    assert d.latest_donation is None
     d.add_donation(100)
     assert d.latest_donation == 100
     d.add_donation(200)
@@ -31,12 +32,14 @@ def test_latest_donation():
 
 def test_total_donations():
     d = Donor.from_name("Fred Flintstone")
+    assert d.donation_total == 0
     d.add_donation(100)
     d.add_donation(200)
     assert d.donation_total == 300
 
 def test_average_donation():
     d = Donor.from_name("Fred Flintstone")
+    assert d.donation_average == 0
     d.add_donation(100)
     d.add_donation(200)
     assert d.donation_average == 150
@@ -81,5 +84,13 @@ def test_list_donors():
 
 
 def test_donor_report():
-    
-    # dl.donor_report()
+    donor_dict = {'TestDonor1': {'name': 'Test Donor1', "donation_list": [100, 200, 150]},
+                  'TestDonor2': {'name': 'Test Donor2', "donation_list": [60, 90, 200]}}
+    dc = Donor_Collection(donor_dict)
+    dc_report = dc.report()
+    assert len(dc_report) == 2
+    assert 'Test Donor1' in dc_report[0]
+    assert 150 in dc_report[0]
+    assert 350 in dc_report[1]
+    for donor in dc_report:
+        assert not 'Cher' in donor
