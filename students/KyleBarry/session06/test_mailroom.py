@@ -55,10 +55,12 @@ def test_get_last_donation():
 
 def test_change_name():
     donor = Donor("Susie")
-
+    manager = DonorManager()
     donor.change_name("Terry")
 
     assert donor.name == "Terry"
+    assert "Terry" in manager.donors
+    assert manager.donors["Terry"].name == "Terry"
 
 
 def test_create_donor_manager():
@@ -78,6 +80,8 @@ def test_make_report():
 def test_donor_manager_list():
     manager = DonorManager()
 
+    donor = Donor("Cassandra")
+
     assert len(manager.donors) > 0
 
 
@@ -88,4 +92,5 @@ def test_display_donor():
 
     result = manager.display_donor("Margie")
 
-    assert result == manager.donors["Margie"]
+    assert manager.donors["Margie"].name in result
+    assert len(result.split("\n")) == 4
