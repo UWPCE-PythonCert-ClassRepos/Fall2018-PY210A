@@ -11,7 +11,7 @@ class Circle:
 
     def __init__(self, radius):
         self.radius = radius
-    
+
     @staticmethod
     def sort_key(self):
         return self.radius
@@ -19,11 +19,11 @@ class Circle:
     @property
     def diameter(self):
         return self.radius * 2
-    
+
     @diameter.setter
     def diameter(self, value):
         self.radius = value / 2
-    
+
     @property
     def area(self):
         return pi * self.radius**2
@@ -36,13 +36,13 @@ class Circle:
 
     def __str__(self):
         return "Circle with radius: {:0.5f}".format(self.radius)
-    
+
     def __repr__(self): #??
         return "Circle({})".format(repr(self.radius))
 
-    def __lt__(self, other): #less than  
+    def __lt__(self, other): #less than
         return (self.radius < other.radius)
-    
+
     def __gt__(self, other): #greater than
         print(other)
         return (self.radius > other.radius)
@@ -54,19 +54,19 @@ class Circle:
         return (self.radius * other.radius)
 
     @staticmethod
-    # def sort_key(a_circle):
-    #     return a_circle.radius
+    def sort_key(a_circle):
+        return a_circle.radius
 
 class Sphere(Circle):
 
     def __str__(self):
         return "Sphere with radius: {:0.5f}".format(self.radius)
-    
+
     def __repr__(self):
         return "Sphere({})".format(repr(self.radius))
-    
+
 # Create a volume property that returns the volume (hint: volume of a sphere is: 4/3 pi r^3).
-    @property 
+    @property
     def volume(self):
         print ((4/3) * pi * self.radius**3)
         return (4/3) * pi * self.radius**3
