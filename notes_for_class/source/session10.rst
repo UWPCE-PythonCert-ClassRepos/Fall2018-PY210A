@@ -67,6 +67,29 @@ There is no point to this -- ``a_donor.name`` is expected to be a string -- so i
 
 You *do* want to use properties to "hide" implementation details -- but the name attribute being a string is part of the API, not an implementation detail.
 
+Pointless properties
+--------------------
+
+What's wrong this?
+
+.. code-block:: python
+
+    class circle():
+        def __init__(self, radius):
+            self._radius = radius
+
+        @property
+        def radius(self):
+            return self._radius
+        @radius.setter
+        def radius(self, radius):
+            self._radius = radius
+
+Magic Methods
+-------------
+
+The "math" magic methods: ``__add__``, etc, should return the object -- not strings!
+
 
 Anything else from OO mailroom?
 -------------------------------

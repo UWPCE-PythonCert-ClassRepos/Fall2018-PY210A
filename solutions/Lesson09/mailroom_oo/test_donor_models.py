@@ -7,11 +7,11 @@ $ pytest
 
 will run the tests.
 
-$ pytest py.test --cov=mailroom test_mailroom.py
+$ pytest --cov=mailroom_oo test_donor_models.py
 
 will run the tests and show a coverage report.
 
-$ pytest --cov=mailroom --cov-report html test_mailroom.py
+$ pytest --cov=mailroom_oo --cov-report html test_donor_models.py
 
 will generate an html report.
 
@@ -77,6 +77,35 @@ def test_add_donation_negative():
     with pytest.raises(ValueError):
         donor.add_donation(0.0)
 
+
+def test_validate_donation_good():
+    result = Donor.validate_donation("500")
+
+    assert result == 500.0
+
+
+def test_validate_donation_notnum():
+    with pytest.raises(ValueError):
+        Donor.validate_donation("some junk")
+
+
+def test_validate_donation_negative():
+    with pytest.raises(ValueError):
+        Donor.validate_donation("-100")
+
+
+def test_validate_donation_nan():
+    with pytest.raises(ValueError):
+        Donor.validate_donation("NaN")
+
+
+def test_validate_donation_tiny():
+    with pytest.raises(ValueError):
+        Donor.validate_donation("0.00000001")
+
+
+# Now the tests for the DonorDB class:
+# ##################
 
 def test_list_donors():
     # create a clean one to make sure everything is there.
