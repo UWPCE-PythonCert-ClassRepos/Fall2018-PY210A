@@ -374,7 +374,7 @@ def test_multiple_indent():
         assert lines[i + 1].startswith(i * Element.indent + "<")
 
     assert lines[4].startswith(3 * Element.indent + "some")
-    assert False
+    # assert False
 
 
 def test_element_indent1():

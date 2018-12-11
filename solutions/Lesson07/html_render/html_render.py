@@ -47,7 +47,7 @@ class Element:
         else:
             self.content.append(TextWrapper(str(content)))
 
-    def make_tags(self):
+    def _make_tags(self):
         """
         create the tags
         -- in a separate method so different subclass' render methods can use it
@@ -62,7 +62,7 @@ class Element:
         return open_tag, close_tag
 
     def render(self, out_file, cur_ind=""):
-        open_tag, close_tag = self.make_tags()
+        open_tag, close_tag = self._make_tags()
         out_file.write(cur_ind + open_tag + "\n")
         for stuff in self.content:
             stuff.render(out_file, cur_ind + self.indent)
@@ -72,7 +72,7 @@ class Element:
 
 class OneLineTag(Element):
     def render(self, out_file, cur_ind=""):
-        open_tag, close_tag = self.make_tags()
+        open_tag, close_tag = self._make_tags()
         out_file.write(cur_ind + open_tag)
         for stuff in self.content:
             stuff.render(out_file)
@@ -117,7 +117,7 @@ class SelfClosingTag(Element):
 
     def render(self, out_file, ind=""):
         # there is some repetition here -- maybe factor that out?
-        open_tag, _ = self.make_tags()
+        open_tag, _ = self._make_tags()
         # make it a self closing tag by adding the /
         out_file.write(ind + open_tag.replace(">", " />"))
 
@@ -144,9 +144,11 @@ class A(OneLineTag):
 
     def __init__(self, link, *args, **kwargs):
         kwargs['href'] = link
-        super().__init__(*args, **kwargs)
+#        super(A, self).__init__(content, **kwargs)
+        # OneLineTag.__init__(self, *args, **kwargs)
+        #super().__init__(*args, **kwargs)
         # this could also be direct:
-        # Element.__init__(self, *args, **kwargs)
+        Element.__init__(self, *args, **kwargs)
 
 
 class Ul(Element):

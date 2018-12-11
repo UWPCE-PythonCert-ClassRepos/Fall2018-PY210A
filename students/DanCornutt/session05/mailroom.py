@@ -29,15 +29,12 @@ DATABASE_PROMPT = (
     "3 - Quit this menu.\n"
 )
 
-def check_donor(name, write=False):
+
+def check_donor(name):
     """Returns True if user is in DB. Writes user if write=True
     :param1: name of donor
     """
-    if not write:
-        return name in DONORS.keys()
-    else:
-        DONORS[name] = []
-
+    return name in DONORS.keys()
 
 def write_donor(name):
     """Writes thank you email to file"""
@@ -88,7 +85,7 @@ def add_donation(donor_name):
         DONORS.setdefault(donor_name, []).append(donation)
         print(
             "Thank you {} for your donation of ${:,.2f} dollars!".format(
-                donor_name, float(donation))
+                donor_name, donation)
         )
 
 
@@ -114,6 +111,9 @@ def thank_you_all():
 
 
 def report():
+    """Finds column widths, sorts donors based on amount donated.
+    :returns: report string
+    """
     rpt_sheet = []
     len_col = OrderedDict({
         "n_size": len("Donor Name"),
@@ -153,8 +153,14 @@ def report():
                 avg_g=d[3], ag_size=len_col['ag_size']
                 )
         )
-    print(sheet)
+    return sheet
 
+
+def make_report():
+    """Prints report"""
+    info = report()
+    print(info)
+    print(sheet)
 
 def return_total(elem):
     """sorting function for list"""
@@ -188,7 +194,7 @@ def menu_selection(prompt, dispatch_dict):
 
 MAIN_DISPATCH = {
     "1": thank_you,
-    "2": report,
+    "2": make_report,
     "3": thank_you_all,
     "4": donor_db,
     "5": quit_menu,
