@@ -68,18 +68,13 @@ class Donor:
         return text
 
 
-##Class manages collection of donations
-
 #report - sort key needed
 #thank you letters - return list of strings
 #check donor if needed elsewhere
-#list donors
 
 
 #user interface code for input and prints
 
-#init with collection
-#add users from YAML
 class Donor_Collection:
     def __init__(self):
         self.name = "donor_db_object"
@@ -93,12 +88,14 @@ class Donor_Collection:
     def add_donor(self, name, donations=None):
         """Adds donor to database."""
         print(name, donations)
-        self.db[name] = Donor(name, donations)
+        self.db[name] = Donor(name, donations['donations'])
 
 
     def list_donors(self):
         """Returns list of all donors in database."""
         donors_str = ""
-        for person in self.db:
+        for person in self.db.keys():
             print(person)
-            donors_str.join(person.donor_name + "\n")
+            donors_str.join(person + "\n")
+
+donors = Donor_Collection()
