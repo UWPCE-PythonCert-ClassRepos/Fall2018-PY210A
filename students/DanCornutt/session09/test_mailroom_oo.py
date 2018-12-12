@@ -21,14 +21,27 @@ def test_num_donations():
     donor.add_donation(10)
     assert donor.num_donations == 2
 
-def test_donor_thank_you_letter():  #donor class
-    pass
+def test_donor_thank_you_letter():
+    Fred = Donor("Fred Flintstone")
+    Fred.add_donation(500)
+    Fred.add_donation(10)
 
-# def test_donor_collection():
-#     dc = DonorCollection()
-#
-#     dc.add_donor(Donor("Bob"))
-#     dc.find_donor()
-#     dc.list_donors()
-#     dc.thank_donors()
-#     dc.create_report()
+    assert Fred.write_letter == """Dearest Fred Flintstone,
+    We greatly thank you for your recent contribution of $10.00.
+    It will go straight to the person who needs it the most, our CEO.
+    Please give more next time.
+        Love,
+            The Team"""
+
+def test_donor_collection():
+    dc = Donor_Collection()
+    assert len(dc.db) == 6
+
+
+
+
+    # dc.add_donor(Donor("Bob"))
+    # dc.find_donor()
+    # dc.list_donors()
+    # dc.thank_donors()
+    # dc.create_report()

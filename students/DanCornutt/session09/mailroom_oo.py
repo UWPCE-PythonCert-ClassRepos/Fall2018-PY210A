@@ -16,9 +16,12 @@ import yaml
 class Donor:
     """Donor class handles all data, opperations, and attributes needed for
     donors."""
-    def __init__(self, name):
+    def __init__(self, name, donations=None):
         self.name = name
-        self.donations = []
+        if donations:
+            self.donations = donations
+        else:
+            self.donations = []
 
     def add_donation(self, donation):
         """Adds donation from donor to donor DB
@@ -29,6 +32,11 @@ class Donor:
     def num_donations(self):
         """Returns number of donations."""
         return len(self.donations)
+
+    @property
+    def donor_name(self):
+        """Returns name of donor."""
+        return self.name
 
     @property
     def last_donation(self):
@@ -51,12 +59,12 @@ class Donor:
 
     def write_letter(self):
         """Writes thank you letter for donor's last donation. Returns string."""
-        text = """Dearest {donor},\n
-        We greatly thank you for your recent contribution of ${recent:.2f}.\n
-        It will go straight to the person who needs it the most, our CEO.\n
-        Please give more next time.\n
-        \tLove,\n
-        \t\tThe Team""".format(donor=self.name, recent=self.last_donation)
+        text = """Dearest {donor},
+        We greatly thank you for your recent contribution of ${recent:.2f}.
+        It will go straight to the person who needs it the most, our CEO.
+        Please give more next time.
+            Love,
+                The Team""".format(donor=self.name, recent=self.last_donation)
         return text
 
 
@@ -72,18 +80,25 @@ class Donor:
 
 #init with collection
 #add users from YAML
-class donor_collection:
+class Donor_Collection:
     def __init__(self):
         self.name = "donor_db_object"
-        self.db = yaml.load(open("donor_db.yaml"))
+        self.db = {}
+        data = yaml.load(open("donor_db.yaml"))
 
-    def add_donor(self, name):
-        """Addes donor to database."""
-        self.db.append(Donor(name))
+        for k,v in data.items():
+            self.add_donor(k,v)
+
+
+    def add_donor(self, name, donations=None):
+        """Adds donor to database."""
+        print(name, donations)
+        self.db[name] = Donor(name, donations)
 
 
     def list_donors(self):
         """Returns list of all donors in database."""
-        donors = ""
-        for donor in self.db():
-            donors.join(donor.name + "\n")
+        donors_str = ""
+        for person in self.db:
+            print(person)
+            donors_str.join(person.donor_name + "\n")
