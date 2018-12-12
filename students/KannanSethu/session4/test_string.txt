@@ -1,0 +1,4 @@
+I wish I may I wish I might
+Trigrams
+Trigrams can be used to mutate text into new, surreal, forms.
+But what heuristics do we apply to get a reasonable result?
