@@ -1,11 +1,5 @@
 from mailroom_04 import Donor, DonorManager
 
-dm = DonorManager()
-a = Donor("Susan")
-b = Donor("Betsy")
-c = Donor("Gary")
-d = Donor("Mary")
-
 
 def nothing():
     pass
@@ -58,6 +52,7 @@ def display_prompter():
         except KeyError:
             print("That donor is not in our registry")
             break
+
 
 def make_donation_prompter():
     answer = input("On behalf of which donor would you like to donate? ")
@@ -117,5 +112,9 @@ prompt = """Please enter one of the following:
 """
 
 if __name__ == '__main__':
+    dm = DonorManager()
+    a = Donor("Susan")
+    b = Donor("Betsy")
+    c = Donor("Gary")
+    d = Donor("Mary")
     main(prompt, options_dict)
-
