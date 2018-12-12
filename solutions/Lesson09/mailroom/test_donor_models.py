@@ -27,9 +27,9 @@ NOTE: when I first ran it, I got 97% coverage -- it was missing tests
 
 import os
 import pytest
-from .donor_models import Donor, DonorDB, get_sample_data
+from donor_models import Donor, DonorDB, get_sample_data
 
-from . import cli_main
+import cli_main
 
 # creates a sample database for the tests to use
 sample_db = DonorDB(get_sample_data())
