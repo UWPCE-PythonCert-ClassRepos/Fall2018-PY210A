@@ -16,23 +16,22 @@
 #            "John Galt": [25.00, 9038.01, 0.01]
 #            }
 
-#May be unnecessary
-#donor_collection = {"name": donor_object,
-    
-#}
+import sys
+import os
+from textwrap import dedent
 
 """Everything you want to use wto manage the bacth of collections"""
 class DonorCollection():
     """Manages the donor collection in donor_dict and manipulates the collection"""
 
     def __init__(self, donor=None):
-        
+
         if donor:
             self.donor_dict={}
 
             for items in donor:
                 self.donor_dict[donor.name] = donor
-        else:        
+        else:
             self.donor_dict={}
 
     def list_donors(self):
@@ -74,14 +73,28 @@ class Donor ():
         """counts the number of donations present for a single donor"""
         return len(self.donations)
 
-    @property
+
     def sum_donations(self):
         """returns the sum of all the donors donations"""
-        pass
+        return sum(self.donations)
 
-    def donor_thank_your_letter():
-        """Send a single donor to file"""
-        pass
+    def get_last_donation(self):
+        """returns the last donation made by donor"""
+        return (self.donations[-1])
+
+    def thank_your_letter(self, donation_type=''):
+        """Send a single donor thank you for their last donation (default) or sum of their donations (if specified)"""
+        if donation_type == 'sum':
+            donation_amount = self.sum_donations()
+        else:
+            donation_amount = self.get_last_donation()
+
+        return dedent(
+        '''\tDear {},
+        Thank you for your generous donation of ${} to our cause.
+        
+        Sincerely,
+        The Team'''.format(self.name, donation_amount))
 
     @property
     def _donor(self):
