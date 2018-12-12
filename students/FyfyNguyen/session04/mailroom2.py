@@ -21,7 +21,7 @@ file_dir = pathlib.Path(tempfile.gettempdir())
 
 def print_donors():
     for donor in donors:
-        print(donor[0])
+        print(donor)
 
 
 def find_donor(name_entered):
@@ -32,7 +32,7 @@ def find_donor(name_entered):
 def add_donor(name_entered, donation):
     donor = (name_entered.title(), [])
     donors[1].append(donation)
-    donors[name_entered] = donor
+    donors[name_entered.lower()] = donor
     print("Successfully added new donor to database")
     return donor
 
@@ -49,11 +49,10 @@ def add_donor(name_entered, donation):
 
 
 def get_donation(name_entered):
-    donation = float(input("Enter the name of a donor or 'list' to view "
-                           "donors >>> ").lower.strip())
+    donation = float(input("Enter donation amount >>> "))
     donor = find_donor(name_entered)
     if donor is None:
-        donor = add_donor(name_entered)
+        add_donor(name_entered, donation)
     else:
         donors[1].append(donation)
         print("Successfully updated existing donor")
@@ -66,21 +65,9 @@ def thank_you():
         if name_entered == "list":
             print_donors()
         else:
-            break
-
-
-    # donation = float(input("Enter donation amount >>> "))
-    # donor = find_donor(name_entered)
-    # if donor is None:
-    #     donor = (name_entered.title(), [])
-    #     donor[1].append(donation)
-    #     donors.append(donor)
-    #     print("Successfully added new donor to database")
-    # else:
-    #     donor[1].append(donation)
-    #     print("Successfully updated existing donor.")
-
+            get_donation(name_entered)
     # send_email(name_entered, donation)
+
 
 def thank_you_all():
     pass
@@ -129,7 +116,7 @@ def main():
         try:
             menu_selections[user_selection]()
         except KeyError:
-            print("Error: Invalid Selection. Please select from the main menu.")
+            print("Error: Invalid Selection. Select from the main menu.")
 
 if __name__ == "__main__":
     main()
