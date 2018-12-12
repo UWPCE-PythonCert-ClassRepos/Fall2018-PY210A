@@ -1,12 +1,9 @@
 # Tests for Mailroom - Object Oriented
 
-#from mailroom_oo.cli_main.py import *
 from mailroom_oo.donor_models import Donor, DonorCollection
-
 
 import pytest
 import datetime
-import os
 
 
 # Tests for Donor Class
@@ -138,10 +135,3 @@ def test_create_report():
     charity.donors_dict["Astro"].add_donation(300)
 
     assert charity.create_report() == [["Astro", 300, 1, 300], ["Elroy Jetson", 200, 2, 100]]
-
-
-
-# Tests for main program
-
-
-print("All tests passed!")
