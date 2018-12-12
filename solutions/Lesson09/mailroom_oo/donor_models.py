@@ -77,6 +77,36 @@ class Donor():
             raise ValueError("Donation must be greater than zero")
         self.donations.append(amount)
 
+    @staticmethod
+    def validate_donation(donation):
+        """
+        validates a dontation input for float,
+        non-negative, etc.non-negative
+
+        :param donation: the input donation
+        :type donation: string
+
+        :returns: float of donation amount
+
+        raises a ValueError if invalid
+        """
+
+        donation = float(donation)
+
+        # extra check here -- unlikely that someone will type "NaN", but
+        # it IS possible, and it is a valid floating point number:
+        # http://en.wikipedia.org/wiki/NaN
+        if math.isnan(donation) or math.isinf(donation):
+            raise ValueError
+
+        if donation < 0:
+            raise ValueError("donation can't be negative")
+
+        if donation < 0.01:
+            raise ValueError("donation can't be less than one cent")
+
+        return donation
+
 
 class DonorDB():
     """

@@ -7,7 +7,7 @@ import sys
 import math
 from textwrap import dedent
 
-from donor_models import DonorDB, get_sample_data
+from donor_models import Donor, DonorDB, get_sample_data
 
 # create a DB with the sample data
 db = DonorDB(get_sample_data())
@@ -54,13 +54,7 @@ def send_thank_you():
             return
         # Make sure amount is a valid amount before leaving the input loop
         try:
-            amount = float(amount_str)
-            # extra check here -- unlikely that someone will type "NaN", but
-            # it IS possible, and it is a valid floating point number:
-            # http://en.wikipedia.org/wiki/NaN
-            if math.isnan(amount) or math.isinf(amount) or round(amount, 2) == 0.00:
-                raise ValueError
-        # in this case, the ValueError could be raised by the float() call, or by the NaN-check
+            amount = Donor.validate_donation(amount_str)
         except ValueError:
             print("error: donation amount is invalid\n")
         else:
