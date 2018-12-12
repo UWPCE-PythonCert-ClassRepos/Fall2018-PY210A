@@ -9,53 +9,60 @@ import tempfile
 import pathlib
 from textwrap import dedent
 
-donors = {"Robyn Rihanna": [100, 200, 300],
-          "Ariana Grande": [2250, 4000, 1000],
-          "Beyonce Carter-Knowles": [150000, 3500, 25000],
-          "Aubrey Drake Graham": [15000, 5500.25, 1200],
-          "Justin Bieber": [2500, 250, 750.50]
-          }
+donor_db = {"Robyn Rihanna": [100, 200, 300],
+            "Ariana Grande": [2250, 4000, 1000],
+            "Beyonce Carter-Knowles": [150000, 3500, 25000],
+            "Aubrey Drake Graham": [15000, 5500.25, 1200],
+            "Justin Bieber": [2500, 250, 750.50]
+            }
 
 file_dir = pathlib.Path(tempfile.gettempdir())
 
 
 def print_donors():
-    for donor in donors:
+    for donor in donor_db:
         print(donor)
 
 
 def find_donor(name_entered):
-    donor_key = name_entered.strip().lower()
-    return donors.get(donor_key)
+    donor_key = name_entered.strip().title()
+    return donor_db.get(donor_key)
 
 
-def add_donor(name_entered, donation):
+def add_donor(name_entered):
     donor = (name_entered.title(), [])
-    donors[1].append(donation)
-    donors[name_entered.lower()] = donor
-    print("Successfully added new donor to database")
+    donor_db[name_entered.title()] = donor
+    print("Successfully added new donor to database.")
+    add_donation(name_entered)
     return donor
 
-
-# def send_email(name_entered, donation):
-#     print(
-#         """Dear {},
-
-# Your generous ${:,.2f} donation just made our day!
-
-# Thank you!
-# -The Charity""".format(name_entered.title(), donation)
-#     )
-
-
-def get_donation(name_entered):
+def add_donation(name_entered):
     donation = float(input("Enter donation amount >>> "))
-    donor = find_donor(name_entered)
-    if donor is None:
-        add_donor(name_entered, donation)
+    donor = (name_entered.title(), [])
+    donor[1].append(donation)
+    print("Successfully updated donation amount.")
+
+    send_thank_you(name_entered, donation)
+
+
+def confirm_donor(name_entered):
+    response = input(f"Donor does not exist. Add {name_entered.title()} to "
+                     "database? [y/n?] >>> ")
+    if response == 'y':
+        add_donor(name_entered)
     else:
-        donors[1].append(donation)
-        print("Successfully updated existing donor")
+        main_menu()
+
+
+def send_thank_you(name_entered, donation):
+    print(dedent("""
+        Dear {},
+
+            Your generous ${:,.2f} donation just made our day!
+
+                Thank you!
+                -The Charity""".format(name_entered.title(), donation)
+                 ))
 
 
 def thank_you():
@@ -65,8 +72,13 @@ def thank_you():
         if name_entered == "list":
             print_donors()
         else:
-            get_donation(name_entered)
-    # send_email(name_entered, donation)
+            break
+
+    donor = find_donor(name_entered)
+    if donor is None:
+        confirm_donor(name_entered)
+    else:
+        get_donor(name_entered)
 
 
 def thank_you_all():
@@ -74,7 +86,7 @@ def thank_you_all():
 
 
 def sort_key(donors):
-    return donors[1]
+    return donor_db[1]
 
 
 def create_report():
@@ -96,11 +108,14 @@ def exit_program():
 def main_menu():
     selection = input(dedent("""
         Welcome to Mailroom!
+
         Select an option:
+
         1 - Create a Report
         2 - Send Thank You to a single donor
         3 - Send Thank You to all donors
         4 - Quit
+
         >>> """))
     return selection.strip()
 
