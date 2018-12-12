@@ -45,8 +45,8 @@ def add_donor(name_entered):
     :param: the name of the donor
     :returns: the new donor data structure
     """
-    donor = (name_entered.title(), [])
-    donor_db[name_entered] = donor
+    donor = (name_entered, [])
+    donor_db[name_entered.title()] = []
     print("Successfully added new donor to database.")
     add_donation(name_entered)
 
@@ -58,8 +58,7 @@ def add_donation(name_entered):
     :param: the name of the donor
     """
     donation = float(input("Enter donation amount >>> "))
-    donor = (name_entered, [])
-    donor[1].append(donation)
+    donor_db.setdefault(name_entered.title(), []).append(donation)
     print("Successfully updated donation amount.")
     send_thank_you(name_entered, donation)
 
@@ -72,7 +71,7 @@ def confirm_donor(name_entered):
     """
     response = input(f"Donor does not exist. Add {name_entered.title()} to "
                      "database? [y/n?] >>> ")
-    if response == 'y':
+    if response.strip() == 'y':
         add_donor(name_entered)
     else:
         main_menu()
@@ -102,7 +101,7 @@ def thank_you():
     while True:
         name_entered = input("Enter the name of a donor or 'list' to view "
                              "donors >>> ").lower().strip()
-        if name_entered == "list":
+        if name_entered.strip() == "list":
             print_donors()
         else:
             break
@@ -110,11 +109,13 @@ def thank_you():
     donor = find_donor(name_entered)
     if donor is None:
         confirm_donor(name_entered)
+    else:
+        add_donation(name_entered)
 
 
 def thank_you_all():
     """
-    Generate a letter for each donor and saves it to temporary directory
+    Generate a letter for each donor and save it to temporary directory
     """
     for donor in donor_db:
         letters = send_thank_you(donor, donor_db[donor][-1])
@@ -125,7 +126,7 @@ def thank_you_all():
 
 
 def sort_key(donor):
-    return donor_db[1]
+    return donor
 
 
 def create_report():
@@ -134,20 +135,28 @@ def create_report():
 
     :returns: the donor report as a string
     """
-    print("{:30s} | {:11s} | {:9s} | {:12s}".format("Donor Name",
-                                                    "Total Given",
-                                                    "Num Gifts",
-                                                    "Average Gift"
-                                                    ))
-    print("-" * 72)
-    donor_db.sort(key=sort_key, reverse=True)
-    for donor in donor_db:
-        print("{:30s}  $ {:11,.2f}  {:9d}  $ {:12,.2f}".format(donor[0],
-                                                               sum(donor[1]),
-                                                               len(donor[1]),
-                                                               sum(donor[1]) /
-                                                               len(donor[1])
-                                                               ))
+    report_rows = []
+    for name, donations in donor_db.items():
+        total_given = sum(donations)
+        num_gifts = len(donations)
+        avg_gifts = total_given / num_gifts
+        report_rows.append((name, num_gifts, num_gifts, avg_gifts))
+
+    report_rows.sort(key=sort_key)
+    report = []
+    report.append("{:30s} | {:11s} | {:9s} | {:12s}".format("Donor Name",
+                                                            "Total Given",
+                                                            "Num Gifts",
+                                                            "Average Gift"
+                                                            ))
+    report.append("-" * 72)
+    for row in report_rows:
+        report.append("{:30s} | {:11d} | {:9d} | ${:12,.2f}".format(*row))
+    return "\n".join(report)
+
+
+def print_report():
+    print(create_report())
 
 
 def exit_program():
@@ -174,7 +183,7 @@ def main_menu():
 
 
 def main():
-    menu_selections = {"1": create_report,
+    menu_selections = {"1": print_report,
                        "2": thank_you,
                        "3": thank_you_all,
                        "4": exit_program}
