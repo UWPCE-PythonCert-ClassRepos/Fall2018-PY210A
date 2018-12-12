@@ -91,7 +91,7 @@ class OneLineTag(Element):
         for content in self.content:
             if content != None:
                 try:
-                    content.render(out_file,cur_indent+self.indent)
+                    content.render(out_file, cur_indent + self.indent)
                 except AttributeError:
                     out_file.write(content)
         out_file.write(self._close_tag())
@@ -102,7 +102,6 @@ class Title(OneLineTag):
 
 
 class SelfClosingTag(Element):
-
     def __init__(self, content=None, **kwargs):
         if content is not None:
             raise TypeError("SelfClosingTag can not contain any content")
@@ -135,6 +134,7 @@ class SelfClosingTag(Element):
                     out_file.write(content.strip())
                 out_file.write("\n")
         out_file.write(self._close_tag())
+
 
 class Hr(SelfClosingTag):
     tag = "hr"
