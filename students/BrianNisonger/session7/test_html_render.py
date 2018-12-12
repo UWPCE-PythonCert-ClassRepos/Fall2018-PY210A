@@ -407,3 +407,20 @@ def test_element_indent1():
     assert lines[1].startswith(Element.indent + "thi")
     assert lines[2] == "</html>"
     assert file_contents.endswith("</html>")
+
+def test_title_indent():
+    """Tests indent for OneLineTag"""
+    title = Title("this is some text")
+    h=Html(title)
+    file_contents = render_result(h).strip()
+    lines = file_contents.split('\n')
+    assert lines[2]=="    <title>this is some text</title>"
+    
+def test_indent_hr():
+    """Tests indent for SelfClosingTag"""
+    hr = Hr()
+    h=Html(hr)
+    file_contents = render_result(h)
+    lines = file_contents.split('\n')
+    assert lines[2]=="    <hr />"
+    
