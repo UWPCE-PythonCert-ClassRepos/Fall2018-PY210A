@@ -52,9 +52,22 @@ main_menu.dict = {"r": report_menu.menu, "s": thankyou_menu.menu, "a": main_menu
 report_menu.dict = {"a": report_menu.full_donor_report, "s": report_menu.single_donor_report, "b": main_menu.menu, "q": report_menu.quit}
 thankyou_menu.dict = {"a": thankyou_menu.all_donor_thankyou, "s": thankyou_menu.single_donor_thankyou, "b": main_menu.menu, "q": thankyou_menu.quit}
 
-#define additional functions
+#let's put some donors in here for testing!
 
+hestershaw = Donors("Hester Shaw")
+donor_dict['hestershaw'] = hestershaw
+hestershaw.add_donations(500)
+hestershaw.add_donations(34)
 
+grike = Donors("Grike")
+donor_dict['grike'] = grike
+grike.add_donations(3)
+
+tomnatsworthy = Donors("Tom Natsworthy")
+donor_dict['tomnatsworthy'] = tomnatsworthy
+tomnatsworthy.add_donations(1003)
+tomnatsworthy.add_donations(745)
+tomnatsworthy.add_donations(10)
 # run the program!
 
 main_menu.menu()

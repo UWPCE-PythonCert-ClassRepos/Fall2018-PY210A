@@ -168,11 +168,14 @@ class Menu():
         return name
 
     def donor_exists(self, format_name):
-        #return True or False if the argument (which should be the formatted name of the donor) is in the donor_dict db as a key
+        #return True or False if the argument (which should be the formatted
+        #name of the donor) is in the donor_dict db as a key
         return format_name in donor_dict
 
     def donor_add(self, format_name, display_name):
+        #take the formatted name value and create an instance of it
         format_name = Donors(display_name)
+        #convert back that
         donor_dict[str(format_name)] = format_name
 
     def add_donations(self, obj_name, money):
@@ -197,17 +200,20 @@ class ThankYou(Menu):
             self.menu()
         obj_name = self.get_obj_name(format_name)
         self.file_write(format_name, obj_name)
+        print("Thank you sent to {}!".format(format_name))
         self.menu()
 
     def all_donor_thankyou(self):
         for donor in donor_dict:
             obj_name = self.get_obj_name(donor)
             self.file_write(donor, obj_name)
+            print("Thank you sent to {}!".format(donor))
         self.menu()
 
 
     def file_write(self, format_name, obj_name):
-        """This function will call upon the compose_email function and then write the contents to a file with the donors name"""
+        """This function will call upon the compose_email function and then write
+        the contents to a file with the donors name"""
         #replaces whitespace with underscores and add the .txt extension to the end. Stolen from teacher :)
         filename = format_name.replace(" ", "_") + ".txt"
         data_file = os.path.join(data_folder, filename)
@@ -219,9 +225,10 @@ class ThankYou(Menu):
 class Report(Menu):
 
     def full_donor_report(self):
-        for i in donor_dict:
-            x = self.get_obj_name(i)
-            print("{} gave ${}".format(x.name, sum(x.donations)))
+        self.donor_report_header_display()
+        for item in donor_dict:
+            obj_name = self.get_obj_name(item)
+            self.donor_report_detail(obj_name)
         self.menu()
 
     def single_donor_report(self):
@@ -232,10 +239,21 @@ class Report(Menu):
             print("I was not able to find that donor!")
             self.menu()
         obj_name = self.get_obj_name(format_name)
-        print("{} has generously given ${} so far, the last donation was {}!".format(obj_name.name, sum(obj_name.donations), obj_name.last_donation))
-        print(obj_name.donations)
-        print(obj_name.last_donation)
+        self.donor_report_header_display()
+        self.donor_report_detail(obj_name)
+        input("Press any key to continue")
         self.menu()
+
+    def donor_report_header_display(self):
+        print("\n", "\n", "{:<25}{:5}{:5}{:5}{}".format("Donor Name", "| Total Given", "| Num Gifts", "| Average Gift", "| Last Gift"))
+        print("{:-<80}".format(""))
+
+    def donor_report_detail(self, obj_name):
+        print("{:<26} ${:<11.2f} {:<11} ${:<11.2f} ${:.2f}"
+               .format(obj_name.name, sum(obj_name.donations), (len(obj_name.donations) -1),
+               sum(obj_name.donations) / (len(obj_name.donations) -1),
+               obj_name.last_donation))
+
 
 
 
@@ -257,9 +275,12 @@ class Report(Menu):
 #let's create some sample folks in the database so I don't have to keep
 #putting them in there!
 
-tomnatsworthy = Donors("Tom Natsworthy", 500)
-hestershaw = Donors("Hester Shaw", 1045)
-grike = Donors("Grike", 3)
+# main_menu.donor_add(hestershaw, "Hester Shaw")
+# main_menu.add_donations(hestershaw, 500)
+
+# tomnatsworthy = Donors("Tom Natsworthy", 500)
+# hestershaw = Donors("Hester Shaw", 1045)
+# grike = Donors("Grike", 3)
 #donor_dict = {tomnatsworthy:"Tom Natsworthy", hestershaw:"Hester Shaw", grike:"Grike"}
 
 #for testing
