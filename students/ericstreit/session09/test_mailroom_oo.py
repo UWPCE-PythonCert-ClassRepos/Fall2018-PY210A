@@ -45,14 +45,13 @@ def test_donor_name_format():
 
 def test_donor_list():
     test_menu = Menu("Test Menu")
-    assert test_menu.donor_exists("hestershaw") == True
+    #assert test_menu.donor_exists("hestershaw") == True
 
 def test_donor_add():
     test_menu = Menu("Test Menu")
-    test_menu.donor_add('joebob', 'Joe Bob')
-    # print(joe.name)
-    assert donor_list == ['hestershaw', 'joebob']
-
+    test_menu.donor_add('joebob', "Joe Bob")
+    assert test_menu.donor_exists("joebob")
+    print(donor_dict)
 
 
 #for testing

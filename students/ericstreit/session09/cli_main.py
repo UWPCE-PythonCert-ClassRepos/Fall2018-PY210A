@@ -16,11 +16,11 @@ data_folder = r'C:\pythonuw\Fall2018-PY210A\students\ericstreit\files'
 #define menus
 # This creates the menu as a class
 
-#should the other menus be subclasses??? probably
+#should the other menus be subclasses??? probably! (DONE!)
+main_menu  = Menu("MAIN MENU")
+report_menu = Report("REPORT MENU")
+thankyou_menu = ThankYou("SEND A THANK YOU")
 
-main_menu  = Menu("Main Menu")
-report_menu = Report("Report Menu")
-thankyou_menu = ThankYou("Send a Thank You")
 
 # define menu options
 # These are the choices that will display to the user in a menu
@@ -49,8 +49,8 @@ thankyou_menu.menu_options = ["Send a Thank You to a (S)ingle donor",
 #each selection should point to a function
 
 main_menu.dict = {"r": report_menu.menu, "s": thankyou_menu.menu, "a": main_menu.new_donation, "q": main_menu.quit}
-report_menu.dict = {"a": report_menu.donor_report, "s": main_menu.menu, "b": main_menu.menu, "q": report_menu.quit}
-thankyou_menu.dict = {"a": main_menu.menu, "s": main_menu.menu, "b": main_menu.menu, "q": thankyou_menu.quit}
+report_menu.dict = {"a": report_menu.full_donor_report, "s": report_menu.single_donor_report, "b": main_menu.menu, "q": report_menu.quit}
+thankyou_menu.dict = {"a": thankyou_menu.all_donor_thankyou, "s": thankyou_menu.single_donor_thankyou, "b": main_menu.menu, "q": thankyou_menu.quit}
 
 #define additional functions
 

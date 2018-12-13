@@ -9,38 +9,59 @@ import os
 
 
 # define any global variables or datasets
-donor_list = ["hestershaw"]
+donor_dict = {}
+data_folder = r'C:\pythonuw\Fall2018-PY210A\students\ericstreit\files'
+
+
 
 #define classes and functions
 
 class Donors():
-    def __init__(self, name):
+    def __init__(self, name, donations=0):
         self.name = name
-        self.donations = []
-        #master_list = []
+        self.donations = [donations]
+        #why does this not work?????? It strangely grabs only the first item from the
+        #list
+        #self.last_donation = self.donations[(len(self.donations) - 1)]
+        self.last_donation = 0
 
     def __str__(self):
-        return "Donor, {}, with a total donation amount of: ${}".format(self.name, self.sum_donations)
+        #format the name so that it is all one lowercase string without spaces. return this value
+        return self.str_name(self.name)
+
+    def __repr__(self):
+        return self.str_name(self.name)
+
+    def str_name(self, name):
+        #yeah, I could prob do this all in the  __str__ function above couldn't I?
+        name = name.lower()
+        name = name.replace(" ", "")
+        return name
+
+    # so some of these may be better as class methods? I don't 100% understand those yet but this works for now
 
     def add_donations(self, new_donation):
         self.donations.append(new_donation)
+        self.last_donation = new_donation
         return self.donations
 
     def sum_donations(self):
+        #yeah, this seems unneeded?
         return sum(self.donations)
 
     def avg_donations(self):
         return self.sum_donations() / len(self.donations)
 
     def thank_you(self):
+        #generates the thank you email text
         """This function composes the thank you email txt"""
         return dedent('''
         \n\nEMAIL SENT:\n
         Dear {},\n
-           Thank you for your generous contributions totalling ${:.2f}! We will be sure to ask you for more money again soon.
+           Thank you for your recent donation of ${:.2f}! We will be sure to ask you for more money again soon.
 
         Sincerely,
-        Donations, Inc'''.format(self.name, self.sum_donations()))
+        Donations, Inc'''.format(self.name, self.last_donation))
 
 
 class Menu():
@@ -57,8 +78,8 @@ class Menu():
         which in turn displays the menu choices available and then calls the safe
         input function to take the choice """
 
-        print("\n{}\n".format(self.menu_name))
         print("-------------------------------------------\n")
+        print("\n{}\n".format(self.menu_name))
         print("\nPlease select from the following choices\n")
         print("-------------------------------------------\n")
         for option in self.menu_options:
@@ -92,7 +113,8 @@ class Menu():
 
 
     def menu_choice(self, choice):
-        """ function that calls the menu an choice """
+        """ function that calls the menu providing the argument choice which should
+            correspond to a key/value pair in the menu dict"""
         try:
             self.dict.get(choice)()
         except TypeError:
@@ -107,28 +129,19 @@ class Menu():
 
     def new_donation(self):
         """ this calls the donor input function """
+        #this function feels pretty long, I feel like I could clean up and make some of
+        #this stuff additional functions?
         print("Enter the donors name")
         display_name = self.name_input()
-        print("This is the Display name: {}".format(display_name))
         format_name = self.donor_name_format(display_name)
-        print("Formatted name is: {}".format(format_name))
         if not self.donor_exists(format_name):
             self.donor_add(format_name, display_name)
-        print(donor_list)
         print("Please enter the amount the donor donated")
         money = self.donation_input()
-        self.add_donation_to_donor(format_name, money)
-        #input here to take the integer for donation ammount, pass to the add_donations function below
-        #format_name.add_donations()
-        #check if the name exists if donor_exists == True then go to the add sum
-        #check if the name already exists, if so skip to the function that adds donations to the donors list
-        #if name does not exist append the string to the master donor list
-
-        #create the class object using the formatted string and pass the original input as an argument
-
-        #send to a new input function (pass the formatted donor name ) which will add the amount to the donors lists
-        #using the self.add_donations function
-        x = input("Press any key to continue")
+        obj_name = self.get_obj_name(format_name)
+        obj_name.add_donations(money)
+        print("The Donor donated ${}" .format(obj_name.donations))
+        self.menu()
 
     def name_input(self):
         name = input(": ")
@@ -149,40 +162,80 @@ class Menu():
 
 
     def donor_name_format(self, name):
-        #format the name so that it is all one lowercase string without spaces. return this value
+        #format the name so that it is all one lowercase string without any spaces. return this value
         name = name.lower()
         name = name.replace(" ", "")
         return name
 
     def donor_exists(self, format_name):
-        #global donor_list
-        return format_name in donor_list
+        #return True or False if the argument (which should be the formatted name of the donor) is in the donor_dict db as a key
+        return format_name in donor_dict
 
     def donor_add(self, format_name, display_name):
-        donor_list.append(format_name)
         format_name = Donors(display_name)
+        donor_dict[str(format_name)] = format_name
 
-    def add_donation_to_donor(self, donor, money):
-        donor.add_donations(money)
-        print(donor.donations)
+    def add_donations(self, obj_name, money):
+        obj_name.add_donations(money)
 
+    def get_obj_name(self, format_name):
+        #the donor_dict db contains a key value of the donor. The key being the
+        #formatted name 'johnsmith' (which is a string) and the value being the
+        #object instance name johnsmith. This function is to basically convert
+        #a variable string into the object. It does this by returning the value
+        #(which is an object) of the key (which is the string)
+        return donor_dict.get(format_name)
 
 class ThankYou(Menu):
 
-    def donor_report(self):
-        print("just testing this")
+    def single_donor_thankyou(self):
+        print("Please enter the name of the donor you would like to thank.")
+        display_name = self.name_input()
+        format_name = self.donor_name_format(display_name)
+        if not self.donor_exists(format_name):
+            print("I was not able to find that donor!")
+            self.menu()
+        obj_name = self.get_obj_name(format_name)
+        self.file_write(format_name, obj_name)
+        self.menu()
+
+    def all_donor_thankyou(self):
+        for donor in donor_dict:
+            obj_name = self.get_obj_name(donor)
+            self.file_write(donor, obj_name)
+        self.menu()
 
 
-
+    def file_write(self, format_name, obj_name):
+        """This function will call upon the compose_email function and then write the contents to a file with the donors name"""
+        #replaces whitespace with underscores and add the .txt extension to the end. Stolen from teacher :)
+        filename = format_name.replace(" ", "_") + ".txt"
+        data_file = os.path.join(data_folder, filename)
+        with open(data_file, 'w') as outfile:
+            outfile.write(obj_name.thank_you())
+        outfile.close
 
 
 class Report(Menu):
 
-    def donor_report(self):
-        print("just testing this")
+    def full_donor_report(self):
+        for i in donor_dict:
+            x = self.get_obj_name(i)
+            print("{} gave ${}".format(x.name, sum(x.donations)))
+        self.menu()
 
-
-
+    def single_donor_report(self):
+        print("Please enter the name of the donor you are looking for")
+        display_name = self.name_input()
+        format_name = self.donor_name_format(display_name)
+        if not self.donor_exists(format_name):
+            print("I was not able to find that donor!")
+            self.menu()
+        obj_name = self.get_obj_name(format_name)
+        print("{} has generously given ${} so far, the last donation was {}!".format(obj_name.name, sum(obj_name.donations), obj_name.last_donation))
+        print(obj_name.donations)
+        print(obj_name.last_donation)
+        self.menu()
 
 
 
@@ -201,7 +254,13 @@ class Report(Menu):
 #reporting part
 #for all donors loop through the master list and return the self functions
 
+#let's create some sample folks in the database so I don't have to keep
+#putting them in there!
 
+tomnatsworthy = Donors("Tom Natsworthy", 500)
+hestershaw = Donors("Hester Shaw", 1045)
+grike = Donors("Grike", 3)
+#donor_dict = {tomnatsworthy:"Tom Natsworthy", hestershaw:"Hester Shaw", grike:"Grike"}
 
 #for testing
 if __name__=="__main__":
