@@ -14,31 +14,35 @@ data_folder = r'C:\pythonuw\Fall2018-PY210A\students\ericstreit\files'
 
 
 
-#define classes and functions
+# define classes and functions
 
 class Donors():
     def __init__(self, name, donations=0):
         self.name = name
         self.donations = [donations]
-        #why does this not work?????? It strangely grabs only the first item from the
-        #list
-        #self.last_donation = self.donations[(len(self.donations) - 1)]
         self.last_donation = 0
 
     def __str__(self):
-        #format the name so that it is all one lowercase string without spaces. return this value
+        # format the name so that it is all one lowercase string without spaces.
+        # return this value. Note to self, it seems like this could be used for
+        # something useful but I'm not really taking advantage of it.
         return self.str_name(self.name)
 
     def __repr__(self):
+        # omg I should have added this earlier!!! really killed some time trying
+        # to troubleshoot something. Hey, now I know!
         return self.str_name(self.name)
 
     def str_name(self, name):
-        #yeah, I could prob do this all in the  __str__ function above couldn't I?
+        # yeah, I could prob incorporate this all in the  __str__ function above couldn't I?
+        # Also, I don't think I'm using this anymore......I think donor_name_format
+        # replaced this. Why did I do that again?
         name = name.lower()
         name = name.replace(" ", "")
         return name
 
-    # so some of these may be better as class methods? I don't 100% understand those yet but this works for now
+    # so some of these may be better as class methods? I don't 100% understand
+    # those yet but this works for now.
 
     def add_donations(self, new_donation):
         self.donations.append(new_donation)
@@ -46,14 +50,14 @@ class Donors():
         return self.donations
 
     def sum_donations(self):
-        #yeah, this seems unneeded?
+        # yeah, this seems unneeded? Do I use it anywhere???
         return sum(self.donations)
 
     def avg_donations(self):
         return self.sum_donations() / len(self.donations)
 
     def thank_you(self):
-        #generates the thank you email text
+        # generates the snarky thank you email text
         """This function composes the thank you email txt"""
         return dedent('''
         \n\nEMAIL SENT:\n
@@ -84,9 +88,8 @@ class Menu():
         print("-------------------------------------------\n")
         for option in self.menu_options:
             print(option)
-        #use the safe input function here
+        # use the safe input function here
         self.menu_input()
-        #self.menu_choice(choice)
 
 
     def menu_input(self):
@@ -133,14 +136,21 @@ class Menu():
         #this stuff additional functions?
         print("Enter the donors name")
         display_name = self.name_input()
+        #pass the user imput to our formatter to make the string our standard
+        #db naming convention
         format_name = self.donor_name_format(display_name)
+        #now check to see if the donor exists in the db. If not, then pass to
+        #the function that creates new donor objects
         if not self.donor_exists(format_name):
             self.donor_add(format_name, display_name)
+        #now let's update that donor object with the amount they donated
         print("Please enter the amount the donor donated")
         money = self.donation_input()
+        #ok now we need to convert that donor string to the instnace object
         obj_name = self.get_obj_name(format_name)
+        #we can now pass that object as an argument to the next function which
+        #will update the instance attribute list that contains donations
         obj_name.add_donations(money)
-        print("The Donor donated ${}" .format(obj_name.donations))
         self.menu()
 
     def name_input(self):
@@ -154,10 +164,13 @@ class Menu():
 
     def donation_input(self):
         try:
-            money = int(input(": "))
+            money = float(int(input(": ")))
+        except ValueError:
+            print("Please enter a valid ammount (ie $100, or $99.99)")
+            self.menu()
         except:
             print("Please enter a valid ammount (ie $100, or $99.99)")
-            donation_input()
+            self.menu()
         return money
 
 
@@ -207,7 +220,7 @@ class ThankYou(Menu):
         for donor in donor_dict:
             obj_name = self.get_obj_name(donor)
             self.file_write(donor, obj_name)
-            print("Thank you sent to {}!".format(donor))
+            print("A Thank You email has been sent to all donors!")
         self.menu()
 
 
@@ -225,6 +238,9 @@ class ThankYou(Menu):
 class Report(Menu):
 
     def full_donor_report(self):
+        """ This menu function will print out an entire report consisting of all
+        donors.
+        """
         self.donor_report_header_display()
         for item in donor_dict:
             obj_name = self.get_obj_name(item)
@@ -232,56 +248,39 @@ class Report(Menu):
         self.menu()
 
     def single_donor_report(self):
+        """ This menu function will print out a single report for a donor."""
         print("Please enter the name of the donor you are looking for")
+        #grabs the
         display_name = self.name_input()
+        #formats the inputted string to our standard db naming convention
         format_name = self.donor_name_format(display_name)
+        #checks to see if the donor exists
         if not self.donor_exists(format_name):
             print("I was not able to find that donor!")
             self.menu()
+        #if it exists we now need to convert the formatted string to the object instance
         obj_name = self.get_obj_name(format_name)
+        #now let's print the report, first showing the header
         self.donor_report_header_display()
+        #and now printing the object instances values
         self.donor_report_detail(obj_name)
         input("Press any key to continue")
         self.menu()
 
     def donor_report_header_display(self):
+        #prints out the header on a report
         print("\n", "\n", "{:<25}{:5}{:5}{:5}{}".format("Donor Name", "| Total Given", "| Num Gifts", "| Average Gift", "| Last Gift"))
         print("{:-<80}".format(""))
 
     def donor_report_detail(self, obj_name):
+        #prints out a donors contributions details, which coincide with the
+        #donor_report_header_display function
         print("{:<26} ${:<11.2f} {:<11} ${:<11.2f} ${:.2f}"
                .format(obj_name.name, sum(obj_name.donations), (len(obj_name.donations) -1),
                sum(obj_name.donations) / (len(obj_name.donations) -1),
                obj_name.last_donation))
 
 
-
-
-
-
-
-
-
-
-
-
-#sending thank yous
-#for all donors (easy) just loop through the master list and call the self function
-#but you need to create the file writing piece for That
-
-#reporting part
-#for all donors loop through the master list and return the self functions
-
-#let's create some sample folks in the database so I don't have to keep
-#putting them in there!
-
-# main_menu.donor_add(hestershaw, "Hester Shaw")
-# main_menu.add_donations(hestershaw, 500)
-
-# tomnatsworthy = Donors("Tom Natsworthy", 500)
-# hestershaw = Donors("Hester Shaw", 1045)
-# grike = Donors("Grike", 3)
-#donor_dict = {tomnatsworthy:"Tom Natsworthy", hestershaw:"Hester Shaw", grike:"Grike"}
 
 #for testing
 if __name__=="__main__":
