@@ -4,6 +4,7 @@
 # Date: November 28, 2018
 # Author: Carol Farris
 # Goal: Gain familiarity with testing classes
+# Status: Completed and ready for review
 ##############
 
 
