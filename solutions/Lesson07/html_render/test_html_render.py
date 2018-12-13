@@ -376,69 +376,69 @@ def test_header2():
     assert ' align="center"' in file_contents
 
 
-def test_html_doctype():
-    html = Html()
-    file_contents = render_result(html)
-    print(file_contents)
+# def test_html_doctype():
+#     html = Html()
+#     file_contents = render_result(html)
+#     print(file_contents)
 
-    assert file_contents.startswith("<!DOCTYPE html>\n")
-
-
-def test_meta():
-    """
-    test the meta tag
-    """
-    m = Meta(charset="UTF-8")
-    file_contents = render_result(m)
-    print(file_contents)
-
-    assert file_contents == '<meta charset="UTF-8" />'
+#     assert file_contents.startswith("<!DOCTYPE html>\n")
 
 
-def test_whole_thing():
-    """
-    Render a complete page
+# def test_meta():
+#     """
+#     test the meta tag
+#     """
+#     m = Meta(charset="UTF-8")
+#     file_contents = render_result(m)
+#     print(file_contents)
 
-    This is not really a unit test, and does not test that the results
-    are correct, but does ensure that it all runs, and provides output
-    to look at
-    """
-    page = Html()
+#     assert file_contents == '<meta charset="UTF-8" />'
 
-    head = Head()
-    head.append(Meta(charset="UTF-8"))
-    head.append(Title("Python Class Sample page"))
-    page.append(head)
 
-    body = Body()
+# def test_whole_thing():
+#     """
+#     Render a complete page
 
-    body.append(H(2, "Python Class - Html rendering example"))
+#     This is not really a unit test, and does not test that the results
+#     are correct, but does ensure that it all runs, and provides output
+#     to look at
+#     """
+#     page = Html()
 
-    body.append(P("Here is a paragraph of text -- there could be more of them, "
-                  "but this is enough to show that we can do some text",
-                  style="text-align: center; font-style: oblique;"))
+#     head = Head()
+#     head.append(Meta(charset="UTF-8"))
+#     head.append(Title("Python Class Sample page"))
+#     page.append(head)
 
-    body.append(Hr())
+#     body = Body()
 
-    list = Ul(id="TheList", style="line-height:200%")
+#     body.append(H(2, "Python Class - Html rendering example"))
 
-    list.append(Li("The first item in a list"))
-    list.append(Li("This is the second item", style="color: red"))
+#     body.append(P("Here is a paragraph of text -- there could be more of them, "
+#                   "but this is enough to show that we can do some text",
+#                   style="text-align: center; font-style: oblique;"))
 
-    item = Li()
-    item.append("And this is a ")
-    item.append(A("http://google.com", "link"))
-    item.append("to google")
+#     body.append(Hr())
 
-    list.append(item)
+#     list = Ul(id="TheList", style="line-height:200%")
 
-    body.append(list)
+#     list.append(Li("The first item in a list"))
+#     list.append(Li("This is the second item", style="color: red"))
 
-    page.append(body)
+#     item = Li()
+#     item.append("And this is a ")
+#     item.append(A("http://google.com", "link"))
+#     item.append("to google")
 
-    # Element.indent = "        "
-    # now render it:
-    with open("sample_output.html", 'w') as f:
-        page.render(f)
+#     list.append(item)
+
+#     body.append(list)
+
+#     page.append(body)
+
+#     # Element.indent = "        "
+#     # now render it:
+#     with open("sample_output.html", 'w') as f:
+#         page.render(f)
 
     # assert False
