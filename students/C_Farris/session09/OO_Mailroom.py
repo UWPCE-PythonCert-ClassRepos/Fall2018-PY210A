@@ -5,16 +5,26 @@
 #Created by: Carol Farris
 #Purpose: Create a OO version of Mailroom 
 #Progress:
+#Finished first pass of Donor class. Now need to fill out and test 
+#Donor Coollection class
+#Then, create CLI.py and see if I can runn the OO Mailroom
 #
 ############
 
-#May be unnecessary
-#donor_db = {"William Gates III": [653772.32, 12.17],
-#            "Jeff Bezos": [877.33],
-#            "Paul Allen": [663.23, 43.87, 1.32],
-#            "Mark Zuckerberg": [1663.23, 4300.87, 10432.0],
-#            "John Galt": [25.00, 9038.01, 0.01]
-#            }
+donor_mock2 = [Donor("William Gates III", [653772.32, 12.17]),
+              Donor("Jeff Bezos", [877.33]),
+              Donor("Paul Allen", [663.23, 43.87, 1.32]),
+              Donor("Mark Zuckerberg", [1663.23, 4300.87, 10432.0]),
+              Donor("John Galt", [25.00, 9038.01, 0.01])]
+""""
+import mailroom_oo
+
+dir(Mailroom_oo)
+
+__version__ = "1.0.0"
+
+"""
+
 
 import sys
 import os
@@ -30,7 +40,7 @@ class DonorCollection():
             self.donor_dict={}
 
             for items in donor:
-                self.donor_dict[donor.name] = donor
+                self.donor_dict[items.name] = items
         else:
             self.donor_dict={}
 
@@ -59,15 +69,37 @@ class DonorCollection():
 """Your individual donor file would be in donor"""
 class Donor ():
 
-    def __init__(self, name, donation=0):
+    def __init__(self, name, donation=None, donations=None): ##change donations to none, 
         self.name = name
         self.donation = donation
-        self.donations = []
+        #self.donations = []
+
+        if donation is None:
+            self.donations = []
+        else:
+            try:
+                self.donations = list(donations)
+            except TypeError:
+                self.donations = [donations]      
+
+    def _repr_(self):
+         return f'{self.__class__.__name__}({self.name}) : {self.donations}'
+
 
     def add_donation(self, donation):
-        """adds a new donation to donors list"""
-        self.donations.append(donation)
-
+        """Adds a new donation to the donor list. 
+        Validation requires amount to be a penny or greater and 
+        a numeric value.""" 
+        try:
+            value = donation/2
+        except TypeError:
+            return "Donation value must be entirely numeric!"
+        else:
+            if value <=0.005:
+                return "Donation cannot be smaller than a penny!"
+            else:
+                self.donations.append(donation)
+   
     @property
     def num_donations(self):
         """counts the number of donations present for a single donor"""
