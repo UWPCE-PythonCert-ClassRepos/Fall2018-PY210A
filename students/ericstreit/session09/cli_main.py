@@ -8,15 +8,21 @@ from pathlib import Path
 from sys import exit
 import os
 
+## OK so this ended up turning more into a config file than the menu cli since
+# the menus were all created as classes in the donor_models.py file.
+
+
+
 #define variables
 
 data_folder = r'C:\pythonuw\Fall2018-PY210A\students\ericstreit\files'
-#make another one like above for the instructor but points to the current folder
+# note to self: make another one like above for the instructor that points to the current folder?
 
 #define menus
 # This creates the menu as a class
 
 #should the other menus be subclasses??? probably! (DONE!)
+
 main_menu  = Menu("MAIN MENU")
 report_menu = Report("REPORT MENU")
 thankyou_menu = ThankYou("SEND A THANK YOU")
@@ -68,6 +74,7 @@ donor_dict['tomnatsworthy'] = tomnatsworthy
 tomnatsworthy.add_donations(1003)
 tomnatsworthy.add_donations(745)
 tomnatsworthy.add_donations(10)
+
 # run the program!
 
 main_menu.menu()

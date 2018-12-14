@@ -54,7 +54,8 @@ class Donors():
         return sum(self.donations)
 
     def avg_donations(self):
-        return self.sum_donations() / len(self.donations)
+        # I don't think I ended up using this function
+        return self.sum_donations() / (len(self.donations) -1)
 
     def thank_you(self):
         # generates the snarky thank you email text
@@ -163,19 +164,25 @@ class Menu():
         #self.donor_name_format(name)
 
     def donation_input(self):
+        # takes the input as a float. if an error kicks back to the menu because
+        # I haven't figured out how to loop back to the input w/out some weird
+        # behavior
         try:
             money = float(int(input(": ")))
         except ValueError:
             print("Please enter a valid ammount (ie $100, or $99.99)")
+            # if I loop this back to self.donation_input() it get's weird
             self.menu()
         except:
             print("Please enter a valid ammount (ie $100, or $99.99)")
+            # if I loop this back to self.donation_input() it get's weird
             self.menu()
         return money
 
 
     def donor_name_format(self, name):
-        #format the name so that it is all one lowercase string without any spaces. return this value
+        # format the name so that it is all one lowercase string without any spaces.
+        # return this value
         name = name.lower()
         name = name.replace(" ", "")
         return name
@@ -192,14 +199,19 @@ class Menu():
         donor_dict[str(format_name)] = format_name
 
     def add_donations(self, obj_name, money):
+        # simple runs the class function that adds money to the object attribute
+        # that is a list of all donations
         obj_name.add_donations(money)
 
     def get_obj_name(self, format_name):
-        #the donor_dict db contains a key value of the donor. The key being the
-        #formatted name 'johnsmith' (which is a string) and the value being the
-        #object instance name johnsmith. This function is to basically convert
-        #a variable string into the object. It does this by returning the value
-        #(which is an object) of the key (which is the string)
+        # the donor_dict db contains a key value of the donor. The key being the
+        # formatted name 'johnsmith' (which is a string) and the value being the
+        # object instance name johnsmith. This function is to basically convert
+        # a variable string into the object. It does this by returning the value
+        # (which is an object) of the key (which is the string)
+        #
+        # it took me hours to figure out that I needed to do things this way
+        # and how to get it to work
         return donor_dict.get(format_name)
 
 class ThankYou(Menu):

@@ -10,29 +10,29 @@ def test_name():
 
 def test_add_donations():
     bob = Donors("Bob Smith")
-    assert bob.add_donations(400) == [400]
-    assert bob.add_donations(600) ==[400, 600]
-    assert bob.add_donations(844) ==[400, 600, 844]
+    assert bob.add_donations(400) == [0, 400]
+    assert bob.add_donations(600) ==[0, 400, 600]
+    assert bob.add_donations(844) ==[0, 400, 600, 844]
 
 def test_sum_donations():
     bob = Donors("Bob Smith")
-    assert bob.add_donations(400) == [400]
-    assert bob.add_donations(600) ==[400, 600]
-    assert bob.add_donations(500) ==[400, 600, 500]
+    assert bob.add_donations(400) == [0, 400]
+    assert bob.add_donations(600) ==[0, 400, 600]
+    assert bob.add_donations(500) ==[0, 400, 600, 500]
     assert bob.sum_donations() == 1500
 
 def test_str():
     bob = Donors("Bob Smith")
-    assert bob.add_donations(400) == [400]
-    assert bob.add_donations(600) ==[400, 600]
-    assert bob.add_donations(500) ==[400, 600, 500]
+    assert bob.add_donations(400) == [0, 400]
+    assert bob.add_donations(600) ==[0, 400, 600]
+    assert bob.add_donations(500) ==[0, 400, 600, 500]
     assert "Donor, Bob Smith, with a total donation amount of: $1500"
 
 def test_avg_donations():
         bob = Donors("Bob Smith")
-        assert bob.add_donations(400) == [400]
-        assert bob.add_donations(600) ==[400, 600]
-        assert bob.add_donations(500) ==[400, 600, 500]
+        assert bob.add_donations(400) == [0, 400]
+        assert bob.add_donations(600) ==[0, 400, 600]
+        assert bob.add_donations(500) ==[0, 400, 600, 500]
         assert bob.avg_donations() == 500
 
 def test_main_menu():
@@ -51,7 +51,14 @@ def test_donor_add():
     test_menu = Menu("Test Menu")
     test_menu.donor_add('joebob', "Joe Bob")
     assert test_menu.donor_exists("joebob")
-    print(donor_dict)
+
+def test_get_obj_name():
+    # doesn't work - I've coded my project in a way that is hard to test. prob
+    # means it is not a good design?
+    test_menu = Menu("Test Menu")
+    test_menu.donor_add('joebob', "Joe Bob")
+    #assert test_menu.get_obj_name('joebob') == joebob
+
 
 
 #for testing
