@@ -57,6 +57,33 @@ def print_grid(size):
 
     print(grid)
 
+def print_grid2(number, size):
+    """
+    print a number x number grid with each box of size width and height
+
+    :param number: number of grid boxes (row and column)
+
+    :param size: size of each grid box
+    """
+    print("This box will be\t{} x {} with {} columns\n".format(size,size,number))
+    # top row
+    top = ('+ ' + '- ' * size) * number + '+' + '\n'
+    middle = ('| ' + ' ' * 2 * size) * number + '|' + '\n'
+
+    row = top + middle * size
+
+    grid = row * number + top
+
+    print(grid)
+
+def print_grid3(size):
+    """
+    same as print_grid, but calling print_grid2 to do the work
+    """
+    number = 2
+    box_size = (size - 1) // 2  # size of one grid box: note integer divsion!
+    print_grid2(number, box_size)
+
 ################
 # Function calls
 ################
@@ -64,3 +91,7 @@ def print_grid(size):
 print_grid_ez()
 
 print_grid(7)
+print_grid2(3,3)
+
+print_grid3(9)
+print_grid3(13)
