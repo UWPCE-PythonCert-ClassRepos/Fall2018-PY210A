@@ -54,6 +54,20 @@ def list_donors():
     print()
 
 
+def confirm_new_name(name):
+    """
+    Asks user for confirmation on new donor names.
+    :param name: User input
+    :return: True if name is confirmed, else False
+    """
+    answer = input(f"{name} is not in the donor database. Do you want to add this new donor? Yes or No: ").capitalize()
+
+    if answer[0] == "Y":
+        return True
+    else:
+        return False
+
+
 def check_name(name):
     """
     Validates donor name. Checks if name is blank or is a number.
@@ -67,8 +81,10 @@ def check_name(name):
     elif name == "L":
         list_donors()
         return False
-    else:
+    elif name in charity.donors_dict:
         return True
+    else:
+        return confirm_new_name(name)
 
 
 def check_donation(donation):
