@@ -1,9 +1,12 @@
 # Tests for Mailroom - Object Oriented
 
-from mailroom_oo.donor_models import Donor, DonorCollection
+from donor_models import Donor, DonorCollection
+import cli_main as cm
+
 
 import pytest
 import datetime
+import os
 
 
 # Tests for Donor Class
@@ -135,3 +138,50 @@ def test_create_report():
     charity.donors_dict["Astro"].add_donation(300)
 
     assert charity.create_report() == [["Astro", 300, 1, 300], ["Elroy Jetson", 200, 2, 100]]
+
+
+# Tests for main program
+def test_check_name_invalid():
+    name1 = cm.check_name("")
+    assert name1 is False
+
+    name2 = cm.check_name("5")
+    assert name2 is False
+
+
+def test_check_name_exit():
+    name3 = cm.check_name("E")
+    assert name3 is None
+
+
+def test_check_name_list():
+    name4 = cm.check_name("L")
+    assert name4 is False
+
+
+def test_check_donation_exit():
+    amount1 = cm.check_donation("etc")
+    assert amount1 is None
+
+
+def test_check_donation_small():
+    amount2 = cm.check_donation(".001")
+    assert amount2 is False
+
+
+def test_check_donation_valid():
+    amount3 = cm.check_donation("1")
+    assert amount3 is True
+
+
+def test_check_donation_invalid():
+    amount4 = cm.check_donation("")
+    assert amount4 is False
+
+    amount5 = cm.check_donation("z")
+    assert amount5 is False
+
+
+def test_check_directory():
+    dir1 = cm.check_directory("")
+    assert dir1 is True
