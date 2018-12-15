@@ -78,7 +78,6 @@ def test_sum_thank_your_letter():
     donor.add_donation(300)
     donor.add_donation(500)
 
-    print(donor.thank_your_letter())
     assert donor.thank_your_letter() == dedent(
         '''\tDear Pippy Longstocking,
         Thank you for your generous donation of $500 to our cause.
@@ -98,7 +97,7 @@ def test_repr_():
     donor = Donor("Pippy Longstocking")
     donor.add_donation(25)
     donor.add_donation(300)
-    print(donor)
+
     assert repr(donor) == 'Donor(Pippy Longstocking) : [25, 300]'
 
 
@@ -124,11 +123,61 @@ def test_add_donor():
     donor2 = Donor("Manu Chow")
     donor2.add_donation(500)
     dc.addDonor(donor2.name, donor2)
-
+    dc.addDonor("Py Thon", Donor("Py Thon"))
+    
+    assert "Py Thon" in dc.donor_dict.keys()
     assert "Manu Chow" in dc.donor_dict.keys()
     assert "Pippy Longstocking" in dc.donor_dict.keys()
 
+def test_add_donor_cleaned_name():
+    """Confirm cleaned donor name is capitalized with all other letters lowercase """
+    donor = Donor("Pippy Longstocking", [0.1, 0.01, 100000])
+    donor2 = Donor("MANU ChoW", [10, 20, 30])
+    donor3 = Donor("barak obama", [400, 500, 600])
+    dc = DonorCollection()
+    dc.addDonor(donor.name, donor)
+    dc.addDonor(donor2.name, donor2)
+    dc.addDonor(donor3.name, donor3)
 
-def test_search_donor():
-    pass
+    assert dc.list_donors() == 'Pippy Longstocking\nManu Chow\nBarak Obama\n'
+
+
+def test_list_donors():
+    dc = DonorCollection()
+    donor = Donor("Pippy Longstocking", 0.1)
+    donor2 = Donor("Manu Chow", 10)
+    donor3 = Donor("Barak Obama", [400, 500, 600])
+    dc.addDonor(donor.name, donor)
+    dc.addDonor(donor2.name, donor2)
+    dc.addDonor(donor3.name, donor3)
+
+    assert dc.list_donors() =='Pippy Longstocking\nManu Chow\nBarak Obama\n'
+
+
+
+
+def test_donor_in_dictionary():
+    """tests that a valid donor object can be tested/added to dictionary"""
+    dc = DonorCollection()
+    donor = Donor("Pippy Longstocking", 100000)
+    donor2 = Donor("Manu Chow", [10, 20, 30, 40])
+    donor3 = Donor("Barak Obama", 400)
+    dc.addDonor(donor.name, donor)
+    dc.addDonor(donor2.name, donor2)
+    dc.addDonor(donor3.name, donor3)
+
+    assert dc.donor_in_dictionary(donor2.name) == True
+    assert dc.donor_in_dictionary('Betsy DeVos') == False
+
+
+def test_add_donor_donation():
+    dc = DonorCollection()
+    donor3 = Donor("Barak Obama", 400)
+    dc.addDonor(donor3.name, donor3)
+    dc.add_donor_donation("Barak Obama", 3000)
+
+    assert repr(donor3) == 'Donor(Barak Obama) : [400, 3000]' 
+
+
+
 
