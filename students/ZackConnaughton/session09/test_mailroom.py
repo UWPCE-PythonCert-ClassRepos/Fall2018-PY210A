@@ -3,7 +3,7 @@ inputs and prints not in this code for testing
 """
 
 import os
-from mailroom import Donor, Donor_Collection
+from .mailroom import Donor, Donor_Collection
 
 
 def test_load_donor_dict():
