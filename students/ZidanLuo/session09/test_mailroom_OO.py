@@ -51,12 +51,12 @@ def test_save_to_disk():
 
 def test_report_generator():
     """ Test if the report for the sample donor database is accurate"""
+    print(report)
     sampleDB = {"Fred Jones": Donor("Fred Jones", 500),"Christina Levermore": Donor("Christina Levermore", 10000)}
     donor_Db = Donor_Collection()
     donor_Db.copy_constructor(sampleDB,"Christina Levermore",10000)
 
     report = donor_Db.report_generator()
-    print(report)
     assert report.startswith("      Donor Name           | ")
     assert "Christina Levermore" in report
 
@@ -70,21 +70,12 @@ def test_convert_to_std():
     
 
 def test_sort_report():
+    """ Test to sort the dictionary correctly """
     sampleDB = {"Fred Jones": Donor("Fred Jones", 500),"Christina Levermore": Donor("Christina Levermore", 10000)}
     donorDB = Donor_Collection()
     donorDB.copy_constructor(sampleDB,"Christina Levermore",10000)
     donorDB.sort_report()
+
     assert donorDB.get_sorted_dict()[0][0] == "Christina Levermore"
 
 
-
-# def test_donor_collection():
-#     dc = DonorColletion()
-
-#     dc.add_donor(Donor("Violet Smith"))
-
-#     dc.find_donor()
-
-#     dc.list_donors()
-
-#     dc.creat_report()
