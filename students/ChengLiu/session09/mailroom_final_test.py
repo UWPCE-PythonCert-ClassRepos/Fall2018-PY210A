@@ -7,7 +7,7 @@ Mail-room Final
 
 # import os
 # import pytest
-from .mailroom_final import Donor
+from .mailroom_final import Donor, DonorDB
 
 
 def test_donor_with_donation():
@@ -52,44 +52,43 @@ def test_avg_donations():
     assert donor_test_2.avg_donations is None
 
 
-# def test_find_donor():
-#     donors_test = Donor("test One", [1, 2, 3])
+def test_donor_data():
+    donors = [Donor("Test Name_1", [1, 2, 3]),
+              Donor("Test Name_2", [10, 20, 30]),
+              Donor("Test Name_3")]
 
-#     donor_target = donors_test.find_donor("test one")
-#     assert donor_target.name == "Test Name"
-#     assert donor_target.donations == [1, 2, 3]
+    db = DonorDB(donors)
 
-#     donor_none = donors_test.find_donor("test five")
-#     assert donor_none.name is None
-#     assert donor_none.donations is None
-
-
+    assert db.donor_data == {"Test Name_1": [1, 2, 3],
+                             "Test Name_2": [10, 20, 30],
+                             "Test Name_3": []}
 
 
+def test_find_donor():
+    donors = [Donor("Test Name_1", [1, 2, 3])]
+    db = DonorDB(donors)
+
+    assert db.find_donor("Test Name_1") == [1, 2, 3]
 
 
+def test_find_no_donor():
+    donors = [Donor("Test Name_1", [1, 2, 3])]
+    db = DonorDB(donors)
+
+    assert db.find_donor("Test Name_5") is None
 
 
-# def test_add_donor():
-#     donor = Donor("Kobe Br")
-#     assert donor.name == "Kobe Br"
-#     assert donor.last_donation is None
+def test_add_donor():
+    donors = [Donor("Test Name_1", [1, 2, 3])]
+    db = DonorDB(donors)
+    db.add_donor("Test Name_added", 100)
+    assert db["Test Name_add"] == [100]
 
 
-# def test_add_donation():
-#     donor.add_donation(100)
-
-
-#     assert donor.last_donation == 100
 
 
 # def test_list_donors():
 #     assert "Default Test1" in Donor.list_donors()
-
-
-# def test_find_donors():
-#     test_donor = Donor.find_donors('default test3')
-#     assert test_donor is None
 
 
 # def test_letter():
