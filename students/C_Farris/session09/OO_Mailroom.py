@@ -5,27 +5,19 @@
 #Created by: Carol Farris
 #Purpose: Create a OO version of Mailroom 
 #Progress:
-#Finished first pass of Donor class. Now need to fill out and test 
-#Donor Coollection class
-#Then, create CLI.py and see if I can runn the OO Mailroom
+#Need to add Thank yous to all donors.
 #
 ############
 
-""""
-import mailroom_oo
 
-dir(Mailroom_oo)
-
-__version__ = "1.0.0"
-
-"""
 
 
 import sys
 import os
 from textwrap import dedent
+OUT_PATH = "thank_you_letters"
 
-"""Everything you want to use wto manage the bacth of collections"""
+
 class DonorCollection():
     """Manages the donor collection in donor_dict and manipulates the collection"""
 
@@ -47,30 +39,14 @@ class DonorCollection():
             keyList = keyList + key + '\n'
         return keyList
 
-    def thank_donors(self):
+    def thank_donor(self):
         pass
-
-    def report(self):
-        pass
-        """Checks collection to see if current donor is in list. If not, ask to add"""
-
 
     def addDonor(self, donor_name, donor): #returns an f-string. Not ideal
         """"adds donor to collection
             cleans donor name to have it with capital letters an all else lower case."""
         donor_name = donor_name.strip().lower().title()
         self.donor_dict[donor_name] = donor
-
-
-    def retrieve_donor_object(self, donor):
-        """uses a donor object to retrieve a donor"""
-        try: 
-            name = self.donor.name in donor_dict
-            print("its in the dictionary!")
-            return donor
-        except KeyError:
-            print("That donor is not in the dictionary.")
-            return None
 
 
     def donor_in_dictionary(self, donor_name):
@@ -93,10 +69,48 @@ class DonorCollection():
             else:
                 self.donor_dict[donor_name].add_donation(newDonation)
 
-"""Everything one needs to know about a single donor"""
-"""you don't want donor to know how it is being stored"""
-"""Your searching and adding would be in donorCollection"""
-"""Your individual donor file would be in donor"""
+
+    def create_report(self):
+        """returns data for report"""
+        donorReport = [[round(float(sum(value.donations)), 2), key, len(value.donations),
+                    round(float(sum(value.donations) / len(value.donations)), 2)]
+                    for key, value in self.donor_dict.items()]
+        sortedReport = sorted(donorReport)
+        ascendingReport = sortedReport[::-1]
+        return ascendingReport
+
+    def prepare_to_write_to_disk(self, out_path=OUT_PATH):
+        
+        """Check OUT_PATH specified is a directory, if not, it will make it
+        This is to run once at the start of the application.
+        :Param: none
+        :Return: none. Creates specified folder in CWD if not already created.
+        """
+        if not os.path.isdir(out_path):
+            os.mkdir(out_path)
+
+    def send_file_to_disk(self, key, donorLetter):
+        """
+        Accepts "Thank You" donor Letter and writes to disk.
+        :param (person): Name of person, will be used in file name
+        :param (donorLetter): Thank you letter to donor
+        :return: none. Will send file to directory set in outpath.
+        """
+        filename = key.replace(' ', '_') + '.txt'
+        filename = os.path.join(OUT_PATH, filename)
+        open(filename, 'w').write(donorLetter)
+        
+
+
+    def save_all_thank_yous(self, out_path = OUT_PATH):
+        """returns thank you's for all donors in donor collection"""
+        for key, value in self.donor_dict.items():
+            print(value.thank_your_letter())
+            self.prepare_to_write_to_disk(out_path)
+            self.send_file_to_disk(key, value.thank_your_letter())
+
+
+
 class Donor ():
 
     def __init__(self, name, donations=None): ##change donations to none, 
