@@ -111,23 +111,23 @@ for i in range(21):
     if not i % 4:
         s4.add(i)
 
-print(s2)
-print(s3)
-print(s4)
+print("\nSet Two using modulo 2:",s2)
+print("Set Three using modulo 3:",s3)
+print("Set Four using modulo 4:",s4)
 
 
 # Display if s3 is a subset of s2 (False)
-print(s3.issubset(s2))
+print("Is s3 a subset of s2? Answer: ", s3.issubset(s2))
 
 # and if s4 is a subset of s2 (True).
-print(s4.issubset(s2))
+print("Is s4 a subset of s2? Answer: ", s4.issubset(s2))
 
 # Create a set with the letters in 'Python' and add 'i' to the set.
 
 s = set('Python')
 s.add('i')
 
-print(s)
+print("Now we have another letter",s)
 
 # maybe:
 s = set('Python'.lower())  # that wasn't specified...
