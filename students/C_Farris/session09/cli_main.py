@@ -5,19 +5,13 @@
 #Date: 12/11/18
 #Purpose: Remake Mailroom in OO fashion
 #CLi_main is to store all the UI and print statements
-#Progress: Worked on Thank you. need to add to donor collection:
-# def return_sum_donations given a donor key
-# def return_last_donations given a donor key
-# def return_num_donations given a donor key
-#The above 2 will be for thank you as well as all above for report.
-#Then make a test suite out of them. 
-#if stuck:
-#I changed method names to make them more pythonic. ex. thankyou to thank_you
-#changed exit from x to 1 to make it cleaner looking
-#I will only import modules as I need them. Do I still need OS and dedent?
+#Progress:  
+
 ########
 
 import sys
+import os
+from textwrap import dedent
 
 from OO_Mailroom import Donor, DonorCollection
 
@@ -26,27 +20,14 @@ def thank_you():
     """Returns a user selected Donor thank you letter for either
        the sum of the donations or their last donation."""
     getPerson = get_donor()
-    donationType = ''
-    while donationType !='Done':
-        print("What type of donation do you want to reference in your Thank You letter?")
-        print("(1) To Exit\n(2) Add a new donation amount\n(3) To reference the"
-              " last donation\n(4) To reference the sum of all donations\n")
-        donationType = input(str('>>>'))
-        donationType = donationType.strip()
-        donationType = donationType[0:1].lower()
-        try:    
-            donation, donationType = donation_choices.get(donationType)(getPerson, donationType)
-            print("donationType", donationType)
-        except TypeError:
-            retry()
-    print(assemble_thank_you(getPerson, donation)) #oritional thank you printed to console. 
+    donation = get_new_Donation(getPerson)
+    print(assemble_thank_you(getPerson, donation))#oritional thank you printed to console. 
 
 
 def get_donor():
     """Prompts user to provide donor name and returns name if found or adds to collection"""
-    haveDonor = False
     donor = ''
-    while dc.donor_in_dictionary(donor) == False:
+    while dc.donor_in_dictionary(donor) == False:   #note, take out dictionary in the definition in teh DC collection
         donor = input('\nPlease enter the donors first and last name,  '
                       'type List to get donor list or 1 to exit ==>')
         donor = donor.strip().lower().title()
@@ -57,68 +38,76 @@ def get_donor():
         if donor == 'List':
             print(dc.list_donors())
 
+        #edit.    
         if dc.donor_in_dictionary(donor):
-            print("donor found in collection: ")#####debuggin
             dc.addDonor(donor, Donor(donor))
-            haveDonor = True
             return donor
 
         if not donor == 1 and not donor == "List":
-                print("\n>>>>>Donor specified not found in collection.<<<<<<<\n")
-                repeat = input(("Do you wish to add person? Type: Y \nType: 1 to exit\nPress any other key to retry...\n "))
-                repeat = repeat.strip().lower().title()
+            print("\n>>>>>Donor specified not found in collection.<<<<<<<\n")
+            repeat = input(("Do you wish to add person? Type: Y\nPress any other key to retry: "))
+            repeat = repeat.strip().lower().title()
 
-                if repeat == 'Y':
-                    print("Will add ", donor, " to the database.") ###debugging
-                    dc.addDonor(donor, Donor(donor))
-                    haveDonor = True
-                    return donor
-                if repeat == 1:
-                    exit_out()
+            if repeat == 'Y':
+                dc.addDonor(donor, Donor(donor))
+                return donor
 
-def get_new_Donation(getPerson, donationType):
+
+def get_new_Donation(getPerson):
     """
     Asks user to specify donation amount and will error out if 
     User specifies other than a float amount.
     :Param: none
     returns: donation retrieved from user
     """
-    getDonation = input()
+    getDonation = ''
     while not type(getDonation) is float:
         try:
-            getDonation = float(input("Please enter donation amount:"
-                                    "==>"))
+            getDonation = float(input("Please enter donation amount: "))
             dc.add_donor_donation(getPerson,getDonation)
             print("New donation of ", getDonation, " was added to "+ getPerson +"\'s file.")
-            donationType = 'Done'
         except ValueError:
                 print('Sorry, that isn\'t a valid dollar amount. Please retry')
-    return getDonation, donationType
+    return getDonation
 
 
-def get_last_donation(getPerson, getDonation=''):
-    print("you want to get the last donation. Under Construction.")
-    donationType = 'Done'
-    #get last donation here
-    return donationType
-
-def get_sum_donations(getPerson, getDonation=''):
-    print("you want to get sum of the donations. Under Construction.")   
-    donationType = 'Done'
-    #get sum donations here
-    return donationType
 
 
 def assemble_thank_you(getPerson, donation):
-    print("you are in assemble thank you, WIP") 
+        return dedent(
+        '''\tDear {},
+        Thank you for your generous donation of ${} to our cause.
+        
+        Sincerely,
+        The Team'''.format(getPerson, donation))
+
 
 def make_report():
-    print("you selected to make a report, WIP")
+    """returns report generated by donor collection """
+    report = dc.create_report()
+    printReport(report)
+
+
+def printReport(report): # Put almost all in Donor Collection.
+    """
+    prints report made by make_report
+    :param (name): sorted list in ascending order that
+                   contains required information
+                   for each donor
+    :return: It prints, neet to put into a return statement####
+    """
+    Header = ['Donor Name', 'Total Donation', 'Number Donations', 'Average Donation']
+    print("\n{:20} {:<15} {:>5} {:<25}".format(Header[0], Header[1], Header[2], Header[3]))
+    for donor in report:
+        print('{:<20}'.format(donor[1]), '{:<15,}'.format(donor[0]),
+              '{:>5}'.format(donor[2]), '{:>25,}'.format(donor[3]))    
 
 
 def all_donors():
     print("you selected to send thank you to all donors")
     print("first call list, for each key, print the thank you.")
+    dc.save_all_thank_yous()
+    print("finished all donors")
 
 
 def exit_out():
@@ -172,14 +161,5 @@ if __name__ == '__main__':
                     '1': exit_out,
                     '4': all_donors}
 
-    donation_choices = {'1': exit_out,
-                        '2': get_new_Donation,
-                        '3': get_last_donation,
-                        '4': get_sum_donations
-                         }
-
-
     dc = DonorCollection(donor_mock)
-    print(dc.list_donors())# how you list donors.              
     main()
-    
