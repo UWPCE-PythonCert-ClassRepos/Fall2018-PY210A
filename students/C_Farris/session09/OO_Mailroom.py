@@ -11,11 +11,6 @@
 #
 ############
 
-donor_mock2 = [Donor("William Gates III", [653772.32, 12.17]),
-              Donor("Jeff Bezos", [877.33]),
-              Donor("Paul Allen", [663.23, 43.87, 1.32]),
-              Donor("Mark Zuckerberg", [1663.23, 4300.87, 10432.0]),
-              Donor("John Galt", [25.00, 9038.01, 0.01])]
 """"
 import mailroom_oo
 
@@ -44,8 +39,13 @@ class DonorCollection():
         else:
             self.donor_dict={}
 
+
     def list_donors(self):
-        pass
+        """return the donor names from donor_dict"""
+        keyList = ""
+        for key in self.donor_dict:
+            keyList = keyList + key + '\n'
+        return keyList
 
     def thank_donors(self):
         pass
@@ -54,14 +54,44 @@ class DonorCollection():
         pass
         """Checks collection to see if current donor is in list. If not, ask to add"""
 
-    def addDonor(self, donor_name, donor):
-        """"adds donor to collection"""
-        self.donor_dict[donor.name] = donor
 
-    def return_donor(self, donor):
-        return self.donor_dict[self.donor_name]
-         
+    def addDonor(self, donor_name, donor): #returns an f-string. Not ideal
+        """"adds donor to collection
+            cleans donor name to have it with capital letters an all else lower case."""
+        donor_name = donor_name.strip().lower().title()
+        self.donor_dict[donor_name] = donor
 
+
+    def retrieve_donor_object(self, donor):
+        """uses a donor object to retrieve a donor"""
+        try: 
+            name = self.donor.name in donor_dict
+            print("its in the dictionary!")
+            return donor
+        except KeyError:
+            print("That donor is not in the dictionary.")
+            return None
+
+
+    def donor_in_dictionary(self, donor_name):
+        """Returns boolean if donor_name supplied is in dictionary""" 
+        donor_name = donor_name.strip().lower().title()
+        if donor_name in self.donor_dict:
+                return True
+        else:
+            return False
+
+    def add_donor_donation(self,donor_name, newDonation):
+        """adds new donation to donor in donor collection"""
+        try:
+            value = newDonation/2
+        except TypeError:
+            return "Donation value must be entirely numeric!"
+        else:
+            if value <=0.005:
+                return "Donation cannot be smaller than a penny!"
+            else:
+                self.donor_dict[donor_name].add_donation(newDonation)
 
 """Everything one needs to know about a single donor"""
 """you don't want donor to know how it is being stored"""
@@ -69,22 +99,20 @@ class DonorCollection():
 """Your individual donor file would be in donor"""
 class Donor ():
 
-    def __init__(self, name, donation=None, donations=None): ##change donations to none, 
+    def __init__(self, name, donations=None): ##change donations to none, 
         self.name = name
-        self.donation = donation
-        #self.donations = []
+        #self.donation = donation
 
-        if donation is None:
+        if donations is None:
             self.donations = []
         else:
             try:
                 self.donations = list(donations)
             except TypeError:
-                self.donations = [donations]      
+                self.donations = [donations]  
 
-    def _repr_(self):
-         return f'{self.__class__.__name__}({self.name}) : {self.donations}'
-
+    def __repr__(self):
+        return f'{self.__class__.__name__}({self.name}) : {self.donations}'
 
     def add_donation(self, donation):
         """Adds a new donation to the donor list. 
@@ -136,4 +164,13 @@ class Donor ():
     @property
     def _name(self):
         return self.name
+
+
+###############Mock Donor List#######
+donor_mock2 = [Donor("William Gates III", [653772.32, 12.17]),
+              Donor("Jeff Bezos", [877.33]),
+              Donor("Paul Allen", [663.23, 43.87, 1.32]),
+              Donor("Mark Zuckerberg", [1663.23, 4300.87, 10432.0]),
+              Donor("John Galt", [25.00, 9038.01, 0.01])]
+ ###############Mock Donor List#######       
   
