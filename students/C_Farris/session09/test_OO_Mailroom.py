@@ -154,8 +154,6 @@ def test_list_donors():
     assert dc.list_donors() =='Pippy Longstocking\nManu Chow\nBarak Obama\n'
 
 
-
-
 def test_donor_in_dictionary():
     """tests that a valid donor object can be tested/added to dictionary"""
     dc = DonorCollection()
@@ -177,6 +175,29 @@ def test_add_donor_donation():
     dc.add_donor_donation("Barak Obama", 3000)
 
     assert repr(donor3) == 'Donor(Barak Obama) : [400, 3000]' 
+
+
+def test_create_report(): # incomplete. Not properly tested...
+    dc = DonorCollection(donor_mock2)
+    print(dc.create_report())
+    
+    ##
+    #assert 1 == 2
+
+
+def test_prepare_to_write_to_disk():
+    dc = DonorCollection(donor_mock2)
+    OUT_PATH = "thank_you_letters"
+    dc.prepare_to_write_to_disk(OUT_PATH)
+    assert os.path.exists('./thank_you_letters/') == True
+
+
+def test_save_all_thank_yous(): #Works, but not properly tested.
+    dc = DonorCollection(donor_mock2)
+    print(dc.save_all_thank_yous())
+    
+    #assert 1 = 2
+
 
 
 
