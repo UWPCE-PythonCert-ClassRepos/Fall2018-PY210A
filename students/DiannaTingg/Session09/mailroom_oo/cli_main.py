@@ -222,7 +222,3 @@ def main():
     print("Welcome to Dianna's Mailroom Program!")
 
     display_menu()
-
-
-if __name__ == "__main__":
-    main()
