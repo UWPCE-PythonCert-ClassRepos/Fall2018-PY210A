@@ -130,20 +130,3 @@ class H(OneLineTag):
 
 
 
-
-page = Html()
-head = Head()
-head.append(Title("PythonClass = Revision 1087:" , style="font-weight:bold"))
-page.append(head)
-body = Body()
-body.append(H('h1','hello'))
-body.append(Hr(style="font-weight:bold", id="intro"))
-body.append(Br(style="font-weight:bold", id="intro"))
-body.append(UL(id="intro"))
-body.append(Li("peace be with you", style="font-weight:bold"))
-body.append(P("is this bold?", style="font-weight:bold", id="intro"))
-body.append(P("Here is a paragraph of text -- there could be more of them, but this is enough  to show that we can do some text"))
-body.append(P("And here is another piece of text -- you should be able to add any number"))
-page.append(body)
-with open("test.html", 'w') as outfile:
-    page.render(outfile)
