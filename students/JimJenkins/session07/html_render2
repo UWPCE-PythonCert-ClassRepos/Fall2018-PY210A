@@ -1,0 +1,107 @@
+#!/usr/bin/env python3
+
+"""
+author: Jim Jenkins (dvlupr)
+Date: 12/10/2018
+
+Note: I didn't write this the way the original assignment focuses, rather it was written for some level of 
+understanding in OOP.
+"""
+
+
+class Element:
+    """
+    class for the elements
+    """
+    html='<!DOCTYPE html>\n' \
+           '<html>\n' \
+           '    <head>\n' \
+           '        <meta charset="UTF-8">\n' \
+           '        <title></title>\n' \
+           '    </head>\n' \
+           '    <body>\n' \
+           '    </body>\n' \
+           '</html>\n'
+
+    def __init__(self, title):
+        self.title = title
+        self.update(title, "title")
+
+
+    def update(self, string, location, style=0):
+        """
+        updates a single use values that already exist in html
+        :param string:
+        :param location:
+        :param style:
+        :return:
+        """
+        a,b = self.html.split("<" + location + ">")
+        if location == "title":
+            a +="<" + location + ">" + string + b
+        elif style == 1:
+            a += "<" + location + " " + string + ">" + b
+        else:
+            a +="<" + location + ">" + "\n" +  "        " + string + b
+        self.html = a
+
+
+    def updateStyle(self, tag, parameter, value):
+        """
+        style updates
+        :param tag:
+        :param parameter:
+        :param value:
+        :return:
+        """
+        x = 'style="' + parameter + ":" + value + ";" + '"'
+        self.update(x, tag, 1)
+
+
+    def createElement(self, tag, value):
+        """
+        return value for elements to be created
+        :param tag:
+        :param value:
+        :return:
+        """
+        return "<" + tag + ">" + value + "</" + tag + ">"
+
+
+    def write(self):
+        """
+        write out the file
+        :return:
+        """
+        htmlFile = open("C:\\Users\\jim\\Desktop\\test.html", "w")
+        htmlFile.write(self.html)
+        htmlFile.close()
+
+
+"""
+# write out section
+"""
+
+test = Element("Test Title")
+
+test.update(test.createElement("p", "this is an example of a paragraph where a bunch of info is stated"), "body")
+
+#update html from class
+test.update(test.createElement("h4", "Header 4"), "body")
+test.update(test.createElement("h3", "Header 3"), "body")
+test.update(test.createElement("h2", "Header 2"), "body")
+test.update(test.createElement("h1", "Header 1"), "body")
+
+test.update(test.createElement("ul", "<li>List item 1</li><li>List item 2</li>"), "body")
+
+
+#update styles for htmls tags
+test.updateStyle("p", "color", "red")
+test.updateStyle("h1", "text-align", "center")
+test.updateStyle("h2", "text-align", "center")
+test.updateStyle("h3", "text-align", "center")
+test.updateStyle("h4", "text-align", "center")
+
+
+test.write()
+print(test.html)

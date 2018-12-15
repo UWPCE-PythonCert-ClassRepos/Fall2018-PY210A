@@ -12,6 +12,9 @@ class Element:
         :param content: self
         :param content with default none
         """
+        self.title = title
+        self.update(title, "title")
+
         if content is None:
             self.content = []
         else:
