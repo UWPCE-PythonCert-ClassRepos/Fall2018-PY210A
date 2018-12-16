@@ -3,7 +3,9 @@
 Class that represents a circle
 """
 from math import pi
+import functools
 
+@functools.total_ordering
 class Circle():
 
     @classmethod

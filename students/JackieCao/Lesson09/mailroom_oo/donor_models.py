@@ -94,3 +94,7 @@ def get_sample_data():
             Donor("U Allen", [100, 200, 500, 500]),
             Donor("C Zack", [1000, 1000]),
             ]
+
+ 
+
+
