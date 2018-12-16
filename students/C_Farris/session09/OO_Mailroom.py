@@ -4,12 +4,8 @@
 ##########
 #Created by: Carol Farris
 #Purpose: Create a OO version of Mailroom 
-#Progress:
-#Need to add Thank yous to all donors.
-#
+#Remaining: Need to work on encapsulation and ensuring all code is PEP8. WIP
 ############
-
-
 
 
 import sys
@@ -19,7 +15,8 @@ OUT_PATH = "thank_you_letters"
 
 
 class DonorCollection():
-    """Manages the donor collection in donor_dict and manipulates the collection"""
+    """Manages the donor collection in donor_dict 
+    and manipulates the collection"""
 
     def __init__(self, donor=None):
 
@@ -39,18 +36,24 @@ class DonorCollection():
             keyList = keyList + key + '\n'
         return keyList
 
-    def thank_donor(self):
-        pass
+    def thank_donor(self, donor_name, donation_type=''):
+        """returns Thank you generated from donor object"""
+        if self.donor_Found(donor_name):
+            donor = self.donor_dict[donor_name]
+            return(donor.thank_your_letter(donation_type))
+        else:
+            return("Donor Not Found! No 'thank you letter' made")
 
-    def addDonor(self, donor_name, donor): #returns an f-string. Not ideal
+
+    def addDonor(self, donor_name, donor):
         """"adds donor to collection
-            cleans donor name to have it with capital letters an all else lower case."""
+            cleans donor name to have it with capital 
+            letters an all else lower case."""
         donor_name = donor_name.strip().lower().title()
         self.donor_dict[donor_name] = donor
 
-
-    def donor_in_dictionary(self, donor_name):
-        """Returns boolean if donor_name supplied is in dictionary""" 
+    def donor_Found(self, donor_name):
+        """Returns boolean if donor_name supplied is in dictionary"""
         donor_name = donor_name.strip().lower().title()
         if donor_name in self.donor_dict:
                 return True
@@ -72,15 +75,17 @@ class DonorCollection():
 
     def create_report(self):
         """returns data for report"""
+        Header = ['Donor Name', 'Total Donation', 'Number Donations', 'Average Donation']
+        Header_string = f'\n{Header[0]:20} {Header[1]:<15} {Header[2]:>5} {Header[3]:<25}'
+
         donorReport = [[round(float(sum(value.donations)), 2), key, len(value.donations),
                     round(float(sum(value.donations) / len(value.donations)), 2)]
                     for key, value in self.donor_dict.items()]
         sortedReport = sorted(donorReport)
         ascendingReport = sortedReport[::-1]
-        return ascendingReport
+        return Header, Header_string, ascendingReport
 
     def prepare_to_write_to_disk(self, out_path=OUT_PATH):
-        
         """Check OUT_PATH specified is a directory, if not, it will make it
         This is to run once at the start of the application.
         :Param: none
@@ -99,13 +104,14 @@ class DonorCollection():
         filename = key.replace(' ', '_') + '.txt'
         filename = os.path.join(OUT_PATH, filename)
         open(filename, 'w').write(donorLetter)
-        
 
 
     def save_all_thank_yous(self, out_path = OUT_PATH):
-        """returns thank you's for all donors in donor collection"""
+        """returns thank you's for all donors in donor collection
+           creates files with donor_name.txt and saves them in a directory 
+           titled by default "thank_you_letters."""
+
         for key, value in self.donor_dict.items():
-            print(value.thank_your_letter())
             self.prepare_to_write_to_disk(out_path)
             self.send_file_to_disk(key, value.thank_your_letter())
 
@@ -115,7 +121,6 @@ class Donor ():
 
     def __init__(self, name, donations=None): ##change donations to none, 
         self.name = name
-        #self.donation = donation
 
         if donations is None:
             self.donations = []
@@ -123,7 +128,7 @@ class Donor ():
             try:
                 self.donations = list(donations)
             except TypeError:
-                self.donations = [donations]  
+                self.donations = [donations]
 
     def __repr__(self):
         return f'{self.__class__.__name__}({self.name}) : {self.donations}'
@@ -141,12 +146,11 @@ class Donor ():
                 return "Donation cannot be smaller than a penny!"
             else:
                 self.donations.append(donation)
-   
+
     @property
     def num_donations(self):
         """counts the number of donations present for a single donor"""
         return len(self.donations)
-
 
     def sum_donations(self):
         """returns the sum of all the donors donations"""
@@ -165,7 +169,7 @@ class Donor ():
 
         return dedent(
         '''\tDear {},
-        Thank you for your generous donation of ${} to our cause.
+        Thank you for your generous donation of ${:.2f} to our cause.
         
         Sincerely,
         The Team'''.format(self.name, donation_amount))
