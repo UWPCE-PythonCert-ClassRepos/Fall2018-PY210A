@@ -4,17 +4,10 @@
 ######
 #Created by: Carol Farris
 #Name: test_OO_Mailroom.Python.py
-#Purpose: Create an object oriented Mailroom
-#Progress:
-#Mostly done with Donor class. Now fill out and test Donor Collection
+#Purpose: Test Donor and Donor Collection classes for OO Mailroom
 #####
 
 from OO_Mailroom import *
-# .donor_Models for the donors in test_donor_models
-
-#for CLI
-#from donor_models import Donor, DonorCollection, any other...
-
 
 donor_mock2 = [Donor("William Gates III", [653772.32, 12.17]),
               Donor("Jeff Bezos", [877.33]),
@@ -24,7 +17,6 @@ donor_mock2 = [Donor("William Gates III", [653772.32, 12.17]),
 
 
 #######################Test Donor Class################
-
 
 def test_donor_name():
     donor = Donor("A Person")
@@ -43,7 +35,8 @@ def test_add_donation():
 
 
 def test_add_donation_checks():
-    """tests that add_donation cheks donation values are numeric and greater than a penny"""
+    """tests that add_donation cheks donation values 
+    are numeric and greater than a penny"""
     donor = Donor("Yo Mama")
     donor.add_donation(200)
     donor.add_donation(500)
@@ -72,7 +65,8 @@ def test_get_last_donation():
     assert donor.get_last_donation() == 500
 
 def test_sum_thank_your_letter():
-    """Returns a thank you letter that defaults to last value unless you indicate sum for the thank you to reference sum"""
+    """Returns a thank you letter that defaults to last value
+     unless you indicate sum for the thank you to reference sum"""
     donor = Donor("Pippy Longstocking")
     donor.add_donation(25)
     donor.add_donation(300)
@@ -80,7 +74,7 @@ def test_sum_thank_your_letter():
 
     assert donor.thank_your_letter() == dedent(
         '''\tDear Pippy Longstocking,
-        Thank you for your generous donation of $500 to our cause.
+        Thank you for your generous donation of $500.00 to our cause.
         
         Sincerely,
         The Team''')
@@ -88,7 +82,7 @@ def test_sum_thank_your_letter():
     print(donor.thank_your_letter('sum'))
     assert donor.thank_your_letter('sum') == dedent(
         '''\tDear Pippy Longstocking,
-        Thank you for your generous donation of $825 to our cause.
+        Thank you for your generous donation of $825.00 to our cause.
         
         Sincerely,
         The Team''')
@@ -101,11 +95,11 @@ def test_repr_():
     assert repr(donor) == 'Donor(Pippy Longstocking) : [25, 300]'
 
 
-
 #######################Test Donor Collection Class################
 
 def test_donor_collection():
-    """tests to see I can instantiate a donor collection and that I am able to add a list of donors"""
+    """tests to see I can instantiate a donor 
+    collection and that I am able to add a list of donors"""
     dc = DonorCollection()
     dp = DonorCollection(donor_mock2)
 
@@ -130,7 +124,8 @@ def test_add_donor():
     assert "Pippy Longstocking" in dc.donor_dict.keys()
 
 def test_add_donor_cleaned_name():
-    """Confirm cleaned donor name is capitalized with all other letters lowercase """
+    """Confirm cleaned donor name is capitalized 
+    with all other letters lowercase """
     donor = Donor("Pippy Longstocking", [0.1, 0.01, 100000])
     donor2 = Donor("MANU ChoW", [10, 20, 30])
     donor3 = Donor("barak obama", [400, 500, 600])
@@ -154,7 +149,7 @@ def test_list_donors():
     assert dc.list_donors() =='Pippy Longstocking\nManu Chow\nBarak Obama\n'
 
 
-def test_donor_in_dictionary():
+def test_donor_Found():
     """tests that a valid donor object can be tested/added to dictionary"""
     dc = DonorCollection()
     donor = Donor("Pippy Longstocking", 100000)
@@ -164,8 +159,8 @@ def test_donor_in_dictionary():
     dc.addDonor(donor2.name, donor2)
     dc.addDonor(donor3.name, donor3)
 
-    assert dc.donor_in_dictionary(donor2.name) == True
-    assert dc.donor_in_dictionary('Betsy DeVos') == False
+    assert dc.donor_Found(donor2.name) == True
+    assert dc.donor_Found('Betsy DeVos') == False
 
 
 def test_add_donor_donation():
@@ -174,31 +169,89 @@ def test_add_donor_donation():
     dc.addDonor(donor3.name, donor3)
     dc.add_donor_donation("Barak Obama", 3000)
 
-    assert repr(donor3) == 'Donor(Barak Obama) : [400, 3000]' 
+    assert repr(donor3) == 'Donor(Barak Obama) : [400, 3000]'
 
 
-def test_create_report(): # incomplete. Not properly tested...
-    dc = DonorCollection(donor_mock2)
-    print(dc.create_report())
+def test_create_report():
+    """test create_report and confirms it starts with a 
+    header list, then header f string and lastly donor 
+    list for reporting"""
+    dc = DonorCollection()
+    donor = Donor("Pippy Longstocking", 100000)
+    donor2 = Donor("Manu Chow", [10, 20])
+    donor3 = Donor("Barak Obama", [400, 1, 2, 3])
+    dc.addDonor(donor.name, donor)
+    dc.addDonor(donor2.name, donor2)
+    dc.addDonor(donor3.name, donor3)
+ 
+    assert dc.create_report() == (['Donor Name', 'Total Donation', 'Number Donations', 'Average Donation'], 
+                                   '\nDonor Name           Total Donation  Number Donations Average Donation         ',
+                                   [[100000.0, 'Pippy Longstocking', 1, 100000.0], [406.0, 'Barak Obama', 4, 101.5],
+                                    [30.0, 'Manu Chow', 2, 15.0]])
+
+def test_send_file_to_disk():
+    """test send_file_to_disk to ensure you 
+    can add a donor and donor letter """
+    donor = Donor("Leo Tolstoy", 25)
+    dc = DonorCollection()
+    dc.addDonor(donor.name, donor)
+    letter = "Dear Leo,\n Thanks for writing War and Peace.\nI did think it interesting you tried to relate war to mathematical theory of war.\n"
+    OUT_PATH = "thank_you_letters"
     
-    ##
-    #assert 1 == 2
+    assert os.path.exists('./thank_you_letters/Leo_Tolstoy.txt') == True
+    assert os.path.getsize('./thank_you_letters/Leo_Tolstoy.txt') > 0
 
 
 def test_prepare_to_write_to_disk():
+    """tests the method prepare_to_write_to_disk to 
+    ensure  given a path it will write the form letter to each donor."""
     dc = DonorCollection(donor_mock2)
     OUT_PATH = "thank_you_letters"
     dc.prepare_to_write_to_disk(OUT_PATH)
+
     assert os.path.exists('./thank_you_letters/') == True
 
 
-def test_save_all_thank_yous(): #Works, but not properly tested.
+def test_save_all_thank_yous(): 
+    """Tests save_all_thank_yous writes a thank you l
+    etter in a donor_name.txt in a thank_you directory
+    Also tests that at files are not of zero size"""
     dc = DonorCollection(donor_mock2)
-    print(dc.save_all_thank_yous())
-    
-    #assert 1 = 2
+    dc.save_all_thank_yous()
+
+    assert os.path.exists('./thank_you_letters/Jeff_Bezos.txt') == True
+    assert os.path.exists('./thank_you_letters/John_Galt.txt') == True
+    assert os.path.exists('./thank_you_letters/Mark_Zuckerberg.txt') == True
+    assert os.path.exists('./thank_you_letters/Paul_Allen.txt') == True
+    assert os.path.exists('./thank_you_letters/William_Gates_III.txt') == True
+    assert os.path.exists('./thank_you_letters/Betsy_DeVos.txt') == False
+
+    assert os.path.getsize('./thank_you_letters/Jeff_Bezos.txt') > 0
+    assert os.path.getsize('./thank_you_letters/John_Galt.txt') > 0
 
 
+def test_thank_donor():
+    donor = Donor("Leo Tolstoy", [3000, 25])
+    dc = DonorCollection()
+    dc.addDonor(donor.name, donor)
+    print(dc.thank_donor(donor.name))
+    print(dc.thank_donor("Isaac Newton"))
+
+    assert dc.thank_donor(donor.name) == dedent(
+        '''\tDear Leo Tolstoy,
+        Thank you for your generous donation of $25.00 to our cause.
+        
+        Sincerely,
+        The Team''')
+
+    assert dc.thank_donor(donor.name, 'sum') == dedent(
+        '''\tDear Leo Tolstoy,
+        Thank you for your generous donation of $3025.00 to our cause.
+        
+        Sincerely,
+        The Team''')
+
+    assert dc.thank_donor("Isaac Newton") == 'Donor Not Found! No \'thank you letter\' made'
 
 
 
