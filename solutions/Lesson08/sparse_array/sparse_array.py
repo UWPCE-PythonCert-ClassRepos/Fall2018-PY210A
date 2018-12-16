@@ -150,3 +150,13 @@ class SparseArray(object):
         # length is now one shorter
         self.length -= 1
 
+    def __iter__(self):
+        """
+        `__iter__` should return an iterator ready to iterate over the
+        elements in the array.
+
+        This uses a generator expression to make an iterator
+
+        Clever solution contributed by a student
+        """
+        return (self.sparse_array.get(index, 0) for index in range(self.length))
