@@ -84,13 +84,14 @@ class OneLineTag(Element):
         close_tag = f'</{self.tag}>'
         return close_tag
 
-    def render(self, out_file, indent=indent):
-        self.indent = indent
+    def render(self, out_file, cur_indent=""):
+        #self.indent = indent
+        out_file.write(cur_indent)
         out_file.write(self._open_tag())
         for content in self.content:
             if content != None:
                 try:
-                    content.render(out_file)
+                    content.render(out_file, cur_indent + self.indent)
                 except AttributeError:
                     out_file.write(content)
         out_file.write(self._close_tag())
@@ -101,8 +102,6 @@ class Title(OneLineTag):
 
 
 class SelfClosingTag(Element):
-    indent = ""
-
     def __init__(self, content=None, **kwargs):
         if content is not None:
             raise TypeError("SelfClosingTag can not contain any content")
@@ -122,8 +121,19 @@ class SelfClosingTag(Element):
     def append(self, *args):
         raise TypeError("You can not add content to a SelfClosingTag")
 
-    def render(self, out_file, indent=indent):
-        super().render(out_file, self.indent)
+    def render(self, out_file, cur_indent=""):
+        # self.indent = indent
+        out_file.write(cur_indent)
+        out_file.write(self._open_tag())
+        for content in self.content:
+            if content is not None:
+                try:
+                    content.render(out_file, cur_indent + self.indent)
+                except AttributeError:
+                    out_file.write(cur_indent + self.indent)
+                    out_file.write(content.strip())
+                out_file.write("\n")
+        out_file.write(self._close_tag())
 
 
 class Hr(SelfClosingTag):
