@@ -77,25 +77,43 @@ def test_find_no_donor():
 
     assert db.find_donor("Test Name_5") is None
 
+# need more works here
+# def test_add_donor():
+#     donors_orig = [Donor("Test Name_orig", [100, 200])]
+#     db = DonorDB(donors_orig)
 
-def test_add_donor():
-    donors = [Donor("Test Name_1", [1, 2, 3])]
-    db = DonorDB(donors)
-    db.add_donor("Test Name_added", 100)
-    assert db["Test Name_add"] == [100]
-
-
-
-
-# def test_list_donors():
-#     assert "Default Test1" in Donor.list_donors()
+#     donors_add = [Donor("Test Name_add", [10, 20])]
+#     db = db.add_donor(donors_add)
+#     assert db["Test Name_add"] == [100, 200]
 
 
-# def test_letter():
-#     donor = Donor("Jeff Bzo", [100.10, 50.50])
-#     donor_letter = donor.letter(donor)
-#     assert "Jeff Bzo" in donor_letter
-#     assert "$50.50" in donor_letter
+def test_list_donors():
+    donor_test1 = Donor("test name1", [1, 2, 3])
+    donor_test2 = Donor("test name2", [10, 20, 30])
+    donor_test3 = Donor("test name3", [100, 200, 300])
+
+    donors = [donor_test1, donor_test2, donor_test3]
+    donors_db = DonorDB(donors)
+    # print(donors_db.donor_data)
+    # print(type(donors_db.list_donors()))
+    assert donors_db.list_donors() == "Test Name1\n""Test Name2\n""Test Name3"
+
+
+def test_letter():
+    donor = Donor("test name3", [100, 200, 300])
+    print(donor)
+    print(donor.name)
+    print(donor.donations)
+    print(donor.last_donation)
+
+    donor_db = DonorDB([donor])
+    letter_data = donor_db.donor_data
+    print(donor_db)
+    print(letter_data)
+
+    donor_letter = donor_db.letter()
+    assert "Test Name3" in donor_letter
+    assert "$300.00" in donor_letter
 
 
 # def test_report():

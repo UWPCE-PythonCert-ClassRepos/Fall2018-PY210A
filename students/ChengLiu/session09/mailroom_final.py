@@ -73,32 +73,35 @@ class Donor():
 
 class DonorDB():
 
-    def __init__(self, donors=None):
+    def __init__(self, donors=None):  # donors needs to be a list here
         if donors is None:
             self.donor_data = {}
         else:
             self.donor_data = {d.name: d.donations for d in donors}
 
-    def find_donor(self, name):
+    def find_donor(self, name):  # find donations based on donor name
         if name in self.donor_data.keys():
             return self.donor_data.get(name)
         else:
             return None
 
-    def add_donor(self, name, donation):
-        return self.donor_data.update({name: donation})
+# need more works here
+    # def add_donor(self, donors):
+    #     donors_add = Donor(donors)
+    #     return self.donor_data.update(donors_add)
 
-
-"""----- CUTOFF LINE ---------"""
     def list_donors(self):
         current_donors = []
-        for donor in self.donors:
-            current_donors.append(donor.name)
+        for data in self.donor_data:  # donor_data is a dictionary
+            current_donors.append(data)
         return "\n".join(current_donors)
 
 
-    def letter(self, donor):
-        return ("\nHello {}! Thank you for your donation of ${:.2}.".format(donor.name, str(donor.last_donation)) + "\n")
+    def letter(self):
+        name = self.donor_data.keys()
+        donation = self.donor_data.values()
+        return ("\nHello {}! Thank you for your donation of ${:.2}.".format(name, str(donation)) + "\n")
+
 
     def report(self):
         report_rows = []
