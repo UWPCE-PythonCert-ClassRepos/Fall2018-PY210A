@@ -1,96 +1,59 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
-command line interface
+Command line interface for mailroom
 """
-from donor_models import *
 
-def thank_to_all():
-    dc.send_thank_to_all()
-    list_of_donors = dc.list_donors
-    print(f"The thank you letters for {list_of_donors} have been sent")
+import sys
+import math
 
-def make_report():
-    data = dc.report_data
-    # sort the data
-    data.sort(key=lambda tup: tup[0])
-    # format
-    print("{:15s} | {:11s} | {:9s} | {:12s}".format(
-          "Donor's Name", "Total Donated", "Number of Donations", "Average$"))
-    for row in data:
-        print("{:15s}   {:11.2f}   {:9d}   {:18.2f}".format(*row))
+from donor_models import Donor, DonorDB, get_sample_data
 
-def thank_you():
-    # ask user for donor's name
+db = DonorDB(get_sample_data())
+
+def print_donor_report():
+    print(db.generate_donor_report())
+
+def send_thank_you():
     while True:
-        # add exception
-        try:
-            name = input("Enter a donor's name "
-                        "(or 'list' to see all donors or 'menu' to exit)>")
-        except (KeyboardInterrupt, EOFError):
-            return None
+        name = input("Enter a donor's name"
+                     "(or 'list' to see all donors or 'menu' to exit)> ").strip()
         if name == "list":
-            print(dc.list_donors)
+            print(db.list_donors())
         elif name == "menu":
             return
         else:
             break
 
-    # ask user for donation amount
     while True:
-        # add exception
-        try:
-            dollar = input("Enter a donation amount (or 'menu' to exit)>")
-        except (KeyboardInterrupt, EOFError):
-            return None
-        if dollar == "menu":
+        amount_str = input("Enter a donation amount (or 'menu' to exit)> ").strip()
+        if amount_str == "menu":
             return
-        # add exception
         try:
-            dollar = float(dollar)
+            amount = float(amount_str)
         except ValueError:
-            print("Input must be a number")
+            print("error: donation amount is invalid\n")
         else:
             break
 
-    donor = Donor(name)
-    donor.add_donation(dollar)
+    donor = db.add_donor(name)
+    donor.add_donation(amount)
+    print(db.gen_letter(donor))
 
-    # add new name and donation amount to the donors history
-    dc.add_donor(donor.name, donor.donations)
-    # print the thank you letter
-    d = donor.thank_you_data
-
-    print("Dear {d_name},\n\n    Thank you for your donation of ${d_dollar}.\n\nBest,\nDonation Group".format(**d))
+def quit():
+    sys.exit(0)
 
 def main():
-    print("hello")
-    answer = ""
-    while answer != "q":
-        print("Please select from the following")
-        print("Quit: 'q',\nSend a Thank You to a single donor : 't',\nReport: 'r',\nSend letters to all donors: 's'")
-        try:
-            answer = input(" => ")
-        except (KeyboardInterrupt, EOFError):
-            return None
-        answer = answer.strip()
-        answer = answer[:1].lower()
-        if answer == 't':
-            thank_you()
-        elif answer == 'r':
-            make_report()
-        elif answer == 's':
-            thank_to_all()
+    selection_dict = {"1": send_thank_you,
+                      "2": print_donor_report,
+                      "3": db.save_letters_to_disk,
+                      "4": quit}
 
-donors = {"Fred Jones":[100, 200, 300],
-    "Amy Shumer": [10, 20],
-    "Bean Shing": [20, 400],
-    "Ann Shaw": [100, 400],
-    "King May": [200, 400, 100, 100]
-    }
+    while True:
+        selection = input(f"Choose an action:\n1 - Send a Thank You\n2 - Create a Report\n3 - Send letters to everyone\n4 - Quit")
+        try:
+            selection_dict[selection]()
+        except KeyError:
+            print("error: menu selection is invalid!")
 
 if __name__ == "__main__":
-
-    dc = DonorCollection()
-    dc.add_old_donors(donors)
     main()
-
