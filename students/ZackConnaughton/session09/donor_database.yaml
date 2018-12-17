@@ -1,0 +1,37 @@
+Jimmy John:
+    name: Jimmy John
+    donation_list:
+        - 100
+        - 200
+        - 300
+        - 50
+        - 100
+Amy Shumer:
+    name: Amy Shumer
+    donation_list:
+        - 2000
+        - 4000
+        - 1000
+Peter Parker:
+    name: Peter Parker
+    donation_list:
+        - 200
+        - 400
+        - 100
+Cher:
+    name: Cher
+    donation_list:
+        - 900
+        - 9000
+        - 2000
+Legolass Mario:
+    name: Logolass Mario
+    donation_list:
+        - 4000
+        - 50
+William Charles III:
+    name: William Charles III
+    donation_list:
+        - 6
+Charlie Chocolate:
+    name: Charlie Chocolate

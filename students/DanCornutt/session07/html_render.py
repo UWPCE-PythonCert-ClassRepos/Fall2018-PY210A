@@ -9,6 +9,7 @@ A class-based system for rendering html.
 class Element:
     tag = "html"
     indent = 4
+
     def __init__(self, content=None, **kwags):
         if content:
             self.contents = [content]

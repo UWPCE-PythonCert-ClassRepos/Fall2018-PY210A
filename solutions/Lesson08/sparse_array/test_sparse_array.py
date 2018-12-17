@@ -73,14 +73,14 @@ def test_get_slice():
 def test_set_slice_over():
     my_array, my_sparse = set_up()
     my_sparse[13:17] = [5, 3, 4]
-    my_sparse == SparseArray([2, 0, 2, 3, 4, 3, 0, 0, 0, 4, 5, 6, 0, 5, 3, 4])
+    assert my_sparse == SparseArray([2, 0, 0, 0, 3, 0, 0, 0, 4, 5, 6, 0, 2, 5, 3, 4])
 
 
 def test_set_slice_insert():
     # inserting a larger slice
     my_array, my_sparse = set_up()
     my_sparse[2:4] = [2, 3, 4]
-    my_sparse == SparseArray([2, 0, 2, 3, 4, 3, 0, 0, 0, 4, 5, 6, 0, 2, 9])
+    assert my_sparse == SparseArray([2, 0, 2, 3, 4, 3, 0, 0, 0, 4, 5, 6, 0, 2, 9])
 
 
 def test_get_length():
@@ -153,3 +153,17 @@ def test_indices_change():
     # my_sparse[4] was 3 now
     # my_sparse[3] should be 3
     assert (my_sparse[3] == 3)
+
+
+def test_iteration():
+    """
+    can it be iterated through?
+    """
+    my_array, my_sparse = set_up()
+
+    # use in a list comp:
+    result = [i for i in my_sparse]
+
+    assert result == my_array
+
+
