@@ -38,7 +38,7 @@ def find_donor(name_entered):
     return donor_db.get(donor_key)
 
 
-def add_donor(name_entered):
+def add_new_donor(name_entered):
     """
     Add a new donor to donor_db
 
@@ -48,19 +48,23 @@ def add_donor(name_entered):
     donor = (name_entered, [])
     donor_db[name_entered.title()] = []
     print("Successfully added new donor to database.")
-    add_donation(name_entered)
+    ask_donation(name_entered)
 
 
-def add_donation(name_entered):
+def update_donation(name_entered, donation):
+    donor_db.setdefault(name_entered.title(), []).append(donation)
+    print("Successfully updated donation amount.")
+    send_thank_you(name_entered, donation)
+
+
+def ask_donation(name_entered):
     """
-    Ask the user for donation amount and add it to donor_db
+    Ask the user for donation amount
 
     :param: the name of the donor
     """
     donation = float(input("Enter donation amount >>> "))
-    donor_db.setdefault(name_entered.title(), []).append(donation)
-    print("Successfully updated donation amount.")
-    send_thank_you(name_entered, donation)
+    update_donation(name_entered, donation)
 
 
 def confirm_donor(name_entered):
@@ -72,9 +76,9 @@ def confirm_donor(name_entered):
     response = input(f"Donor does not exist. Add {name_entered.title()} to "
                      "database? [y/n?] >>> ")
     if response.strip() == 'y':
-        add_donor(name_entered)
+        add_new_donor(name_entered)
     else:
-        main_menu()
+        return
 
 
 def send_thank_you(name_entered, donation):
@@ -110,7 +114,7 @@ def thank_you():
     if donor is None:
         confirm_donor(name_entered)
     else:
-        add_donation(name_entered)
+        ask_donation(name_entered)
 
 
 def thank_you_all():
@@ -182,7 +186,7 @@ def main_menu():
     return selection.strip()
 
 
-def main():
+if __name__ == "__main__":
     menu_selections = {"1": print_report,
                        "2": thank_you,
                        "3": thank_you_all,
@@ -194,7 +198,3 @@ def main():
             menu_selections[user_selection]()
         except KeyError:
             print("Error: Invalid Selection. Select from the main menu.")
-
-
-if __name__ == "__main__":
-    main()
