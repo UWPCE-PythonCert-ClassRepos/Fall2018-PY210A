@@ -1,0 +1,3 @@
+import mailroom_dict_switch
+
+def test_remove_inputquotes

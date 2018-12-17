@@ -1,50 +1,65 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
+
 """
-for testing
+test
 """
-import glob
+
+import os
 import pytest
-from donor_models import *
-from cli_main import donors
+from donor_models import Donor, DonorDB, get_sample_data
 
-def test_create_donor():
-    donor = Donor("Fred Flintstone")
+import cli_main
 
-    assert donor.name == "Fred Flintstone"
+sample_db = DonorDB(get_sample_data())
+
+def test_db():
+    db = DonorDB()
+    assert len(db.donors) == 0
+
 
 def test_add_donation():
-    donor = Donor("Fred Flintstone")
+    donor = sample_db.donor_data.popitem()[1]
 
-    donor.add_donation(500)
+    donor.add_donation(3000)
 
-    assert donor.num_donations == 1
-    assert donor.new_donation == 500
-
-def test_donor_thank_you_data():
-    donor = Donor("Bob")
-    donor.add_donation(500)
-    assert donor.thank_you_data == {'d_name': 'Bob', 'd_dollar': 500}
+    assert donor.last_donation == 3000
 
 
-def test_donor_collection():
-    dc = DonorCollection()
-    d = Donor("Bob")
-    d.add_donation(500)
+def test_list_donors():
+    sample_db = DonorDB(get_sample_data())
+    listing = sample_db.list_donors()
+    assert listing.startswith("Donor list:\n")
+    assert "J Bob" in listing
+    assert len(listing.split('\n')) == 5
 
-    dc.add_old_donors(donors)
-    dc.add_donor(d.name, d.donations)
 
-    assert dc.list_donors == ['Fred Jones', 'Amy Shumer', 'Bean Shing', 'Ann Shaw', 'King May', 'Bob']
+def test_gen_letter():
+    donor = Donor("F Bob", [400, 400])
+    letter = sample_db.gen_letter(donor)
+    print(letter)
+    assert letter.startswith("Dear F Bob")
+    assert "donation of $400" in letter
 
-    assert dc.report_data == [('Fred Jones', 600, 3, 200.0),
-                              ('Amy Shumer', 30, 2, 15.0),
-                              ('Bean Shing', 420, 2, 210.0),
-                              ('Ann Shaw', 500, 2, 250.0),
-                              ('King May', 800, 4, 200.0),
-                              ('Bob', 500, 1, 500.0)]
 
-    dc.send_thank_to_all()
-    files = sorted(glob.glob("*.txt"))
-    assert files == [k + '.txt' for k in sorted(dc.list_donors)]
+def test_add_donor():
+    name = "F Bob"
+
+    donor = sample_db.add_donor(name)
+    donor.add_donation(300)
+    assert donor.name == "F Bob"
+    assert donor.last_donation == 300
+
+
+def test_generate_donor_report():
+    sample_db = DonorDB(get_sample_data())
+    report = sample_db.generate_donor_report()
+
+    print(report)
+
+
+def test_save_letters_to_disk():
+
+    sample_db.save_letters_to_disk()
+    assert os.path.isfile('J_Bob.txt')
 
 
