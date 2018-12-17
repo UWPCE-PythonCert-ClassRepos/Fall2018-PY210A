@@ -64,7 +64,7 @@ def build_trigrams(words):
 def build_text(tris)
     start_key = random.choice(list(tris.keys()))
     new_text_list = list(start_key)
-    #new_text.extend(start_key)
+    new_text.extend(start_key)
     while len(new_text_list) < 50:
         third_word = random.choice(tris[start_key])
         new_text_list.append(third_word)
