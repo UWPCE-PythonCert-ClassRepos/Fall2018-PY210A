@@ -48,7 +48,7 @@ def test_dict():
              link_color="mulberry",
              visited_color="azure"
              )
-    result = color(**d)
+    result = colors(**d)
     assert 'ivory' in result
     assert 'charcoal' in result
     assert 'mulberry' in result
@@ -65,7 +65,7 @@ def test_tuple():
 
 
 def test_tuple_dict():
-    reg = ('ivory', 'charcoal')
+    regular = ('ivory', 'charcoal')
     links = dict(link_color='mulberry', visited_color='azure')
     result = colors(*regular, **links)
     print(result)
