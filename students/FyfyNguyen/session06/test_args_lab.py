@@ -27,7 +27,7 @@ def test_key():
 def test_combo():
     with pytest.raises(TypeError):
         result = colors('azure', link_color='mulberry', fore_color='ivory')
-    print(result)
+        print(result)
     assert 'azure' in result
     assert 'mulberry' in result
     assert 'ivory' in result
