@@ -182,19 +182,69 @@ def test_sub_element():
 
 def test_head():
     h = Head()
-    h.append(Title("Should be a title name"))
+    h.append(Title("PythonClass - title example"))
 
 
 def test_title():
-    e = Title("This is a Title")
+    title = Title("PythonClass - title example")
+    title_contents = render_result(title).strip()
 
-    file_contents = render_result(e).strip()
+    assert("PythonClass - title example") in title_contents
+    print(title_contents)
+    assert title_contents.startswith("<title>")
+    assert title_contents.endswith("</title>")
+    assert "\n" not in title_contents
 
-    assert("This is a Title") in file_contents
-    print(file_contents)
-    assert file_contents.startswith("<title>")
-    assert file_contents.endswith("</title>")
-    assert "\n" not in file_contents
+
+########
+# Step 4
+########
+
+def test_attributes():
+    e = P("A paragraph of text", style="text-align: center", id="intro")
+
+    title_contents = render_result(e).strip()
+    print(title_contents)  # so we can see it if the test fails
+
+    # note: The previous tests should make sure that the tags are getting
+    #       properly rendered, so we don't need to test that here.
+    #       so using only a "P" tag is fine
+    assert "A paragraph of text" in title_contents
+    # but make sure the embedded element's tags get rendered!
+    # first test the end tag is there -- same as always:
+    assert title_contents.endswith("</p>")
+
+    # but now the opening tag is far more complex
+    # but it starts the same:
+    assert title_contents.startswith("<p ")
+    assert 'style="text-align: center"' in title_contents
+    assert 'id="intro"' in title_contents
+    assert title_contents[:-1].index(">") > file_contents.index('id="intro"')
+    assert title_contents[:file_contents.index(">")].count(" ") == 3
+
+
+def render(self, out_file):
+    # loop through the list of contents:
+    open_tag = ["<{}".format(self.tag)]
+    open_tag.append(">\n")
+    out_file.write("".join(open_tag))
+
+
+# def test_one_line_tag_append():
+#     """
+#     You should not be able to append content to a OneLineTag
+#     """
+#     e = OneLineTag("the initial content")
+#     e.append("some more content")
+
+#     file_contents = render_result(e).strip()
+#     print(file_contents)
+
+# def test_one_line_tag_append():
+#     title = OneLineTag("the intitial content")
+#     with pytest.raises(NotImplementedError):
+#         title.append("some more content")
+
 
 # #####################
 # # indentation testing

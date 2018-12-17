@@ -9,9 +9,9 @@ A class-based system for rendering html.
 class Element(object):
     tag = "html"
 
-    def __init__(self, content=None):
+    def __init__(self, content=None, **kwargs):
         self.contents = []
-        # self.html_attributes = kwargs
+        self.html_attributes = kwargs
         if content is not None:
             self.append(content)
 
@@ -19,6 +19,10 @@ class Element(object):
         self.contents.append(new_content)
 
     def render(self, out_file):
+        # loop through the list of contents:
+        open_tag = ["<{}".format(self.tag)]
+        open_tag.append(">\n")
+        out_file.write("".join(open_tag))
         for content in self.contents:
             out_file.write("<{}>\n".format(self.tag))
             try:
@@ -46,9 +50,11 @@ class Head(Element):
 
 
 class OneLineTag(Element):
-    pass
+    def render(self, out_file):
+        out_file.write("<{}>".format(self.tag))
+        out_file.write(self.contents[0])
+        out_file.write("</{}>\n".format(self.tag))
 
 
 class Title(OneLineTag):
     tag = "title"
-
