@@ -254,10 +254,27 @@ class Report(Menu):
         donors.
         """
         self.donor_report_header_display()
-        for item in donor_dict:
-            obj_name = self.get_obj_name(item)
+        # loop thru a function that will create a sorted list of donors
+        for obj_name in self.sorted_donors(donor_dict, True):
+            # print out the donors details
             self.donor_report_detail(obj_name)
         self.menu()
+
+    def sorted_donors(self, dict, rev):
+        """ This function will create a new sorted dict. The first argument picks
+        the dict to use, the second argument whether the sort value should be
+        reversed or not
+        """
+        # create a temporary dict to work with
+        temp_dict = {}
+        # lets loop thru our donor dict, grabbing the value which is the donor object
+        for donor_name, donor_obj in dict.items():
+            # this appends to the temp dict with the donor name obj as the key
+            # and their total sum of donations as the value
+            temp_dict[donor_obj] = donor_obj.sum_donations()
+        # return this dict back to the function that called it
+        return sorted((temp_dict), key = temp_dict.get, reverse = rev)
+
 
     def single_donor_report(self):
         """ This menu function will print out a single report for a donor."""
