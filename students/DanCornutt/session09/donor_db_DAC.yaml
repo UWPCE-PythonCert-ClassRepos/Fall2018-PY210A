@@ -1,0 +1,26 @@
+# !!python/object: __main__.Donor
+Fred Jones:
+    donations:
+        - 100.01
+        - 200
+        - 300
+Amy Shumer:
+    donations:
+        - 2000
+        - 4000
+        - 1000
+Billy Bills:
+    donations:
+        - 1020
+        - 20440.55
+        - 300
+Bob Sherlock:
+    donations:
+        - 10
+        - 20
+        - 30
+Tom Johnson:
+    donations:
+        - 100
+        - 200
+        - 900
