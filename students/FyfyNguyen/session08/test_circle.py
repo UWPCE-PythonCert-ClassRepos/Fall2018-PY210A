@@ -96,4 +96,34 @@ Spheres Test
 """
 
 
+def test_sph_str():
+    c = Sphere(10)
+    assert str(c) == "Sphere with radius 10"
 
+
+def test_sph_repr():
+    c = Sphere(15)
+    assert repr(c) == "Sphere(15)"
+
+
+def test_sph_diameter():
+    c = Sphere(5)
+    assert c.diameter == 10
+
+
+def test_sph_diameter_change():
+    c = Sphere(10)
+    assert c.diameter == 20
+    c.diameter = 20
+    assert c.diameter == 20
+    assert c.radius == 10
+
+
+def test_sph_area():
+    c = Sphere(2)
+    assert round(c.area, 2) == 50.27
+
+
+def test_sph_vol():
+    c = Sphere(4)
+    assert round(c.volume, 2) == 268.08
