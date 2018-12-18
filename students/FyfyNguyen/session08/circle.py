@@ -15,7 +15,9 @@ class Circle(object):
         return cls(diameter / 2)
 
     def __init__(self, radius):
-        self.radius = float(radius)
+        if radius is None:
+            raise TypeError("Radius cannot be none")
+        self.radius = radius
 
     @property
     def diameter(self):
@@ -33,7 +35,7 @@ class Circle(object):
         return f'Circle({self.radius!r}'
 
     def __str__(self):
-        return f'Circle with raidus: {self.radius:.6f}'
+        return f'Circle with radius: {self.radius:.6f}'
 
     @staticmethod
     def sort_key(a_circle):
@@ -69,6 +71,11 @@ class Circle(object):
         return self.radius != other.radius
 
 
+"""
+Class that represents a sphere
+"""
+
+
 class Sphere(Circle):
 
     def volume(self):
@@ -77,3 +84,9 @@ class Sphere(Circle):
     @property
     def area(self):
         return 4 * pi * (self.radius ** 2)
+
+    def __str__(self):
+        return "Sphere with radius: {}".format(self.radius)
+
+    def __repr__(self):
+        return "Sphere({})".format(self.radius)
