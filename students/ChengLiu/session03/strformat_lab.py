@@ -10,7 +10,7 @@ print("file_{:03d} : {:9.2f}, {:.2e}, {:.2e}".format(2, 123.4567, 10000, 12345.6
 
 
 values = input("Enter three numbers: ")
-print("the 3 numbers are: {:d}, {:d}, {:d}".format(values(0),values(1), values(2)))
+print("the 3 numbers are: {:d}, {:d}, {:d}".format(values(0), values(1), values(2)))
 
 
 element = ['oranges', 1.3, 'lemons', 1.1]

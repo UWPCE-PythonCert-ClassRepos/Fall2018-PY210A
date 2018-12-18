@@ -6,16 +6,37 @@ Cheng Liu
 Trigrams
 """
 
-if __name__ == "__main__":
-    try:
-        filename = 'sherlock_small.txt'
-        file = open(filename, 'r')
-    except IOError:
-        print("Can not read file: ", filename)
-    with open(filename, 'r'):
-        lines = file.read()
-        words = lines.split()
-# print(words)
+
+def readfile(filename):
+    """ Read the file and return strings """
+    with open(filename, 'r') as contents:
+        # removing the first 61 lines - header/table of contents, etc.
+        for i in range(61):
+            contents.readline()
+
+        file_string = []
+        for line in contents:
+            # identifying the end of the book contents
+            if line.startswith("End of the Project Gutenberg EBook"):
+                break
+            file_string.append(line)
+    # print(file_string)
+    return " ".join(file_string)
+
+
+def cleanwords(file):
+    """remove punctuations and non-contents from the file"""
+    punc_list = ["-", ",", ".", "=", "?"]
+    for punc in punc_list:
+        file = file.replace(punc, "")
+
+    words = file.lower().split()
+    words2 = []
+    for word in words:
+        if words != "'":
+            words2.append("I" if word == 'i' else word)
+    # print(word)
+    return words2
 
 
 def make_trigrams(words):
@@ -27,8 +48,17 @@ def make_trigrams(words):
             tris[pair].append(w3)
         else:
             tris[pair] = [w3]
-
     return tris
 
 
-tris = make_trigrams(words)
+if __name__ == "__main__":
+    try:
+        filename = 'sherlock.txt'
+        file = readfile(filename)
+    except IOError:
+        print("Can not read file: ", filename)
+
+    # print(file)
+    words = cleanwords(file)
+    # print(words)
+    tris = make_trigrams(words)

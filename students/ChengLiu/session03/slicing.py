@@ -6,7 +6,7 @@ Cheng Liu
 Slicing
 """
 
-items = ['a','b','c','d','e']
+items = ['a', 'b', 'c', 'd', 'e']
 items = items * 4
 print(items)
 
