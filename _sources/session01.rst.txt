@@ -19,7 +19,7 @@ Let's get you set up with gitHub so you can submit your work:
 
 NOTE: This is class Repo:
 
-https://github.com/UWPCE-PythonCert-ClassRepos/Fall2018-PY210A
+https://github.com/UWPCE-PythonCert-ClassRepos/SP_2019_210A_classroom
 
 :ref:`basic_python_syntax`
 
